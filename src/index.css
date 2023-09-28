@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+  --font-family: 'Poppins', sans-serif;
+
+  --gradient2:  #6ec3e8;
+  --primary-btn:  #1cc8bc;
+  
+  --primary-color: #3dcb97;
+  --secondary-color: #c81cc5;
+
+  --color-bg: #24252d;
+  --color-card : #2A2D3A;
+  --color-footer : #24252D;
+}
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #2A2D3A #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--color-card);
+    border-radius: 10px;
+    border: 3px none #ffffff;
+  }
