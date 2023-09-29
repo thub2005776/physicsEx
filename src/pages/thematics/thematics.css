@@ -1,0 +1,17 @@
+.thematic-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 90%;
+  }
+
+.thematic-container-text h1{
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 42px;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+  }

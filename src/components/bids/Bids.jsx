@@ -1,17 +1,47 @@
 import React from 'react'
 import './bids.css'
 import { AiFillHeart } from "react-icons/ai";
-import bids1 from '../../assets/bids1.png'
-import bids2 from '../../assets/bids2.png'
-import bids3 from '../../assets/bids3.png'
-import bids4 from '../../assets/bids4.png'
-import bids5 from '../../assets/bids5.png'
-import bids6 from '../../assets/bids6.png'
-import bids7 from '../../assets/bids7.png'
-import bids8 from '../../assets/bids8.png'
+import daoDong from '../../assets/daoDong.jpg'
+import songAm from '../../assets/songAm.jpg'
+import luongTu from '../../assets/luongTu.jpg'
+import machDien from '../../assets/machDien.jpg'
+import dienTruong from '../../assets/DienTruong.jpg'
+import dienXoayChieu from '../../assets/dienXoayChieu.jpg'
+import luongTuAnhSang from '../../assets/luongTuAnhSang.jpeg'
+import dienTu  from '../../assets/dienTu.jpg'
 import { Link } from 'react-router-dom';
 
-const Bids = ({title}) => {
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const Bids = ({ title }) => {
+
+  const [thematics, setThematics] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/getThematics')
+      .then(thematics => setThematics(thematics.data))
+      .catch(err => console.log(err))
+  }, [])
+
+  function CardColumn ({img, title, vote}) {
+    return (
+      <div className="card-column" >
+          <div className="bids-card">
+            <div className="bids-card-top">
+              <img src={img} alt={title} />
+              <Link to={`/exercises`}>
+              <p className="bids-title">{title}</p>
+              </Link>
+            </div>
+            <div className="bids-card-bottom">
+              <p> <AiFillHeart /> {vote}</p>
+            </div>
+          </div>
+        </div>
+    )
+}
+
   return (
     <div className='bids section__padding'>
       <div className="bids-container">
@@ -19,123 +49,55 @@ const Bids = ({title}) => {
           <h1>{title}</h1>
         </div>
         <div className="bids-container-card">
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids1} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Abstact Smoke Red</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>1.25 <span>ETH</span></p>
-                <p> <AiFillHeart /> 92</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids2} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Mountain Landscape</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.20 <span>ETH</span></p>
-                <p> <AiFillHeart /> 25</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids3} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Paint Color on Wall</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.55 <span>ETH</span></p>
-                <p> <AiFillHeart /> 55</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids4} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Abstract Patern</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.87 <span>ETH</span></p>
-                <p> <AiFillHeart /> 82</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids5} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">White Line Grafiti</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.09 <span>ETH</span></p>
-                <p> <AiFillHeart /> 22</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids6} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Abstract Triangle</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.90 <span>ETH</span></p>
-                <p> <AiFillHeart /> 71</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids7} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Lake Landscape</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.52 <span>ETH</span></p>
-                <p> <AiFillHeart /> 63</p>
-              </div>
-            </div>
-          </div>
-          <div className="card-column" >
-            <div className="bids-card">
-              <div className="bids-card-top">
-                <img src={bids8} alt="" />
-              <Link to={`/post/123`}>
-              <p className="bids-title">Blue Red Art</p>
-              </Link>
-              </div>
-              <div className="bids-card-bottom">
-                <p>0.85 <span>ETH</span></p>
-                <p> <AiFillHeart /> 66</p>
-              </div>
-            </div>
-          </div>
+        
+        <CardColumn
+          img={daoDong}
+          title={thematics[0].thematic}
+          vote={10}
+        />
+         
+         <CardColumn
+          img={songAm}
+          title={thematics[1].thematic}
+          vote={9}
+        />
+          <CardColumn
+          img={dienXoayChieu}
+          title={thematics[2].thematic}
+          vote={5}
+        />
+         <CardColumn
+          img={dienTu}
+          title={thematics[3].thematic}
+          vote={5}
+        />
+          <CardColumn
+          img={luongTuAnhSang}
+          title={thematics[5].thematic}
+          vote={4}
+        />
+         <CardColumn
+          img={luongTu}
+          title={thematics[6].thematic}
+          vote={2}
+        />
+          <CardColumn
+          img={machDien}
+          title={thematics[10].thematic}
+          vote={2}
+        />
+          <CardColumn
+          img={dienTruong}
+          title={thematics[9].thematic}
+          vote={1}
+        />
         </div>
       </div>
       <div className="load-more">
-        {/* Xử lý Xem thêm  */}
-        <button>Load More</button>
+      <Link to={`/thematics`}>
+      <button>Xem thêm</button>
+      </Link>
+       
       </div>
     </div>
   )

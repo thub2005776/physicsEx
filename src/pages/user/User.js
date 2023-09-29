@@ -1,25 +1,38 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+// import bids1 from '../../assets/bids1.png'
+// import { Link } from 'react-router-dom';
+// import { AiFillHeart } from "react-icons/ai";
+
+
 
 function User() {
-    const [users, setUsers] = useState([]);
+    const [thematics, setThematics] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/getUsers')
-            .then(users => setUsers(users.data))
-            .catch(err => console.log(err))
+      axios.get('http://localhost:3001/getThematics')
+        .then(thematics => setThematics(thematics.data))
+        .catch(err => console.log(err))
     }, [])
+
+    function ThematicItem ({thematic}) {
+        return (
+            <>
+                <h3>{thematic.thematic}</h3>
+            </>
+        )
+    }
+    
     return (
         <div style={{color:"white"}}>
-            <h1>User:</h1>
-            <br />
-            <div>
-                {console.log(users)}
-                <p>{users[0].name}</p>
-                <p>{users[0].email}</p>
-                <p>{users[0].password}</p>
-                <p>{users[0].permission}</p>
-            </div>
+            <p>Start</p>
+            {thematics.map(them => (
+                <ThematicItem
+                    key={them.code}
+                    thematic={them}
+                />
+            ))}
+            <p>End</p>
         </div>
     );
 }
