@@ -59,22 +59,19 @@ function Thematics () {
     }
 
     return (
-        <div className='bids section__padding'>
+      thematics?.length && (
+        <div className="bids section__padding">
           <div className="bids-container">
             <div className="bids-container-text">
               <h1>Tất cả chuyên đề</h1>
             </div>
             <div className="bids-container-card">
-            
-            <CardColumn
-              img={daoDong}
-              title={thematics[0].thematic}
-              vote={10}
-            />
+              <CardColumn img={daoDong} title={thematics[0].thematic} vote={10} />
             </div>
           </div>
         </div>
       )
+    );
 };
 
 export default Thematics;

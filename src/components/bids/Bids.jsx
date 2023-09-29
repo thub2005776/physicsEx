@@ -42,7 +42,7 @@ const Bids = ({ title }) => {
     )
 }
 
-  return (
+  return thematics?.length && (
     <div className='bids section__padding'>
       <div className="bids-container">
         <div className="bids-container-text">
