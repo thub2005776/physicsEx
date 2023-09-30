@@ -36,7 +36,6 @@ const Bids = ({ title }) => {
           </div>
           <div className="bids-card-bottom">
             <p>
-              {" "}
               <AiFillHeart /> {vote}
             </p>
           </div>
@@ -54,7 +53,6 @@ const Bids = ({ title }) => {
           </div>
           <div className="bids-container-card">
             <CardColumn img={daoDong} title={thematics[0].thematic} vote={10} />
-
             <CardColumn img={songAm} title={thematics[1].thematic} vote={9} />
             <CardColumn img={dienXoayChieu} title={thematics[2].thematic} vote={5} />
             <CardColumn img={dienTu} title={thematics[3].thematic} vote={5} />
