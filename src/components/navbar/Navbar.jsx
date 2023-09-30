@@ -6,8 +6,8 @@ import {  Link } from "react-router-dom";
 
 const Menu = () => (
   <>
-     <Link to="/"><p>Tài liệu</p> </Link>
-     <p>Bài tập</p>
+     <Link to="/docs"><p>Tài liệu</p> </Link>
+     <Link to="/exercises"><p>Bài tập</p></Link>
     
   </>
  )
@@ -32,6 +32,7 @@ const Menu = () => (
         <div className="navbar-links_container">
           <input type="text" placeholder='Nhập bài tập, công thức...' autoFocus={true} />
          <Menu />
+
          {/* Xử lý đăng xuất */}
          {user && <Link to="/"><p onClick={handleLogout}>Đăng xuất</p></Link> }
         
@@ -40,7 +41,7 @@ const Menu = () => (
       <div className="navbar-sign">
         <>
         <Link to="/login"> 
-         <button type='button' className='primary-btn' onClick={handleLogin} >Đăng nhập</button>
+         <button type='button' className='primary-btn' >Đăng nhập</button>
         </Link>
         <Link to="/register"> 
           <button type='button' className='secondary-btn'>Đăng ký</button>

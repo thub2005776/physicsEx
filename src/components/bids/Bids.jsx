@@ -19,18 +19,18 @@ const Bids = ({ title }) => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_URL + "getThematics")
+      .get(process.env.REACT_APP_SERVER_URL + "thematics")
       .then((thematics) => setThematics(thematics.data))
       .catch((err) => console.log(err));
   }, []);
 
-  function CardColumn({ img, title, vote }) {
+  function CardColumn({ img, title, vote, index }) {
     return (
       <div className="card-column">
         <div className="bids-card">
           <div className="bids-card-top">
             <img src={img} alt={title} />
-            <Link to={`/exercises`}>
+            <Link to={`/exercises` + index}>
               <p className="bids-title">{title}</p>
             </Link>
           </div>
@@ -52,14 +52,51 @@ const Bids = ({ title }) => {
             <h1>{title}</h1>
           </div>
           <div className="bids-container-card">
-            <CardColumn img={daoDong} title={thematics[0].thematic} vote={10} />
-            <CardColumn img={songAm} title={thematics[1].thematic} vote={9} />
-            <CardColumn img={dienXoayChieu} title={thematics[2].thematic} vote={5} />
-            <CardColumn img={dienTu} title={thematics[3].thematic} vote={5} />
-            <CardColumn img={luongTuAnhSang} title={thematics[5].thematic} vote={4} />
-            <CardColumn img={luongTu} title={thematics[6].thematic} vote={2} />
-            <CardColumn img={machDien} title={thematics[10].thematic} vote={2} />
-            <CardColumn img={dienTruong} title={thematics[9].thematic} vote={1} />
+            <CardColumn 
+              img={daoDong} 
+              title={thematics[0].thematic} 
+              vote={10} 
+              index={thematics[0].code} 
+            />
+            <CardColumn 
+              img={songAm} 
+              title={thematics[1].thematic} 
+              vote={9} 
+              index={thematics[1].code}
+            />
+            <CardColumn 
+              img={dienXoayChieu} 
+              title={thematics[2].thematic} 
+              vote={5} 
+              index={thematics[2].code}
+            />
+            <CardColumn 
+              img={dienTu} 
+              title={thematics[3].thematic} 
+              vote={5} 
+              index={thematics[3].code}
+            />
+            <CardColumn 
+              img={luongTuAnhSang} 
+              title={thematics[5].thematic} 
+              vote={4} 
+              index={thematics[5].code}
+            />
+            <CardColumn 
+              img={luongTu} 
+              title={thematics[6].thematic} vote={2} 
+              index={thematics[6].code}
+            />
+            <CardColumn 
+              img={machDien} 
+              title={thematics[10].thematic} vote={2} 
+              index={thematics[10].code}
+            />
+            <CardColumn 
+              img={dienTruong} 
+              title={thematics[9].thematic} vote={1} 
+              index={thematics[0].code}
+            />
           </div>
         </div>
         <div className="load-more">
