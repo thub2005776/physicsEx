@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-    .connect('mongodb+srv://thub2005776:74d83eded00a@cluster0.jz9smd9.mongodb.net/')
+    .connect(process.env.REACT_APP_DATABASE_URL)
     .then(() => {
         console.log("Ket noi thanh cong!");
     })
