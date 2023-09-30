@@ -16,7 +16,6 @@ import trongLuc from '../../assets/trongLuc.jpg'
 import nangLuong from '../../assets/nangLuong.jpg'
 import dongLuong from '../../assets/dongLuong.jpg'
 import lucHuongTam from '../../assets/lucHuongTam.jpg'
-import apSuat from '../../assets/apSuat.jpg'
 
 import { Link } from 'react-router-dom';
 
@@ -36,9 +35,9 @@ function Thematics () {
         .catch(err => console.log(err))
     }, [])
 
-    const images = ["daoDong", "songAm", "dienXoayChieu", "dienTu", "tanSacAnhSang", "luongTuAnhSang", 
-                    "luongTu", "hienTuongCongHuong", "song", "dienTruong", "dinhLuatOm", "roiTuDo",
-                    "trongLuc", "nangLuong", "dongLuong", "lucHuongTam", "apSuat"]
+    // const images = ["daoDong", "songAm", "dienXoayChieu", "dienTu", "tanSacAnhSang", "luongTuAnhSang", 
+    //                 "luongTu", "hienTuongCongHuong", "song", "dienTruong", "dinhLuatOm", "roiTuDo",
+    //                 "trongLuc", "nangLuong", "dongLuong", "lucHuongTam", "apSuat"]
 
     function CardColumn ({img, title, vote}) {
         return (
@@ -66,7 +65,10 @@ function Thematics () {
               <h1>Tất cả chuyên đề</h1>
             </div>
             <div className="bids-container-card">
-              <CardColumn img={daoDong} title={thematics[0].thematic} vote={10} />
+              {thematics.map(thematic => (
+                  <CardColumn key={thematic.code} img={daoDong} title={thematic.thematic} vote={Math.floor(Math.random()* 10)} />
+              ))}
+              
             </div>
           </div>
         </div>
