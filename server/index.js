@@ -1,3 +1,4 @@
+require('dotenv').config({path:"../.env"});
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,18 +9,18 @@ const ThematicsModel = require('./models/Thematics');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+console.log(process.env.DATABASE_URI);
 mongoose
-    .connect(process.env.REACT_APP_DATABASE_URL)
+    .connect(process.env.DATABASE_URI)
     .then(() => {
-        console.log("Ket noi thanh cong!");
+        console.log("Connected!");
     })
     .catch ((err)  => {
         console.log(err);
     });
 
 // Get User 
-app.get('/getUsers', (req, res) => {
+app.get('/users', (req, res) => {
     UserModel
         .find()
         .then(users => res.json(users))
@@ -27,7 +28,7 @@ app.get('/getUsers', (req, res) => {
 });
 
 // Get Exercises 
-app.get('/getExercises', (req, res) => {
+app.get('/exercises', (req, res) => {
     ExModel
         .find()
         .then(Ex => res.json(Ex))
@@ -35,7 +36,7 @@ app.get('/getExercises', (req, res) => {
 });
 
 // Get Thematics 
-app.get('/getThematics', (req, res) => {
+app.get('/thematics', (req, res) => {
     ThematicsModel
         .find()
         .then(them => res.json(them))
@@ -44,5 +45,5 @@ app.get('/getThematics', (req, res) => {
 
 
 app.listen(3001, () => {
-    console.log("Server dang chay!");
+    console.log("Server is running!");
 });
