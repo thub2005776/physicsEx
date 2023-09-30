@@ -7,6 +7,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
+    "dotenv": "^16.3.1",
     "mongoose": "^7.5.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -42,5 +43,13 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/api/"
+  "proxy": "http://localhost:5000/api/",
+  "description": "``` bash\r # clone project\r $ git clone https://github.com/thub2005776/physicsEx.git",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
 }
