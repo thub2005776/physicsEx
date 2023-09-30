@@ -8,7 +8,6 @@ import { ContextProvider } from "./components/contexts/ContextProvider";
 
 
 
-
 ReactDOM.render(
   <BrowserRouter>
   <ContextProvider>
