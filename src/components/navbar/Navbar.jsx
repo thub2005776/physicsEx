@@ -30,7 +30,7 @@ const Menu = () => (
           <img src={logo} alt="logo" style={{width: "60%"}} />
           </Link>
         <div className="navbar-links_container">
-          <input type="text" placeholder='Nhập bài tập, công thức...' autoFocus={true} />
+          <input type="text" placeholder='Nhập bài tập, lớp...' autoFocus={true} />
          <Menu />
 
          {/* Xử lý đăng xuất */}

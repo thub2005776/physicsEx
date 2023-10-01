@@ -6,3 +6,4 @@ export {default as Login} from './login/Login';
 export {default as Register} from './register/Register';
 export {default as User} from './user/User';
 export {default as Thematics} from './thematics/Thematics';
+export {default as Exercises} from './exercises/exercises';

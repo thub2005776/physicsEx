@@ -37,7 +37,7 @@ function Thematics () {
               <div className="bids-card">
                 <div className="bids-card-top">
                   <img src={img} alt={title} />
-                  <Link to={`/exercises` + index}>
+                  <Link to={`/exercises/` + index}>
                   <p className="bids-title">{title}</p>
                   </Link>
                 </div>

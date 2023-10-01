@@ -9,7 +9,6 @@ const ThematicsModel = require('./models/Thematics');
 const app = express();
 app.use(cors());
 app.use(express.json());
-console.log(process.env.DATABASE_URI);
 mongoose
     .connect(process.env.DATABASE_URI)
     .then(() => {
