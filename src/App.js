@@ -1,6 +1,6 @@
 import './App.css';
 import {Navbar,Footer} from './components'
-import {Home,Profile,Item, Create,Login,Register, User, Thematics, Exercises} from './pages'
+import {Home,Profile,Item, Create,Login,Register, User, Thematics, Exercises, Docs} from './pages'
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,10 +15,10 @@ function App() {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/login" element={ <Login />} />
             <Route path="/register" element={ <Register />} />
-            
             <Route path="/thematics" element={<Thematics />} />
             <Route path="/getUsers" element={<User />} />
             <Route path="/exercises" element={<Exercises />} />
+            {/* <Route path="/docs" element={<Docs />} /> */}
             {/* Thêm path cho admin */}
           </Routes>
       <Footer />
