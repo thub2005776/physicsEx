@@ -1,6 +1,5 @@
 import React from "react";
 import "./bids.css";
-import { AiFillHeart } from "react-icons/ai";
 import daoDong from "../../assets/daoDong.jpg";
 import songAm from "../../assets/songAm.jpg";
 import luongTu from "../../assets/luongTu.jpg";
@@ -24,20 +23,18 @@ const Bids = ({ title }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  function CardColumn({ img, title, vote, index }) {
+  function CardColumn({ img, title }) {
     return (
       <div className="card-column">
         <div className="bids-card">
           <div className="bids-card-top">
             <img src={img} alt={title} />
-            <Link to={`/exercises/` + index}>
+            <Link to={`/exercises`}>
               <p className="bids-title">{title}</p>
             </Link>
           </div>
           <div className="bids-card-bottom">
-            <p>
-              <AiFillHeart /> {vote}
-            </p>
+            
           </div>
         </div>
       </div>
@@ -55,47 +52,35 @@ const Bids = ({ title }) => {
             <CardColumn 
               img={daoDong} 
               title={thematics[0].thematic} 
-              vote={10} 
               index={thematics[0].code} 
             />
             <CardColumn 
               img={songAm} 
               title={thematics[1].thematic} 
-              vote={9} 
-              index={thematics[1].code}
             />
             <CardColumn 
               img={dienXoayChieu} 
               title={thematics[2].thematic} 
-              vote={5} 
-              index={thematics[2].code}
             />
             <CardColumn 
               img={dienTu} 
               title={thematics[3].thematic} 
-              vote={5} 
-              index={thematics[3].code}
             />
             <CardColumn 
               img={luongTuAnhSang} 
-              title={thematics[5].thematic} 
-              vote={4} 
-              index={thematics[5].code}
+              title={thematics[5].thematic}
             />
             <CardColumn 
               img={luongTu} 
-              title={thematics[6].thematic} vote={2} 
-              index={thematics[6].code}
+              title={thematics[6].thematic}
             />
             <CardColumn 
               img={machDien} 
-              title={thematics[10].thematic} vote={2} 
-              index={thematics[10].code}
+              title={thematics[10].thematic} 
             />
             <CardColumn 
               img={dienTruong} 
-              title={thematics[9].thematic} vote={1} 
-              index={thematics[0].code}
+              title={thematics[9].thematic}
             />
           </div>
         </div>

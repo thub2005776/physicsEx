@@ -1,3 +1,7 @@
+.menu :hover{
+    color: #1cc8bc;
+}
+
 .navbar{
   display: flex;
   justify-content: space-between;
@@ -33,6 +37,8 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+
 .navbar-links_container p,
 .navbar-sign p,
 .navbar-menu_container p{
@@ -59,6 +65,14 @@
   margin: 0 1rem;
   color: var(--primary-color);
   border-radius: 10px;
+}
+
+.primary-btn:hover{
+  background-color: rgb(34, 164, 123);
+}
+
+.secondary-btn:hover{
+  color: aqua;
 }
 
 .navbar-sign button,

@@ -18,7 +18,7 @@ function App() {
             <Route path="/thematics" element={<Thematics />} />
             <Route path="/getUsers" element={<User />} />
             <Route path="/exercises" element={<Exercises />} />
-            {/* <Route path="/docs" element={<Docs />} /> */}
+            <Route path="/docs" element={<Docs />} />
             {/* Thêm path cho admin */}
           </Routes>
       <Footer />

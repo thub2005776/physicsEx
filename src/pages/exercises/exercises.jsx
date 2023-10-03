@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BiCopy } from "react-icons/bi";
+
+import 'katex/dist/katex.min.css';
+import { BlockMath } from 'react-katex';
 
 function Exercises() {
     const [exercises, setExercises] = useState([]);
@@ -23,41 +24,42 @@ function Exercises() {
     function ThematicName({ thematic, grade }) {
 
         return (thematic.code.substring(0, 2) === grade &&
-                <a href={`#`+thematic.code} >
-                    <p className='p-3 text-[#1cc8bc] hover:text-green-500 pl-2 sm:text-sm selection:text-blue-600'>
-                        {thematic.thematic}
-                    </p>
-                </a>
+            <a href={`#` + thematic.code} >
+                <p className='p-3 text-[#1cc8bc] hover:text-green-500 pl-2 sm:text-sm selection:text-blue-600'>
+                    {thematic.thematic}
+                </p>
+            </a>
         )
 
     }
 
+    // Exercises part 
+
+
+
     function Exercise({ exercise }) {
         return (
-            <div className='grid grid-cols-1 my-2 rounded-lg  outline hover:outline-4 outline-[#1cc8bc]'>
-                <Link to={`/exercise/detail/` + exercise.subThematic}>
-                    <div className='p-5 flex' id={exercise.subThematic}>
-                        <div className='flex-none pr-3'>
-                            <p className='text-3xl text-[#6ec3e8]'>{exercise.subThematic} |</p>
-                        </div>
-                        <div className='flex-1'>
-                            <p className='text-lg text-[#1cc8bc] line-clamp-2'>{exercise.question}</p>
-                        </div>
+            <div className='grid grid-cols-1  rounded-lg '>
+                <div className='p-5 flex bg-slate-600 hover:bg-slate-700 rounded-md' id={exercise.subThematic}>
+                    <div className='flex-none pr-3 border-r-4 '>
+                        <p className='text-3xl text-[#deeef5]'>{exercise.subThematic}</p>
                     </div>
-                </Link>
-                <div className='container bg-slate-700'>
-                    <div className='text-white text-lg flex justify-between'>
-                        <div className='flex-2 p-4'>
-                            <p className='font-semibold'>Đáp án</p>
-                        <p>{exercise.answer}
-                        </p>
-                        </div>
-                        <div className='flex-none p-3'>
-                            <BiCopy/>
-                        </div>
-                        
+                    <div className='flex-1 pl-3 text-xl text-white font-semibold'>
+                        <BlockMath  math={exercise.question}/>
                     </div>
-                    
+                </div>
+
+                <div className=' bg-zinc-800 ml-2 text-white text-lg  font-semibold'>
+                   
+                            <p className='pl-3'>Đáp án:</p>
+                            <div className='block align-text-top'>
+                                <BlockMath math={exercise.answer} />
+                            </div>
+
+                            <p className=''>Hướng dẫn:</p>
+                            <div>
+                                <BlockMath math={exercise.content} />
+                            </div>
                 </div>
             </div>
         )
@@ -71,7 +73,7 @@ function Exercises() {
                     <a href={`#1201`}>
                         <p className='py-6 text-xl text-[#6ec3e8] hover:text-cyan-200'>Lớp 12</p>
                     </a>
-                    
+
                     {thematics.map((thematic, index) => (
                         <ThematicName
                             key={index}
@@ -82,7 +84,7 @@ function Exercises() {
                     <a href='#1101'>
                         <p className='py-6 text-xl text-[#6ec3e8] hover:text-cyan-200'>Lớp 11</p>
                     </a>
-                    
+
                     {thematics.map((thematic, index) => (
                         <ThematicName
                             key={index}
@@ -93,7 +95,7 @@ function Exercises() {
                     <a href='#1001'>
                         <p className='py-6 text-xl text-[#6ec3e8] hover:text-cyan-200'>Lớp 11</p>
                     </a>
-                    
+
                     {thematics.map((thematic, index) => (
                         <ThematicName
                             key={index}

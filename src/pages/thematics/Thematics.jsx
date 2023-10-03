@@ -1,5 +1,4 @@
 import React from 'react'
-import { AiFillHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -42,7 +41,6 @@ function Thematics () {
                   </Link>
                 </div>
                 <div className="bids-card-bottom">
-                  <p> <AiFillHeart /> {vote}</p>
                 </div>
               </div>
             </div>
@@ -67,7 +65,6 @@ function Thematics () {
                     key={thematic.code} 
                     img={images[index]} 
                     title={thematic.thematic} 
-                    vote={Math.floor(Math.random()* 10)} 
                     index={thematic.code}
                   />
               ))}

@@ -6,8 +6,8 @@ import {  Link } from "react-router-dom";
 
 const Menu = () => (
   <>
-     <Link to="/docs"><p>Tài liệu</p> </Link>
-     <Link to="/exercises"><p>Bài tập</p></Link>
+     <Link to="/docs" className='menu'><p>Tài liệu</p> </Link>
+     <Link to="/exercises" className='menu'><p>Bài tập</p></Link>
     
   </>
  )
@@ -31,6 +31,7 @@ const Menu = () => (
           </Link>
         <div className="navbar-links_container">
           <input type="text" placeholder='Nhập bài tập, lớp...' autoFocus={true} />
+         
          <Menu />
 
          {/* Xử lý đăng xuất */}
@@ -47,9 +48,6 @@ const Menu = () => (
           <button type='button' className='secondary-btn'>Đăng ký</button>
         </Link>
         </>
-       
-
-       
       </div>
       <div className="navbar-menu">
         {toggleMenu ? 
