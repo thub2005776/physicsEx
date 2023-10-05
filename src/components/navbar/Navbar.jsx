@@ -12,17 +12,12 @@ const Menu = () => (
   </>
  )
 
- const Navbar = () => {
+ const Navbar = ({user}) => {
   const [toggleMenu,setToggleMenu] = useState(false)
-   const [user,setUser] = useState(false)
 
   const handleLogout = () => {
-    setUser(false);
+    window.open(process.env.REACT_APP_SERVER_URL + "auth/logout", "_self");
   }
-  const handleLogin = () => {
-    setUser(true);
-  }
-
   return (
     <div className='navbar'>
       <div className="navbar-links">
@@ -33,21 +28,23 @@ const Menu = () => (
           <input type="text" placeholder='Nhập bài tập, lớp...' autoFocus={true} />
          
          <Menu />
-
-         {/* Xử lý đăng xuất */}
-         {user && <Link to="/"><p onClick={handleLogout}>Đăng xuất</p></Link> }
-        
         </div>
       </div>
+      
       <div className="navbar-sign">
+        {user ? (
         <>
+        <Link to="/"> 
+          <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
+        </Link>
+        <img src={user.photos[0]} alt="" className='avartar' />
+
+        
+        </>) : (
         <Link to="/login"> 
          <button type='button' className='primary-btn' >Đăng nhập</button>
-        </Link>
-        <Link to="/register"> 
-          <button type='button' className='secondary-btn'>Đăng ký</button>
-        </Link>
-        </>
+        </Link>)}
+        
       </div>
       <div className="navbar-menu">
         {toggleMenu ? 
@@ -58,27 +55,7 @@ const Menu = () => (
             <div className="navbar-menu_container-links">
              <Menu />
             </div>
-            <div className="navbar-menu_container-links-sign">
-            {user ? (
-              <>
-              <Link to="/create"> 
-                <button type='button' className='primary-btn' >Create</button>
-              </Link>
-              <button type='button' className='secondary-btn'>Connect</button>
-              </>
-            ): (
-              <>
-              <Link to="/login"> 
-              <button type='button' className='primary-btn' onClick={handleLogin} >Sign In</button>
-              </Link>
-              <Link to="/register"> 
-                <button type='button' className='secondary-btn'>Sign Up</button>
-              </Link>
-              </>
-            )}
-           
-            </div>
-            </div>
+          </div>
         )}
       </div>
     </div>

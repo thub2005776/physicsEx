@@ -73,9 +73,36 @@
 
 .login-button-icon{
   padding-top: 5%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  
+}
+
+.facebook, .google{
+  width: 25%;
+  border-radius: 15px;
+  margin: 4%;
+  padding: 4%;
+  
+}
+
+.facebook{
+  background-color: rgb(35, 114, 212);
+}
+
+.google{
+  background-color: rgb(218, 83, 59);
+}
+
+.or{
   display: flex;
   justify-content: center;
 }
+
+
 
 .login-button-icon button {
   background-color: transparent;

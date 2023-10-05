@@ -38,6 +38,12 @@
   align-items: center;
 }
 
+.avartar{
+  width: 15%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 .navbar-links_container p,
 .navbar-sign p,

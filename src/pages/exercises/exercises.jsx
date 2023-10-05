@@ -4,6 +4,7 @@ import axios from "axios";
 
 import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
+import { Link } from 'react-router-dom';
 
 function Exercises() {
     const [exercises, setExercises] = useState([]);
@@ -40,7 +41,9 @@ function Exercises() {
     function Exercise({ exercise }) {
         return (
             <div className='grid grid-cols-1  rounded-lg '>
-                <div className='p-5 flex bg-slate-600 hover:bg-slate-700 rounded-md' id={exercise.subThematic}>
+                <Link to={`/detail/${exercise.no}`}>
+                    
+                    <div className='p-5 flex bg-slate-600 hover:bg-slate-700 rounded-md' id={exercise.subThematic}>
                     <div className='flex-none pr-3 border-r-4 '>
                         <p className='text-3xl text-[#deeef5]'>{exercise.subThematic}</p>
                     </div>
@@ -48,7 +51,8 @@ function Exercises() {
                         <BlockMath  math={exercise.question}/>
                     </div>
                 </div>
-
+                </Link>
+                
                 <div className=' bg-zinc-800 ml-2 text-white text-lg  font-semibold'>
                    
                             <p className='pl-3'>Đáp án:</p>

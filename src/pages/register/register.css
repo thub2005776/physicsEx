@@ -27,6 +27,7 @@
   flex-direction: column;
   margin-bottom: 30px;
 }
+
 .register-formGroup label{
   font-weight: 600;
   font-size: 24px;
@@ -65,6 +66,12 @@
   line-height: 26px;
   text-overflow: ellipsis;
 }
+
+.register-formGroup span{
+  color: red;
+  font-size: 80%;
+}
+
 .register-button{
   display: flex;
   justify-content: space-around;
