@@ -2,6 +2,15 @@
     color: #1cc8bc;
 }
 
+.menu_div{
+  display: flex;
+  flex-direction: row;
+}
+
+.logo{
+  width: 60%;
+}
+
 .navbar{
   display: flex;
   justify-content: space-between;
@@ -21,6 +30,7 @@
   flex-direction: row;
   position: relative;
   align-items: center;
+  background-color: #1cc8bc;
 }
 .navbar-links_container input {
   background: #1B1A21;
@@ -45,7 +55,7 @@
 }
 
 
-.navbar-links_container p,
+.menu p,
 .navbar-sign p,
 .navbar-menu_container p{
   color: #fff;
@@ -123,11 +133,18 @@
   display: none;
 }
 @media screen and (max-width:1050px) {
-  .navbar-links_container{
+  .menu_div{
     display: none;
   }
   .navbar-menu{
     display: flex;
+  }
+
+  .logo{
+    width: 80%;
+  }
+  .navbar-sign {
+    margin-left: 10px;
   }
  
 }
@@ -147,7 +164,7 @@
   }
   .navbar-menu_container{
     top: 20px;
-    left: 10px;
+    right: 10px;
   }
   .navbar-menu_container-links-sign{
     display: block;
@@ -155,6 +172,9 @@
 
   .navbar-menu_container-links-sign .secondary-btn{
     margin: 1rem 0;
+  }
+  .logo{
+    width: 90%;
   }
 
  }

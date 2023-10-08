@@ -30,7 +30,7 @@ function Thematics () {
         .catch(err => console.log(err))
     }, [])
 
-    function CardColumn ({img, title, vote, index}) {
+    function CardColumn ({img, title, index}) {
         return (
           <div className="card-column" >
               <div className="bids-card">

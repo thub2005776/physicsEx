@@ -14,11 +14,7 @@ const passportSetup = require('./passport');
 const authRoute = require('./routes/auth');
 
 const app = express();
-app.use(cors({
-    origin: process.env.REACT_APP_URL,
-    methods: "GET,POST,PUT,DELETE",
-    credentials:true,
-}));
+app.use(cors());
 app.use(express.json());
 
 mongoose
@@ -72,12 +68,12 @@ app.post('/users',(req, res) => {
 
 // Get User 
 app.post('/login', (req, res) => {
-    const {email, password} = req.body;
+    const {email, password, permission} = req.body;
     UserModel.findOne({email : email})
         .then(user => {
             if(user) {
                 if(user.password === password) {
-                    res.json("Success")
+                    res.json(user)
                 } else {
                     res.json("password incorect")
                 }

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [file, setFile] = useState()
+  
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -25,9 +25,10 @@ const Register = () => {
     setFormData({
       ...formData, [name]: value
     })
-    setName(e.target.value);
-    setEmail(e.target.value);
-    setPassword(e.target.value);
+    
+    setName(formData.name);
+    setEmail(formData.email);
+    setPassword(formData.password);
     
     // Xác thực form 
     
@@ -60,8 +61,8 @@ const Register = () => {
       alert("Đăng ký thành công!");
 
       // Post data 
-
-      axios.post(process.env.REACT_APP_SERVER_URL + 'users', { name, email, password })
+      const permission = false;
+      axios.post(process.env.REACT_APP_SERVER_URL + 'users', { name, email, password, permission})
         .then(res => {
           console.log(res)
           navigate('/login')
@@ -75,28 +76,28 @@ const Register = () => {
     <div className='register section__padding'>
       <div className="register-container">
         <h1>Đăng ký</h1>
-        <p className='upload-file'>Chọn ảnh đại diện</p>
+        {/* <p className='upload-file'>Chọn ảnh đại diện</p>
         <div className="upload-img-show">
-          {/* Cần thay đổi ảnh */}
+         
           <img src={Image} alt="banner" />
-        </div>
-        {/* Kiểm tra form  */}
+        </div> */}
+       
         <form onSubmit={handleSubmit} name='register' className='register-writeForm' autoComplete='off' >
-          <div className="register-formGroup">
+          {/* <div className="register-formGroup">
             <label>Tải lên</label>
             <input type="file"
               className='custom-file-input'
               onChange={e => setFile(e.target.files[0])}
             />
-          </div>
-
+          </div> */}
 
           <div className="register-formGroup">
             <label>Họ và tên</label>
             <input type="text"
               placeholder='Tên của bạn'
               name='name'
-              onChange={handleValidation}
+              onChange={
+                handleValidation}
             />
             {errors.name && <span>{errors.name}</span>}
 
@@ -131,10 +132,7 @@ const Register = () => {
           <div className="register-button">
             {/* Xử lý việc đăng ký */}
             <button
-              className='register-writeButton'
-              type='submit'
-            >Đăng ký
-            </button>
+              className='register-writeButton' type='submit'>Đăng ký</button>
             <Link to="/login">
               <button className='reg-login-writeButton' >Đăng nhập</button>
             </Link>

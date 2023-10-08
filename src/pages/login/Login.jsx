@@ -1,25 +1,27 @@
 import React from 'react';
 import './login.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { BsFacebook, BsGoogle } from "react-icons/bs";
-import { useState } from 'react';
+import { useState} from 'react';
 import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const navigate = useNavigate()
+  const permission = false;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password })
-      .then(res => {
-        console.log(res)
-        if (res.data === "Success") {
-          navigate('/')
-        }
-      })
-      .catch(err => console.log(err))
+      axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password, permission})
+            .then(res => {
+              if (res.data.permission === false) {
+                navigate('/' )
+
+              }
+            })
+            .catch(err => console.log(err))
+    
   }
 
   const google = () => {

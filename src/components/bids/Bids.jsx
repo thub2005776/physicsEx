@@ -51,8 +51,7 @@ const Bids = ({ title }) => {
           <div className="bids-container-card">
             <CardColumn 
               img={daoDong} 
-              title={thematics[0].thematic} 
-              index={thematics[0].code} 
+              title={thematics[0].thematic}
             />
             <CardColumn 
               img={songAm} 

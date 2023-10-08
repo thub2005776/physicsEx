@@ -2,7 +2,8 @@ import React,{ useState} from 'react'
 import './navbar.css'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/logo.png'
-import {  Link } from "react-router-dom";
+import {  Link} from "react-router-dom";
+import { BsSearch } from "react-icons/bs";
 
 const Menu = () => (
   <>
@@ -11,6 +12,7 @@ const Menu = () => (
     
   </>
  )
+
 
  const Navbar = ({user}) => {
   const [toggleMenu,setToggleMenu] = useState(false)
@@ -22,16 +24,18 @@ const Menu = () => (
     <div className='navbar'>
       <div className="navbar-links">
           <Link to="/"> 
-          <img src={logo} alt="logo" style={{width: "60%"}} />
+          <img src={logo} alt="logo" className='logo' />
           </Link>
-        <div className="navbar-links_container">
-          <input type="text" placeholder='Nhập bài tập, lớp...' autoFocus={true} />
-         
-         <Menu />
-        </div>
+          
       </div>
-      
+      <Link to="/searchbar">
+            <BsSearch color='white' size='20'/>
+          </Link>
       <div className="navbar-sign">
+      
+          <div className="menu_div">
+              <Menu />
+          </div>
         {user ? (
         <>
         <Link to="/"> 
