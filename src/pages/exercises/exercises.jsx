@@ -71,7 +71,7 @@ function Exercises() {
 
 
     return (
-        exercises?.length && thematics?.length && (
+        (exercises.length && thematics?.length)? (
             <div className='grid grid-cols-5 px-2'>
                 <div className='pl-8 bg-zinc-900 rounded-md'>
                     <a href={`#1201`}>
@@ -119,7 +119,7 @@ function Exercises() {
                     </div>
                 </div>
             </div>
-        )
+        ): <p className='text-white'>Loading...</p>
 
     )
 }

@@ -38,21 +38,21 @@ app.use(passport.session());
 
 app.use("/auth",  authRoute);
 
-    
+app.use(express.static("../src/assets")) ;
 
 // UpLoad file 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_"  + Date.now() + path.extname(file.originalname))
-    }
-})
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'public/images')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + "_"  + Date.now() + path.extname(file.originalname))
+//     }
+// })
 
-const upload = multer({
-    storage: storage
-})
+// const upload = multer({
+//     storage: storage
+// })
 
 // app.post('/users',upload.single('file'), (req, res) => {
 //     UserModel.create({image: req.file.filename})
