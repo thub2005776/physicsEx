@@ -43,7 +43,7 @@ function Exercises() {
             <div className='grid grid-cols-1 m-1 rounded-lg '>
                 <Link to={`/detail/` + exercise.no}>
 
-                    <div className='p-5 flex w-auto rounded-md' id={exercise.subThematic}>
+                    <div className='p-5 flex w-auto rounded-md' id={exercise.no}>
                         <div className='flex-none pr-3 border-r-4 '>
                             <p className='text-xl text-[#deeef5] hover:text-teal-500'>{exercise.subThematic}</p>
                         </div>
