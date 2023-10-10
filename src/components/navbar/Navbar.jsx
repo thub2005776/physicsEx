@@ -21,7 +21,8 @@ const Menu = () => (
     window.open(process.env.REACT_APP_SERVER_URL + "auth/logout", "_self");
   }
   return (
-    <div className='navbar'>
+    <div className='sticky top-0 bg-[#24252d]'>
+ <div className='navbar '>
       <div className="navbar-links">
           <Link to="/"> 
           <img src={logo} alt="logo" className='logo' />
@@ -63,6 +64,9 @@ const Menu = () => (
         )}
       </div>
     </div>
+
+    </div>
+   
   )
 }
 

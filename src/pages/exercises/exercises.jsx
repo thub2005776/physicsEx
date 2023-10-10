@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-import 'katex/dist/katex.min.css';
-import { BlockMath } from 'react-katex';
 import { Link } from 'react-router-dom';
+import './exercises.css'
+
+import Latex from 'react-latex';
 
 function Exercises() {
     const [exercises, setExercises] = useState([]);
@@ -40,38 +40,25 @@ function Exercises() {
 
     function Exercise({ exercise }) {
         return (
-            <div className='grid grid-cols-1  rounded-lg '>
-                <Link to={`/detail/${exercise.no}`}>
-                    
-                    <div className='p-5 flex bg-slate-600 hover:bg-slate-700 rounded-md' id={exercise.subThematic}>
-                    <div className='flex-none pr-3 border-r-4 '>
-                        <p className='text-3xl text-[#deeef5]'>{exercise.subThematic}</p>
-                    </div>
-                    <div className='flex-1 pl-3 text-xl text-white font-semibold'>
-                        <BlockMath  math={exercise.question}/>
-                    </div>
-                </div>
-                </Link>
-                
-                <div className=' bg-zinc-800 ml-2 text-white text-lg  font-semibold'>
-                   
-                            <p className='pl-3'>Đáp án:</p>
-                            <div className='block align-text-top'>
-                                <BlockMath math={exercise.answer} />
-                            </div>
+            <div className='grid grid-cols-1 m-1 rounded-lg '>
+                <Link to={`/detail/` + exercise.no}>
 
-                            <p className=''>Hướng dẫn:</p>
-                            <div>
-                                <BlockMath math={exercise.content} />
-                            </div>
-                </div>
+                    <div className='p-5 flex w-auto rounded-md' id={exercise.subThematic}>
+                        <div className='flex-none pr-3 border-r-4 '>
+                            <p className='text-xl text-[#deeef5] hover:text-teal-500'>{exercise.subThematic}</p>
+                        </div>
+                        <div className='flex-1 pl-3 text-xl text-white  hover:text-teal-500 font-semibold text-ellipsis overflow-hidden'>
+                            <Latex >{exercise.question}</Latex>
+                        </div>
+                    </div>
+                </Link>
             </div>
         )
     }
 
 
     return (
-        (exercises.length && thematics?.length)? (
+        (exercises.length && thematics?.length) ? (
             <div className='grid grid-cols-5 px-2'>
                 <div className='pl-8 bg-zinc-900 rounded-md'>
                     <a href={`#1201`}>
@@ -119,7 +106,7 @@ function Exercises() {
                     </div>
                 </div>
             </div>
-        ): <p className='text-white'>Loading...</p>
+        ) : <p className='text-white'>Loading...</p>
 
     )
 }
