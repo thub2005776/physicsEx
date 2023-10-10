@@ -1,25 +1,16 @@
-import { Link } from "react-router-dom";
-import { useState } from 'react';
-import { Document, Page } from 'react-pdf';
+
+
 
 function Docs() {
-    const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
-
 
     return (
-    <div>
-      <Document
-        file="grade12.pdf"
-        onLoadSuccess={onDocumentLoadSuccess}
-      >
-        <Page pageNumber={pageNumber} />
-      </Document>
-      <p>Page {pageNumber} of {numPages}</p>
+    <div className="container mt-5 flex">
+        <div className="flex-none w-1/6 text-white font-bold text-2xl p-2 ml-20">
+          <p>Lớp 12</p>
+          <p>Lớp 11</p>
+          <p>Lớp 10</p>
+        </div>
+        <div className="flex-1 w-5/6">dgh</div>
     </div>
     )
 }
