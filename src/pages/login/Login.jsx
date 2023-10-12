@@ -16,9 +16,8 @@ const Login = () => {
       axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password, permission})
             .then(res => {
               if (res.data.permission === false) {
-                navigate('/' )
-
-              }
+                navigate('/', { state: { user: res.data } } )
+              } 
             })
             .catch(err => console.log(err))
     

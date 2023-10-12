@@ -64,7 +64,7 @@ function SearchBar() {
                 />
             </div>
             <div className="pt-5 text-white">
-                <p className="text-white text-2xl border-b ml-5 mb-3">Kết quả tìm kiếm</p>
+                <p className="text-white text-2xl border-b ml-16 mb-3">Kết quả tìm kiếm</p>
                 <div className="flex justify-center">
                     {result ? (
                         <div className="bg-slate-700 p-3 w-5/6 rounded-md ">

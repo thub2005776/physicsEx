@@ -9,3 +9,4 @@ export {default as Thematics} from './thematics/Thematics';
 export {default as Exercises} from './exercises/exercises';
 export {default as Docs} from './docs/docs';
 export {default as Detail} from './detail/detail';
+export {default as Admin} from './admin/admin';

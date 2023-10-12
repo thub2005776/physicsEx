@@ -1,43 +1,28 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import {Navbar,Footer, SearchBar} from './components'
-import {Home,Login,Register, User, Thematics, Exercises, Docs, Detail} from './pages'
-import { Routes, Route } from "react-router-dom";
+import {Home,Login,Register, User, Thematics, Exercises, Docs, Detail, Admin} from './pages'
+import { Routes, Route, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER_URL + "auth/login/success")
-        .then(res => {
+    if (location.state && location.state.user) {
+      setUser(location.state.user.name);
+    } else {
+      axios
+        .get(process.env.REACT_APP_SERVER_URL + 'auth/login/success')
+        .then((res) => {
           console.log(res);
-          
-        }).catch(err => {
-          console.log(err);
         })
-
-    // const getUsers = async () => {
-    //   fetch(process.env.REACT_APP_SERVER_URL + "auth/login/success", {
-    //     method: "GET",
-    //     credentials: "include",
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Credenttials": true,
-    //     },
-    //   }).then((res) => {
-    //     if(res.status === 200) return res.json();
-    //     throw new Error("Xác thực thất bại")
-    //   }).then(reObject => {setUser(reObject.user);
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   });
-    // };
-    // getUsers();
-
-    // console.log(user);
-  },[])
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [location]);
  
   return (
     <div>
@@ -55,7 +40,7 @@ function App() {
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/docs" element={<Docs />} />
-            {/* Thêm path cho admin */}
+            <Route path="/admin" element={<Admin />} />
           </Routes>
       <Footer />
     </div>
