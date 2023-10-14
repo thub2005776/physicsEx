@@ -5,7 +5,7 @@ import axios from "axios";
 import Latex from 'react-latex';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AiOutlineCopy } from "react-icons/ai";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import { BsArrowLeftCircleFill} from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
 function Detail() {

@@ -2,6 +2,7 @@ import React from 'react';
 import './login.css'
 import { Link, useNavigate} from 'react-router-dom'
 import { BsFacebook, BsGoogle } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 import { useState} from 'react';
 import axios from 'axios';
 
@@ -10,13 +11,15 @@ const Login = () => {
   const [password, setPassword] = useState()
   const navigate = useNavigate()
   const permission = false;
-
+  
+  axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault();
       axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password, permission})
             .then(res => {
               if (res.data.permission === false) {
-                navigate('/', { state: { user: res.data } } )
+                navigate('/');
+                window.location.reload(true);
               } 
             })
             .catch(err => console.log(err))
@@ -62,15 +65,16 @@ const Login = () => {
               <button className='login-reg-writeButton'>Đăng ký</button>
             </Link>
           </div>
-          <br />
+          <br/>
           <p className='or'>Hoặc</p>
+          
           {/* Xử lý đăng nhập bằng facebook/google  */}
-          <div className='login-button-icon'>
-              <div className='facebook' >
+          <div className="login-button-icon">
+              <div className="bg-blue-600 p-3 mr-3 rounded-3xl" >
                 <BsFacebook size={20} />
               </div>
-              <div className='google'onClick={google}>
-                 <BsGoogle size={20} />
+              <div className="bg-white p-3 rounded-3xl" onClick={google}>
+                 <FcGoogle size={20} />
               </div>
           </div>
         </form>

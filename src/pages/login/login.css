@@ -81,22 +81,6 @@
   
 }
 
-.facebook, .google{
-  width: 25%;
-  border-radius: 15px;
-  margin: 4%;
-  padding: 4%;
-  
-}
-
-.facebook{
-  background-color: rgb(35, 114, 212);
-}
-
-.google{
-  background-color: rgb(218, 83, 59);
-}
-
 .or{
   display: flex;
   justify-content: center;

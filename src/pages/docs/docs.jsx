@@ -55,11 +55,11 @@ function Docs() {
                     <button className={`w-3/12 rounded-t-md` + active11}
                         onClick={handleGrade11}
                     >Lớp 11</button>
-                {console.log('11' + active11)}
+                {/* {console.log('11' + active11)} */}
                 <button className={`w-3/12 rounded-t-md` + active10}
                     onClick={handleGrade10}>Lớp 10
                 </button>
-                {console.log('10' + active10)}
+                {/* {console.log('10' + active10)} */}
             </div>
 
             <div className="flex justify-center">
@@ -67,7 +67,7 @@ function Docs() {
                     <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsVersion}/build/pdf.worker.min.js`}>
                         <div style={{ height: '900px' }}>
                             <Viewer
-                                fileUrl={process.env.REACT_APP_SERVER_URL + fileURL}
+                                fileUrl={process.env.REACT_APP_SERVER_URL +  fileURL}
                                 plugins={[
                                     defaultLayoutPluginInstance,
                                 ]}

@@ -12,9 +12,18 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const passportSetup = require('./passport');
 const authRoute = require('./routes/auth');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+
+
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: [process.env.REACT_APP_URL],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true
+}));
 app.use(express.json());
 
 mongoose
@@ -28,7 +37,7 @@ mongoose
 
 app.use(
     cookieSession({
-        name: "session", 
+        name: "token", 
         keys: "[physicsEx]", 
         maxAge:24 * 60 * 100
     }));
@@ -60,19 +69,38 @@ app.use(express.static("../src/assets")) ;
 //         .catch(err => console.log(err))
 // })
 
+app.use(cookieParser());
+
+const salt = parseInt(process.env.SALT);
 app.post('/users',(req, res) => {
-    UserModel.create(req.body)
-        .then(user => res.json(user))
-        .catch(err => err.json(err))
+    // bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
+    //     if(err) return res.json({Error: "Error for hassing password "});
+
+        
+    // })
+    const values = {
+        "name": req.body.name,
+        "email": req.body.email,
+        "password": req.body.password,
+        "permission" : req.body.permission,
+        "img": req.body.img
+        }
+
+        UserModel.create(values)
+            .then(user => res.json(user))
+            .catch(err => err.json(err))
 })
 
 // Get User 
 app.post('/login', (req, res) => {
-    const {email, password, permission} = req.body;
+    const { email, password, permission} = req.body;
     UserModel.findOne({email : email})
         .then(user => {
             if(user) {
                 if(user.password === password) {
+                    const name = user.email;
+                    const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: "1d"});
+                    res.cookie('token',token);
                     res.json(user)
                 } else {
                     res.json("password incorect")
@@ -83,6 +111,38 @@ app.post('/login', (req, res) => {
         })
         .catch(err => res.json(err))
 });
+
+app.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    return res.json({Status: "Success"});
+})
+
+//Get verifyUSer
+const verifyUSer = (req, res, next) => {
+    const token = req.cookies.token;
+    if(!token) {
+        return res.json({ Error: "Bạn chưa đăng nhập"});
+    } else {
+        jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+            if(err) {
+                return res.json({ Error: "Token không đúng"});
+            } else {
+                req.name = decoded.name;
+                next();
+            }
+        })
+    }
+}
+app.get('/token', verifyUSer, (req, res) => {
+    return res.json({ Status: "Success", name: req.name});
+})
+
+//Post profile
+app.post('/profile',(req, res) => {
+    UserModel.find()
+        .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
 
 // Get Exercises 
 app.get('/exercises', (req, res) => {

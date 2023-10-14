@@ -20,10 +20,6 @@ router.get("/login/failed", (req, res) => {
     });
 });
 
-router.get("/logout", (req, res) => {
-    req.logOut();
-    res.redirect(process.env.REACT_APP_URL);
-})
 
 router.get("/google", passport.authenticate("google", {scope: ['profile']}));
 

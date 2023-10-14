@@ -34,7 +34,7 @@ function SearchBar() {
         setResult(them.length ? them :
             (namethem.length ? namethem :
                 (ex.length ? ex : "Không tìm thấy")))
-        console.log(result);
+        // console.log(result);
     }
 
     const Item = ({ item }) => {

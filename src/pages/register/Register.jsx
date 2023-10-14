@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './register.css'
 import { Link } from 'react-router-dom'
-import Image from '../../assets/Image.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,10 +25,6 @@ const Register = () => {
       ...formData, [name]: value
     })
     
-    setName(formData.name);
-    setEmail(formData.email);
-    setPassword(formData.password);
-    
     // Xác thực form 
     
     if (!formData.name.trim()) {
@@ -48,49 +43,39 @@ const Register = () => {
       validationErrors.password = "Mật khẩu phải có ít nhất 8 ký tự : HOA, thường và đặc biệt"
     }
 
-    if (formData.comfirmPassword !== formData.password) {
+    if (formData.comfirmPassword.trim() !== formData.password.trim()) {
       validationErrors.comfirmPassword = "Mật khẩu không khớp"
     }
     setErrors(validationErrors)
+    setName(formData.name);
+    setEmail(formData.email);
+    setPassword(formData.password);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (Object.keys(validationErrors).length === 0) {
-      alert("Đăng ký thành công!");
-
       // Post data 
       const permission = false;
-      axios.post(process.env.REACT_APP_SERVER_URL + 'users', { name, email, password, permission})
+      const img = 'Image.png';
+      axios.post(process.env.REACT_APP_SERVER_URL + 'users', { name, email, password, permission, img})
         .then(res => {
-          console.log(res)
+          alert("Đăng ký thành công!");
+          // console.log(res)
           navigate('/login')
+          
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
   }
-
 
   return (
     <div className='register section__padding'>
       <div className="register-container">
         <h1>Đăng ký</h1>
-        {/* <p className='upload-file'>Chọn ảnh đại diện</p>
-        <div className="upload-img-show">
-         
-          <img src={Image} alt="banner" />
-        </div> */}
        
         <form onSubmit={handleSubmit} name='register' className='register-writeForm' autoComplete='off' >
-          {/* <div className="register-formGroup">
-            <label>Tải lên</label>
-            <input type="file"
-              className='custom-file-input'
-              onChange={e => setFile(e.target.files[0])}
-            />
-          </div> */}
-
           <div className="register-formGroup">
             <label>Họ và tên</label>
             <input type="text"
