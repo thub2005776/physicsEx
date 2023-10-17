@@ -1,34 +1,45 @@
 import React from 'react';
 import './login.css'
-import { Link, useNavigate} from 'react-router-dom'
+// import SocialButton from '../../components/socialButton/socialButton'
+import { Link, useNavigate } from 'react-router-dom'
 import { BsFacebook, BsGoogle } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { useState} from 'react';
+import { GoogleLogin} from 'react-google-login';
+
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({ handleLoginSuccess }) => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const navigate = useNavigate()
   const permission = false;
-  
+
   axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault();
-      axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password, permission})
-            .then(res => {
-              if (res.data.permission === false) {
-                navigate('/');
-                window.location.reload(true);
-              } 
-            })
-            .catch(err => console.log(err))
-    
+    axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password, permission })
+      .then(res => {
+        if (res.data.permission === false) {
+          navigate('/');
+          window.location.reload(true);
+        } else {
+          navigate('/admin/0');
+          window.location.reload(true);
+        }
+      })
+      .catch(err => console.log(err))
+
   }
 
-  const google = () => {
-    window.open(process.env.REACT_APP_SERVER_URL + "auth/google", "_self")
-  }
+  const handleGoogleLoginSuccess = (res) => {
+    console.log("success ",res.profileObj);
+    handleLoginSuccess(res.profileObj);
+  };
+
+  const handleLoginFailure = (res) => {
+    console.log("failed ", res);
+  };
 
   return (
     <div className='login section__padding'>
@@ -65,17 +76,20 @@ const Login = () => {
               <button className='login-reg-writeButton'>Đăng ký</button>
             </Link>
           </div>
-          <br/>
+          <br />
           <p className='or'>Hoặc</p>
-          
+
           {/* Xử lý đăng nhập bằng facebook/google  */}
-          <div className="login-button-icon">
-              <div className="bg-blue-600 p-3 mr-3 rounded-3xl" >
-                <BsFacebook size={20} />
-              </div>
-              <div className="bg-white p-3 rounded-3xl" onClick={google}>
-                 <FcGoogle size={20} />
-              </div>
+          <div className="flex justify-evenly">
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              buttonText="Login with Google"
+              onSuccess={handleGoogleLoginSuccess}
+              onFailure={handleLoginFailure}
+              cookiePolicy={'single_host_origin'}
+              isSignedIn={false}
+            />
+            
           </div>
         </form>
       </div>

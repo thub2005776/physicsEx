@@ -15,9 +15,10 @@ const Menu = () => (
 )
 
 
-const Navbar = ({user}) => {
+const Navbar = ({auth}) => {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [profile, setProfile] = useState([]);
+
   const handleLogout = () => {
     
       axios.get(process.env.REACT_APP_SERVER_URL + "logout")
@@ -36,9 +37,9 @@ const Navbar = ({user}) => {
     .catch(err => console.log(err))
   }, []);
 
-  const info = profile.find((p) => p.email === user);
+  const info = profile.find((p) => p.email === auth);
   // console.log(info);
-    
+
   return (
     <div className='sticky top-0 bg-[#24252d]'>
       <div className='navbar '>
@@ -56,7 +57,7 @@ const Navbar = ({user}) => {
           <div className="menu_div">
             <Menu />
           </div>
-          {user ? (
+          {auth ? (
             <>
             <Link to="/">
                 <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
@@ -66,11 +67,11 @@ const Navbar = ({user}) => {
                 <img src={process.env.REACT_APP_SERVER_URL + info.img} alt="profile" className='w-1/12 rounded-2xl' />
                 </>
                 
-              ) : (<img src="#" alt="profile" className='avartar' />)}
+              ) : (<img src={auth.picture} alt="profile" className='avartar' />)}
             </>
           ) : (
             <Link to="/login">
-              <button type='button' className='primary-btn' >Đăng nhập</button>
+              <button type='button' className='primary-btn'>Đăng nhập</button>
             </Link>
 
           )}

@@ -20,10 +20,22 @@ router.get("/login/failed", (req, res) => {
     });
 });
 
+router.get("/logouts", (req, res) => {
+    req.logOut();
+    res.redirect(process.env.REACT_APP_URL);
+});
+
 
 router.get("/google", passport.authenticate("google", {scope: ['profile']}));
 
 router.get("/google/callback", passport.authenticate("google", {
+    successRedirect: process.env.REACT_APP_URL,
+    failureRedirect: "login/failed"
+}));
+
+router.get("/facebook", passport.authenticate("facebook", {scope: ['profile']}));
+
+router.get("/facebook/callback", passport.authenticate("facebook", {
     successRedirect: process.env.REACT_APP_URL,
     failureRedirect: "login/failed"
 }));

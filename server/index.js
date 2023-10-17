@@ -2,19 +2,20 @@ require('dotenv').config({path:"../.env"});
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
+// const multer = require('multer');
+// const path = require('path');
+// const cookieSession = require('cookie-session');
+// const passport = require('passport');
+// const passportSetup = require('./passport');
+// const authRoute = require('./routes/auth');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 
 const UserModel = require('./models/Users');
 const ExModel = require('./models/Execises');
 const ThematicsModel = require('./models/Thematics');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-const passportSetup = require('./passport');
-const authRoute = require('./routes/auth');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const cookieParser = require('cookie-parser');
+
 
 
 
@@ -35,17 +36,17 @@ mongoose
         console.log(err);
     });
 
-app.use(
-    cookieSession({
-        name: "token", 
-        keys: "[physicsEx]", 
-        maxAge:24 * 60 * 100
-    }));
+// app.use(
+//     cookieSession({
+//         name: "token", 
+//         keys: "[physicsEx]", 
+//         maxAge:24 * 60 * 60 * 100
+//     }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.use("/auth",  authRoute);
+// app.use("/auth",  authRoute);
 
 app.use(express.static("../src/assets")) ;
 
