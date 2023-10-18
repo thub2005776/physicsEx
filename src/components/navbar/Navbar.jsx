@@ -41,7 +41,7 @@ const Navbar = ({auth}) => {
   // console.log(info);
 
   return (
-    <div className='sticky top-0 bg-[#24252d]'>
+    <div className='sticky z-50 top-0 bg-[#24252d]'>
       <div className='navbar '>
         <div className="navbar-links">
           <Link to="/">

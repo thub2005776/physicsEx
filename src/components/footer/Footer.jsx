@@ -28,12 +28,12 @@ const Footer = () => {
           <Link to="/docs">
             <p>Tài liệu</p>
           </Link>
-          <a href='#'><p>Liên hệ</p></a>
+          <a href='/'><p>Liên hệ</p></a>
         </div>
         <div className="footer-links_div">
           <h4>Hỗ trợ</h4>
-          <a href='#'><p>Trung tâm hỗ trợ</p></a>
-          <a href='#'><p>Chat</p></a>
+          <a href='/'><p>Trung tâm hỗ trợ</p></a>
+          <a href='/'><p>Chat</p></a>
         </div>
       </div>
       <div className="footer-copyright">

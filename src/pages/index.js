@@ -1,4 +1,5 @@
 export {default as Home} from './home/Home';
+export {default as SearchBar} from './searchbar/searchbar';
 export {default as Profile} from './profile/Profile';
 export {default as Item} from './item/Item';
 export {default as Create} from './create/Create';

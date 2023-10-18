@@ -57,7 +57,7 @@ const Register = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       // Post data 
-      const permission = false;
+      const permission = "user";
       const img = 'Image.png';
       axios.post(process.env.REACT_APP_SERVER_URL + 'users', { name, email, password, permission, img})
         .then(res => {

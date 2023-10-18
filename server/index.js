@@ -15,6 +15,7 @@ const cookieParser = require('cookie-parser');
 const UserModel = require('./models/Users');
 const ExModel = require('./models/Execises');
 const ThematicsModel = require('./models/Thematics');
+const FilesModel = require('./models/Files');
 
 
 
@@ -158,6 +159,14 @@ app.get('/thematics', (req, res) => {
     ThematicsModel
         .find()
         .then(them => res.json(them))
+        .catch(err => res.json(err))
+});
+
+// Get Files
+app.get('/docs', (req, res) => {
+    FilesModel
+        .find()
+        .then(files => res.json(files))
         .catch(err => res.json(err))
 });
 

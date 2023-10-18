@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../bids/bids.css";
-import CardThematic from "../cardThematic/cardThematic";
+import "../../components/bids/bids.css";
+import {CardThematic }from "../../components";
 
 import { BlockMath } from 'react-katex';
 
@@ -55,7 +55,7 @@ function SearchBar() {
     return (
         <div>
             <div className="flex flex-col items-center">
-                <input className="p-5 bg-slate-900  rounded-xl w-4/6 outline-none text-white"
+                <input className="fixed mt-2 p-5 bg-[#24252d] rounded-2xl w-4/6 outline-green-400 text-white"
                     type="text"
                     placeholder='Nhập "12, 11,...,tên chuyên đề, bài tâp"'
                     autoFocus={true}
@@ -63,7 +63,7 @@ function SearchBar() {
                     onKeyUp={handleKeyUp}
                 />
             </div>
-            <div className="pt-5 text-white">
+            <div className="pt-5  text-white mt-20">
                 <p className="text-white text-2xl border-b ml-16 mb-3">Kết quả tìm kiếm</p>
                 <div className="flex justify-center">
                     {result ? (

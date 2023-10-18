@@ -21,7 +21,7 @@ const AdminCard = () => {
 
     const FeatureCard = ({ index, item, data }) => {
         return (
-            <div className="w-1/3">
+            <div className="sm:w-1/3 w-fit">
                 <Link to={`/admin/${index + 1}`}>
                     <div className="bg-slate-600 p-3 m-3 rounded-lg">
                         <img className='rounded-2xl w-fit p-px' src={item.img} alt="User" />

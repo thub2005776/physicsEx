@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-import {Navbar,Footer, SearchBar} from './components'
-import {Home, Login, Register, Thematics, Exercises, Docs, Detail, Admin} from './pages'
+import {Navbar,Footer} from './components'
+import {Home, SearchBar, Login, Register, Thematics, Exercises, Docs, Detail, Admin} from './pages'
 import { Routes, Route} from "react-router-dom";
 import axios from 'axios';
 

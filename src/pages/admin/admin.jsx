@@ -1,4 +1,4 @@
-import { SideBarAdmin, AdminCard, Chart, List } from '../../components'
+import { SideBarAdmin, AdminCard, Chart, UserList, ExList, Files } from '../../components'
 import { useLocation } from 'react-router';
 
 function Admin() {
@@ -6,18 +6,15 @@ function Admin() {
     const path = location.pathname.split('/')[2];
     const index = parseInt(path);
 
-    const headerUser = ["Ảnh bìa", "Tên người dùng", "Email"];
-    const headerEx = ["Ảnh bìa", "Mã chuyên đề", "Tên chuyên đề"];
-    const headerFile = ["Lớp", "Tên file"];
     return (
         <div className="flex justify-between m-5 text-white">
-            <div className="w-1/5 ">
+            <div className="fixed w-1/5 bg-[#24252d]">
                 <SideBarAdmin active={index} />
             </div>
-            <div className='w-4/5'>
+            <div className='sm:ml-64 w-4/5 p-3'>
                 {index === 0 ?
                     (< >
-                        <div className='flex mx-20 w-4/5'>
+                        <div className='sm:flex ml-28 w-4/5'>
                             <AdminCard />
                         </div>
                         <div className=''>
@@ -26,15 +23,16 @@ function Admin() {
                     </>)
                     : (index === 1 ?
                         (
-                            <List 
-                                />
-                        ) : (index === 2 ? (
-                            <List />
-                        ) : (index === 3 ? (
-                            <List />
-                        ) : (
-                            <Chart />
-                        ))))
+                            <UserList />
+                        ) : (index === 2 ?
+                            (
+                                <ExList />
+                            ) : (index === 3 ?
+                                (
+                                    <Files />
+                                ) : (
+                                    <Chart />
+                                ))))
                 }
             </div>
         </div>

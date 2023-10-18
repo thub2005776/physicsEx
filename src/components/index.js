@@ -1,10 +1,12 @@
 export {default as Navbar} from './navbar/Navbar';
 export {default as Header} from './header/Header';
+export {default as CardThematic} from './cardThematic/cardThematic'
 export {default as Bids} from './bids/Bids';
 export {default as Footer} from './footer/Footer';
-export {default as SearchBar} from './searchbar/searchbar';
+export {default as SideBarAdmin} from './sideBarAdmin/sideBarAdmin';
+export {default as AdminCard} from './adminCard/adminCard';
+export {default as Chart}  from './chart/chart';
 export {default as UserList} from './userList/userList';
-export {default as SideBarAdmin} from './sideBarAdmin/sideBarAdmin'
-export {default as AdminCard} from './adminCard/adminCard'
-export {default as Chart}  from './chart/chart'
-export {default as List} from './list/list'
+export {default as ExList} from './exList/exList';
+export {default as Files} from './files/files';
+export {default as Delete} from './delete/delete'
