@@ -9,4 +9,4 @@ export {default as Chart}  from './chart/chart';
 export {default as UserList} from './userList/userList';
 export {default as ExList} from './exList/exList';
 export {default as Files} from './files/files';
-export {default as Delete} from './delete/delete'
+export {default as Delete} from './delete/delete';

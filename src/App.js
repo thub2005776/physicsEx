@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 import {Navbar,Footer} from './components'
-import {Home, SearchBar, Login, Register, Thematics, Exercises, Docs, Detail, Admin} from './pages'
+import {Home, SearchBar, Login, Register, Thematics, 
+        Exercises, Docs, Detail, Admin, UserAdd,
+        ThematicAdd} from './pages'
 import { Routes, Route} from "react-router-dom";
 import axios from 'axios';
 
@@ -27,7 +29,7 @@ function App() {
       setUser(profileData);
     };
 
-  console.log("user:",user);
+  // console.log("user:",user);
   return (
     <div>
       <Navbar auth={user}/>
@@ -43,7 +45,9 @@ function App() {
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/docs" element={<Docs />} />
-            <Route path="/admin/:id" element={<Admin />} />
+            <Route path="/admin/:id" element={<Admin auth={user}/>} />
+            <Route path="/admin/1/uform" element={<UserAdd auth={user}/>} />
+            <Route path="/admin/2/them" element={<ThematicAdd auth={user}/>} />
           </Routes>
       <Footer />
     </div>

@@ -10,3 +10,5 @@ export {default as Exercises} from './exercises/exercises';
 export {default as Docs} from './docs/docs';
 export {default as Detail} from './detail/detail';
 export {default as Admin} from './admin/admin';
+export {default as UserAdd} from './userAdd/userAdd';
+export {default as ThematicAdd} from './thematicAdd/thematicAdd'

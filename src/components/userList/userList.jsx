@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ListItem from '../listItem/listItem';
-
-
+import { AiOutlinePlus } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 const UserList = () => {
     const [users, setUSers] = useState();
@@ -27,15 +27,19 @@ const UserList = () => {
             names.length ? names : "Không tìm thấy");
     }
 
-    const handleDelete = () => {
-        
-    }
 
     return (
         users ? (
-            <div className="mx-10">
+            <div className="mx-10 ">
                 <div className="text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách người dùng</div>
-                <div className='mx-5 mb-2 p-1 bg-teal-700 rounded-xl w-full flex justify-center'>
+                <div className='mx-5 mb-2 p-1 bg-teal-700 rounded-xl w-full flex justify-start'>
+                <Link to={`/admin/1/uform`}>
+                <div className='flex m-2 hover:text-green-300 sm:mr-20'>
+                    <AiOutlinePlus size={30}/> 
+                    Thêm người dùng
+                </div>
+                </Link>
+                
                     <input className='rounded-lg text-black outline-none mt-1 w-2/5 h-10 px-3'
                         type="text"
                         placeholder='  Tên, email...'
@@ -56,7 +60,7 @@ const UserList = () => {
 
                                 </tr>
                             </thead>
-                            <tbody className=''>
+                            <tbody className='text-center'>
                                 {usersResult.map((user, index) => (
                                     <ListItem
                                         key={index}
@@ -64,7 +68,6 @@ const UserList = () => {
                                         item2={user.name}
                                         item3={user.email}
                                         item4={user.permission}
-                                        Delete={handleDelete}
                                         user={true} />))}
                             </tbody>
                         </table>

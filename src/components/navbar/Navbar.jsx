@@ -59,12 +59,18 @@ const Navbar = ({auth}) => {
           </div>
           {auth ? (
             <>
+            {info && info.permission === "admin" ? 
+                  <Link to={`/admin/0`}>
+                    <div className='text-white text-sm font-semibold float-right bg-sky-400  rounded-2xl p-3'>
+                    admin
+                  </div></Link>:null}
             <Link to="/">
                 <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
               </Link>
               {info? (
                 <>
                 <img src={process.env.REACT_APP_SERVER_URL + info.img} alt="profile" className='w-1/12 rounded-2xl' />
+                
                 </>
                 
               ) : (<img src={auth.picture} alt="profile" className='avartar' />)}
