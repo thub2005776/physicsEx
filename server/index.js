@@ -37,31 +37,20 @@ mongoose
         console.log(err);
     });
 
-// app.use(
-//     cookieSession({
-//         name: "token", 
-//         keys: "[physicsEx]", 
-//         maxAge:24 * 60 * 60 * 100
-//     }));
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// app.use("/auth",  authRoute);
 
 app.use(express.static("../src/assets"));
 
 //post exist
-app.post('/exist', (req, res) => {
-    const email = req.body;
-    UserModel.findOne({ email: email })
-        .then(user => {
-            res.json("Email đã tồn tại");
-        })
-        .catch(err => {
-            res.json({ Err: err, Status: "not found" })
-        })
-});
+// app.post('/exist', (req, res) => {
+//     const email = req.body;
+//     UserModel.findOne({ email: email })
+//         .then(user => {
+//             res.json("Email đã tồn tại");
+//         })
+//         .catch(err => {
+//             res.json({ Err: err, Status: "not found" })
+//         })
+// });
 
 // UpLoad file 
 const storage = multer.diskStorage({
@@ -92,9 +81,9 @@ app.post('/themAdd', upload.single('file'), (req, res) => {
 
 app.use(cookieParser());
 
-//post user register
+//post to register user
 const salt = parseInt(process.env.SALT);
-app.post('/users', upload.single('file'), (req, res) => {
+app.post('/users/add', upload.single('file'), (req, res) => {
     // bcrypt.hash(req.body.password, salt, (err, hash) => {
     //     if(err) return res.json({Error: "Error for hassing password "});
 
@@ -107,6 +96,29 @@ app.post('/users', upload.single('file'), (req, res) => {
         "password": req.body.password,
         "permission": req.body.permission,
         "img": req.file.filename
+    }
+
+
+
+    UserModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+});
+
+//post to add new user
+app.post('/users', (req, res) => {
+    // bcrypt.hash(req.body.password, salt, (err, hash) => {
+    //     if(err) return res.json({Error: "Error for hassing password "});
+
+
+    // });
+    
+    const values = {
+        "name": req.body.name,
+        "email": req.body.email,
+        "password": req.body.password,
+        "permission": req.body.permission,
+        "img": req.body.img
     }
 
 
