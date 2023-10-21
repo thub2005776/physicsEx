@@ -4,7 +4,7 @@ import './App.css';
 import {Navbar,Footer} from './components'
 import {Home, SearchBar, Login, Register, Thematics, 
         Exercises, Docs, Detail, Admin, UserAdd,
-        ThematicAdd, ExAdd, FileAdd
+        ThematicAdd, ExAdd, FileAdd, Profile
       } from './pages'
 import { Routes, Route} from "react-router-dom";
 import axios from 'axios';
@@ -49,9 +49,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/searchbar" element={<SearchBar />} />
-            {/* <Route path=":item/:id" element={<Item />} />
-            <Route path="/create" element={<Create /> } />
-            <Route path="/profile/:id" element={<Profile />} /> */}
+            {/* <Route path=":item/:id" element={<Item />} /> */}
+            {/* <Route path="/create" element={<Create /> } /> */}
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="/login" element={ <Login handleLoginSuccess={handleLoginSuccess} />} />
             <Route path="/register" element={ <Register />} />
             <Route path="/thematics" element={<Thematics />} />

@@ -5,6 +5,7 @@ import logo from '../../assets/logo.png'
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import axios from 'axios';
+import ProfileCard from '../profileCard/profileCard';
 
 const Menu = () => (
   <>
@@ -17,7 +18,7 @@ const Menu = () => (
 
 const Navbar = ({auth}) => {
   const [toggleMenu, setToggleMenu] = useState(false)
-
+  const [profile, setProfile] = useState(false);
   const handleLogout = () => {
     
       axios.get(process.env.REACT_APP_SERVER_URL + "logout")
@@ -29,7 +30,9 @@ const Navbar = ({auth}) => {
 
 
   return (
-    <div className='sticky z-50 top-0 bg-[#24252d]'>
+    <div>
+
+      <div className='sticky z-50 top-0 bg-[#24252d]'>
       <div className='navbar '>
         <div className="navbar-links">
           <Link to="/">
@@ -57,11 +60,13 @@ const Navbar = ({auth}) => {
               </Link>
               {auth? (
                 <>
-                <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile" className='w-1/12 rounded-2xl' />
-                
+                <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile" 
+                className='w-7 rounded-2xl' 
+                onClick={() => setProfile(!profile)}/>
                 </>
                 
               ) : (<img src={auth.picture} alt="profile" className='avartar' />)}
+            
             </>
           ) : (
             <Link to="/login">
@@ -69,9 +74,9 @@ const Navbar = ({auth}) => {
             </Link>
 
           )}
-          
-
         </div>
+
+        
         <div className="navbar-menu">
           {toggleMenu ?
             <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
@@ -80,12 +85,18 @@ const Navbar = ({auth}) => {
             <div className="navbar-menu_container scale-up-center" >
               <div className="navbar-menu_container-links">
                 <Menu />
+                <Link to={`/profile/1`} >
+                  <div className='text-white text-xl'>Tài khoản</div>
+                </Link>
               </div>
             </div>
           )}
         </div>
       </div>
     </div>
+      {profile? <ProfileCard auth={auth}/> : null}
+    </div>
+    
   )
 }
 
