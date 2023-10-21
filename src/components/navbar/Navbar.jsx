@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './navbar.css'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/logo.png'
@@ -17,7 +17,6 @@ const Menu = () => (
 
 const Navbar = ({auth}) => {
   const [toggleMenu, setToggleMenu] = useState(false)
-  const [profile, setProfile] = useState([]);
 
   const handleLogout = () => {
     
@@ -28,17 +27,6 @@ const Navbar = ({auth}) => {
     
   }
 
-  useEffect(() => {
-    axios.post(process.env.REACT_APP_SERVER_URL + 'profile')
-    .then(res => {
-        setProfile(res.data);
-        // console.log(res.data);
-    })
-    .catch(err => console.log(err))
-  }, []);
-
-  const info = profile.find((p) => p.email === auth);
-  // console.log(info);
 
   return (
     <div className='sticky z-50 top-0 bg-[#24252d]'>
@@ -59,17 +47,17 @@ const Navbar = ({auth}) => {
           </div>
           {auth ? (
             <>
-            {info && info.permission === "admin" ? 
+            {auth.permission === "admin" ? 
                   <Link to={`/admin/0`}>
-                    <div className='text-white text-sm font-semibold float-right bg-sky-400  rounded-2xl p-3'>
+                    <div className='text-white text-sm font-semibold float-right bg-sky-400 rounded-2xl p-3'>
                     admin
                   </div></Link>:null}
             <Link to="/">
                 <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
               </Link>
-              {info? (
+              {auth? (
                 <>
-                <img src={process.env.REACT_APP_SERVER_URL + info.img} alt="profile" className='w-1/12 rounded-2xl' />
+                <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile" className='w-1/12 rounded-2xl' />
                 
                 </>
                 

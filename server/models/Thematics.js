@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const thematicsSchema = new mongoose.Schema({
     code: String,
     thematic: String,
-    imgName: String
+    img: String
 });
 
 const ThematicsModel = mongoose.model("thematics",thematicsSchema);

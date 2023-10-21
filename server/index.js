@@ -1,9 +1,9 @@
-require('dotenv').config({path:"../.env"});
+require('dotenv').config({ path: "../.env" });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-// const multer = require('multer');
-// const path = require('path');
+const multer = require('multer');
+const path = require('path');
 // const cookieSession = require('cookie-session');
 // const passport = require('passport');
 // const passportSetup = require('./passport');
@@ -33,7 +33,7 @@ mongoose
     .then(() => {
         console.log("Database connected");
     })
-    .catch ((err)  => {
+    .catch((err) => {
         console.log(err);
     });
 
@@ -49,65 +49,88 @@ mongoose
 
 // app.use("/auth",  authRoute);
 
-app.use(express.static("../src/assets")) ;
+app.use(express.static("../src/assets"));
+
+//post exist
+app.post('/exist', (req, res) => {
+    const email = req.body;
+    UserModel.findOne({ email: email })
+        .then(user => {
+            res.json("Email đã tồn tại");
+        })
+        .catch(err => {
+            res.json({ Err: err, Status: "not found" })
+        })
+});
 
 // UpLoad file 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/images')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + "_"  + Date.now() + path.extname(file.originalname))
-//     }
-// })
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../src/assets')
+    },
+    filename: (req, file, cb) => {
+        const fileName = file.originalname.substring(0, file.originalname.indexOf('.'));
+        cb(null, fileName + "_" + Date.now() + path.extname(file.originalname));
+    }
+})
 
-// const upload = multer({
-//     storage: storage
-// })
+const upload = multer({
+    storage: storage
+});
 
-// app.post('/users',upload.single('file'), (req, res) => {
-//     UserModel.create({image: req.file.filename})
-//         .then(result => res.json(result))
-//         .catch(err => console.log(err))
-// })
+app.post('/themAdd', upload.single('file'), (req, res) => {
+    // console.log(req.file);
+    const values = {
+        "code": req.body.code,
+        "thematic": req.body.thematic,
+        "img": req.file.filename
+    }
+    ThematicsModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+})
 
 app.use(cookieParser());
 
+//post user register
 const salt = parseInt(process.env.SALT);
-app.post('/users',(req, res) => {
-    // bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
+app.post('/users', upload.single('file'), (req, res) => {
+    // bcrypt.hash(req.body.password, salt, (err, hash) => {
     //     if(err) return res.json({Error: "Error for hassing password "});
 
-        
-    // })
+
+    // });
+    console.log(req.file);
     const values = {
         "name": req.body.name,
         "email": req.body.email,
         "password": req.body.password,
-        "permission" : req.body.permission,
-        "img": req.body.img
-        }
+        "permission": req.body.permission,
+        "img": req.file.filename
+    }
 
-        UserModel.create(values)
-            .then(user => res.json(user))
-            .catch(err => err.json(err))
-})
 
-// Get User 
+
+    UserModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+});
+
+// post User login
 app.post('/login', (req, res) => {
-    const { email, password, permission} = req.body;
-    UserModel.findOne({email : email})
+    const { email, password, permission } = req.body;
+    UserModel.findOne({ email: email })
         .then(user => {
-            if(user) {
-                if(user.password === password) {
+            if (user) {
+                if (user.password === password) {
                     const name = user.email;
-                    const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: "1d"});
-                    res.cookie('token',token);
+                    const token = jwt.sign({ name }, "jwt-secret-key", { expiresIn: "1d" });
+                    res.cookie('token', token);
                     res.json(user)
                 } else {
                     res.json("password incorect")
                 }
-            }  else {
+            } else {
                 res.json("account don't exist")
             }
         })
@@ -116,18 +139,18 @@ app.post('/login', (req, res) => {
 
 app.get('/logout', (req, res) => {
     res.clearCookie('token');
-    return res.json({Status: "Success"});
+    return res.json({ Status: "Success" });
 })
 
 //Get verifyUSer
 const verifyUSer = (req, res, next) => {
     const token = req.cookies.token;
-    if(!token) {
-        return res.json({ Error: "Bạn chưa đăng nhập"});
+    if (!token) {
+        return res.json({ Error: "Bạn chưa đăng nhập" });
     } else {
         jwt.verify(token, "jwt-secret-key", (err, decoded) => {
-            if(err) {
-                return res.json({ Error: "Token không đúng"});
+            if (err) {
+                return res.json({ Error: "Token không đúng" });
             } else {
                 req.name = decoded.name;
                 next();
@@ -136,11 +159,11 @@ const verifyUSer = (req, res, next) => {
     }
 }
 app.get('/token', verifyUSer, (req, res) => {
-    return res.json({ Status: "Success", name: req.name});
+    return res.json({ Status: "Success", name: req.name });
 })
 
 //Post profile
-app.post('/profile',(req, res) => {
+app.post('/profile', (req, res) => {
     UserModel.find()
         .then(user => res.json(user))
         .catch(err => res.json(err))
@@ -169,6 +192,7 @@ app.get('/docs', (req, res) => {
         .then(files => res.json(files))
         .catch(err => res.json(err))
 });
+
 
 
 app.listen(3001, () => {

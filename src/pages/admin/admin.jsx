@@ -1,28 +1,13 @@
 import { SideBarAdmin, AdminCard, Chart, UserList, ExList, Files } from '../../components'
 import { useLocation } from 'react-router';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 function Admin({ auth }) {
-    const [profile, setProfile] = useState([]);
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const index = parseInt(path);
 
-    useEffect(() => {
-        axios.post(process.env.REACT_APP_SERVER_URL + 'profile')
-            .then(res => {
-                setProfile(res.data);
-                // console.log(res.data);
-            })
-            .catch(err => console.log(err))
-    }, []);
-
-    const info = profile.find((p) => p.email === auth );
-   
-
     return (
-        info && info.permission === 'admin' ?
+        auth && auth.permission === 'admin' ?
             (
                 <div className="flex justify-between sm:m-5 text-white">
                     <div className="fixed sm:w-1/5 w-1/12 bg-[#24252d]">

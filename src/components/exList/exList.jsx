@@ -30,7 +30,7 @@ const ExList = () => {
             <div className="mx-10">
                 <div className="text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách chuyên đề</div>
                 <div className='mx-5 mb-2 p-1 bg-teal-700 rounded-xl w-full flex'>
-                    <Link to={`/admin/2/them`}>
+                    <Link to={`/admin/2/themAdd`}>
                         <div className='flex m-2 hover:text-green-300'>
                             <AiOutlinePlus size={30} />
                             Thêm chuyên đề

@@ -33,7 +33,7 @@ const UserList = () => {
             <div className="mx-10 ">
                 <div className="text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách người dùng</div>
                 <div className='mx-5 mb-2 p-1 bg-teal-700 rounded-xl w-full flex justify-start'>
-                <Link to={`/admin/1/uform`}>
+                <Link to={`/admin/1/add`}>
                 <div className='flex m-2 hover:text-green-300 sm:mr-20'>
                     <AiOutlinePlus size={30}/> 
                     Thêm người dùng
