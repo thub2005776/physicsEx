@@ -79,6 +79,20 @@ app.post('/themAdd', upload.single('file'), (req, res) => {
         .catch(err => err.json(err))
 })
 
+app.post('/edit/user', upload.single('file'), (req, res) => {
+    const id = req.body.id;
+    const values = {
+        "name": req.body.name,
+        "email": req.body.email,
+        "password": req.body.password,
+        "img": req.file.filename
+    }
+    // console.log(values);
+    UserModel.findOneAndUpdate({id : id}, values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+})
+
 app.use(cookieParser());
 
 //post to register user
@@ -178,6 +192,14 @@ app.get('/token', verifyUSer, (req, res) => {
 //Post profile
 app.post('/profile', (req, res) => {
     UserModel.find()
+        .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
+
+//Post profile/find
+app.post('/profile/find', (req, res) => {
+    const id = req.body;
+    UserModel.findOne({id : id})
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })

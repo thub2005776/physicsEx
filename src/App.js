@@ -42,7 +42,8 @@ function App() {
 
     const info = profile.find((p) => p.email === user);
 
-  // console.log("user:",user);
+  console.log("user:",user);
+  console.log(info)
   return (
     <div>
       <Navbar auth={info}/>
