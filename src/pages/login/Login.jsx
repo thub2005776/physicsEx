@@ -19,12 +19,12 @@ const Login = ({ handleLoginSuccess }) => {
         if (res.data.permission === "user") {
           navigate('/');
           window.location.reload(true);
-        } else {
+        } else if(res.data.permission === "admin") {
           navigate('/admin/0');
           window.location.reload(true);
-        }
+        } else {alert(res.data);}
       })
-      .catch(err => console.log(err))
+      .catch(err => {console.log(err)})
 
   }
 

@@ -9,15 +9,12 @@ import Latex from 'react-latex';
 
 function Exercises() {
     const [exercises, setExercises] = useState([]);
-
+    const [active, setActive] = useState('12');
     useEffect(() => {
         axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
             .then(exercises => setExercises(exercises.data))
             .catch(err => console.log(err))
     }, []);
-
-
-
 
 
     function Exercise({ exercise }) {
@@ -40,20 +37,29 @@ function Exercises() {
 
     return (
         exercises.length ? (
-            <div className='sm:mx-20 mx-4'>
-                <div className='flex justify-evenly text-white font-bold sm:text-xl text-lg'>
-                    <Link to={`#1201`}>
-                    <p data-to-scrollspy-id="1201" className='py-6'>Lớp 12</p>
+            <div className='sm:mx-20 mx-4 mt-3 border rounded-xl shadow  bg-gray-800 border-gray-700'>
+                <div className='flex justify-evenly text-white font-bold sm:text-xl text-lg bg-gray-700 text-center rounded-t-xl'>
+                    <div className='hover:bg-gray-600 w-full '
+                        onClick={() => setActive('12')}>
+                         <Link to={`#1201`} >
+                        <p data-to-scrollspy-id="1201" className={`py-6 ${active === '12'? "bg-gray-800 border-b-[1px]":null}`}>Lớp 12</p>
                     </Link>
-                    <Link to={`#1101`}>
-                        <p data-to-scrollspy-id="1101" className='py-6'>Lớp 11</p>
-                        
+                    </div>
+                   
+                    <div className='hover:bg-gray-600 w-full '
+                        onClick={() => setActive('11')}>
+                         <Link to={`#1201`} >
+                        <p data-to-scrollspy-id="1201" className={`py-6 ${active === '11'? "bg-gray-800 border-b-[1px]":null}`}>Lớp 11</p>
                     </Link>
-                    <Link to={`#1001`}>
-                    <p data-to-scrollspy-id="1001"className='py-6'>Lớp 10</p>
+                    </div>
+                    <div className='hover:bg-gray-600 w-full'
+                        onClick={() => setActive('10')}>
+                         <Link to={`#1201`} >
+                        <p data-to-scrollspy-id="1201" className={`py-6 ${active === '10'? "bg-gray-800 border-b-[1px]":null}`}>Lớp 12</p>
                     </Link>
+                    </div>
                 </div>
-                <div className='pt-10 bg-slate-900 rounded-lg'>
+                <div className='pt-10 rounded-lg'>
                     <ScrollSpy
                      scrollThrottle={100} useBoxMethod={false}>
                         {exercises.map((exercise, index) => (

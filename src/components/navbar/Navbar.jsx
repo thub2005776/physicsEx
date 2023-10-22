@@ -61,7 +61,7 @@ const Navbar = ({auth}) => {
               {auth? (
                 <>
                 <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile" 
-                className='w-7 rounded-2xl' 
+                className='w-7 rounded-2xl cursor-pointer' 
                 onClick={() => setProfile(!profile)}/>
                 </>
                 
@@ -94,7 +94,7 @@ const Navbar = ({auth}) => {
         </div>
       </div>
     </div>
-      {profile? <ProfileCard auth={auth}/> : null}
+      {profile? <ProfileCard handlelogout={handleLogout} auth={auth}/> : null}
     </div>
     
   )

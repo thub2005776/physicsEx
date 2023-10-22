@@ -1,5 +1,5 @@
-import Image from '../../assets/Image.png'
-const ProfileCard = ({auth}) => {
+import { Link } from 'react-router-dom';
+const ProfileCard = ({auth, handlelogout}) => {
     return(
         <div className="fixed right-5 top-24 z-50 sm:w-52 w-32">
              <div className="w-full border rounded-lg shadow bg-gray-800 border-gray-500">
@@ -14,13 +14,15 @@ const ProfileCard = ({auth}) => {
                     <div id="dropdown" className="z-10  text-base list-none  divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700">
                         <ul className="py-2" aria-labelledby="dropdownButton">
                             <li>
-                                <a href="#" className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Thông tin</a>
+                                <Link to={`/profile/${auth.id}`} className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Thông tin</Link>
                             </li>
                             <li>
                                 <a href="#" className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Đánh giá</a>
                             </li>
                             <li>
-                                <a href="#" className="block px-4 py-2 text-sm  hover:bg-gray-600 text-gray-200 hover:text-white">Đăng xuất</a>
+                                <div className="block px-4 py-2 text-sm  hover:bg-gray-600 text-gray-200 hover:text-white"
+                                onClick={handlelogout}>
+                                    Đăng xuất</div>
                             </li>
                         </ul>
                     </div>

@@ -6,6 +6,7 @@ function Admin({ auth }) {
     const path = location.pathname.split('/')[2];
     const index = parseInt(path);
 
+
     return (
         auth && auth.permission === 'admin' ?
             (

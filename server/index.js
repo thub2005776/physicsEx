@@ -118,7 +118,8 @@ app.post('/users', (req, res) => {
         "email": req.body.email,
         "password": req.body.password,
         "permission": req.body.permission,
-        "img": req.body.img
+        "img": req.body.img,
+        "id": req.body.permission + Date.now()
     }
 
 
@@ -140,10 +141,10 @@ app.post('/login', (req, res) => {
                     res.cookie('token', token);
                     res.json(user)
                 } else {
-                    res.json("password incorect")
+                    res.json("Mật khẩu không đúng")
                 }
             } else {
-                res.json("account don't exist")
+                res.json("Tài khoản không tồn tại")
             }
         })
         .catch(err => res.json(err))

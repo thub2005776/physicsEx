@@ -51,7 +51,7 @@ function App() {
             <Route path="/searchbar" element={<SearchBar />} />
             {/* <Route path=":item/:id" element={<Item />} /> */}
             {/* <Route path="/create" element={<Create /> } /> */}
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile auth={info}/>} />
             <Route path="/login" element={ <Login handleLoginSuccess={handleLoginSuccess} />} />
             <Route path="/register" element={ <Register />} />
             <Route path="/thematics" element={<Thematics />} />
