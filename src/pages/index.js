@@ -1,8 +1,6 @@
 export {default as Home} from './home/Home';
 export {default as SearchBar} from './searchbar/searchbar';
 export {default as Profile} from './profile/Profile';
-export {default as Item} from './item/Item';
-export {default as Create} from './create/Create';
 export {default as Login} from './login/Login';
 export {default as Register} from './register/Register';
 export {default as Thematics} from './thematics/Thematics';
@@ -14,3 +12,6 @@ export {default as UserAdd} from './admin/userAdd';
 export {default as ThematicAdd} from './admin/thematicAdd'
 export {default as ExAdd} from './admin/exAdd';
 export {default as FileAdd} from './admin/fileAdd';
+export {default as ThemEdit} from './admin/themEdit';
+export {default as ExEdit} from './admin/exEdit';
+export {default as FileEdit} from './admin/fileEdit';

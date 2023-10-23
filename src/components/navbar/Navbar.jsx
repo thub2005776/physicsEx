@@ -60,7 +60,7 @@ const Navbar = ({auth}) => {
               {auth? (
                 <>
                 <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile" 
-                className='w-7 rounded-2xl cursor-pointer' 
+                className='w-8 h-7 rounded-full cursor-pointer' 
                 onClick={() => setProfile(!profile)}/>
                 </>
                 

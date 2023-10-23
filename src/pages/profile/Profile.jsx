@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const Profile = ({auth}) => {
+const Profile = () => {
     const [looked, setLooked] = useState(false);
     const [edit, setEdit] = useState(false)
 
@@ -18,6 +19,22 @@ const Profile = ({auth}) => {
         password: '',
         comfirmPassword: ''
     })
+
+    const [info, setInfo] = useState([]);
+    const location = useLocation();
+    const uid = location.pathname.split('/')[2]
+    // console.log(uid);
+
+    useEffect(() => {
+        axios.post(process.env.REACT_APP_SERVER_URL + 'profile/find', { uid })
+            .then(res => {
+                setInfo(res.data);
+                console.log(res.data);
+            })
+            .catch(err => console.log(err))
+    }, []);
+
+    // console.log(info);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -45,7 +62,7 @@ const Profile = ({auth}) => {
             if (password !== null) {
                 data.append("password", password);
             }
-            data.append("id", auth.id);
+            data.append("id", info.id);
             // console.log(data);
             axios.post(process.env.REACT_APP_SERVER_URL + 'edit/user', data)
                 .then(res => {
@@ -55,7 +72,7 @@ const Profile = ({auth}) => {
                 .catch(err => console.log(err));
     }
     return (
-        auth?
+        info?
             (<div className='mt-5'>
                 <div className='sm:text-2xl text-lg sm:font-bold text-green-600 text-center mb-6'>
                     Thông tin tài khoản
@@ -77,7 +94,7 @@ const Profile = ({auth}) => {
                             onChange={(e) => setFile(e.target.files[0])} />
                         <label htmlFor="fileUpLoad">
                             <img
-                                src={process.env.REACT_APP_SERVER_URL + auth.img} alt={auth.name}
+                                src={process.env.REACT_APP_SERVER_URL + info.img} alt={info.name}
                                 className={`md:mr-10 bg-slate-600 p-2 h-40  sm:ml-0 ml-10 w-40 rounded-full
                                     ${edit ? "cursor-pointer" : ""}`} />
                         </label>
@@ -86,16 +103,16 @@ const Profile = ({auth}) => {
                         (<div className='sm:border-l-2 pl-10'>
                             <div className='mb-6'>
                                 <p className="font-normal  text-gray-400">Tên tài khoản</p>
-                                <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{auth.name}</h5>
+                                <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{info.name}</h5>
                             </div>
                             <div className='mb-6'>
                                 <p className="sm:font-normal text-gray-400">Địa chỉ Email</p>
-                                <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{auth.email}</h5>
+                                <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{info.email}</h5>
                             </div>
                             <div className=''>
                                 <p className="font-normal  text-gray-400">Mật khẩu</p>
                                 <div className='flex'>
-                                    <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{looked ? auth.password : "***********"}</h5>
+                                    <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{looked ? info.password : "***********"}</h5>
                                     <div className='text-white mt-2 ml-4'
                                         onClick={() => setLooked(!looked)}>
                                         {looked ?
@@ -115,7 +132,7 @@ const Profile = ({auth}) => {
                                             className=" border border-gray-300 text-sm rounded-lg   
                                                 block w-full p-2.5 bg-gray-700  placeholder-gray-400 
                                                 text-white focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder={auth.name}
+                                            placeholder={info.name}
                                             onChange={handleChange} />
                                     </div>
                                     
@@ -126,7 +143,7 @@ const Profile = ({auth}) => {
                                             className=" border border-gray-300 text-sm rounded-lg   
                                                 block w-full p-2.5 bg-gray-700  placeholder-gray-400 text-white 
                                                 focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder={auth.email}
+                                            placeholder={info.email}
                                             onChange={handleChange} />
                                     </div>
                                    

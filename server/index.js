@@ -198,8 +198,9 @@ app.post('/profile', (req, res) => {
 
 //Post profile/find
 app.post('/profile/find', (req, res) => {
-    const id = req.body;
-    UserModel.findOne({id : id})
+    const { uid } = req.body;
+    // console.log(uid);
+    UserModel.findOne({uid : uid})
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })
@@ -211,6 +212,22 @@ app.get('/exercises', (req, res) => {
         .then(Ex => res.json(Ex))
         .catch(err => res.json(err))
 });
+
+//post add/ex
+app.post('/add/ex', (req, res) => {
+    const values = {
+        "subThematic": req.body.subThematic,
+        "no": req.body.no,
+        "question": req.body.question,
+        "answer": req.body.answer,
+        "content": req.body.content
+    }
+    // console.log(values);
+
+    ExModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+})
 
 // Get Thematics 
 app.get('/thematics', (req, res) => {

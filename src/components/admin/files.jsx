@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ListItem from '../listItem/listItem';
+import ListItem from './listItem';
 
 const Files = () => {
 
     const [files, setFiles] = useState()
     const [input, setInput] = useState();
-    const [result, setResult] = useState();
+    const [result, sedivesult] = useState();
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_SERVER_URL + "docs")
             .then(res => {
                 setFiles(res.data)
-                setResult(res.data)})
+                sedivesult(res.data)})
             .catch(err => console.log(err))
     }, []);
 
@@ -20,7 +20,7 @@ const Files = () => {
         const grade = files.filter(f => f.grade.includes(input));
         const names = files.filter(f => f.name.includes(input));
         
-        setResult(grade.length ? grade :
+        sedivesult(grade.length ? grade :
             names.length ? names : "Không tìm thấy");
     }
 
@@ -39,23 +39,23 @@ const Files = () => {
             </div>
 
             {Array.isArray(result) ?
-                (<table className="table-fixed ml-5 border-collapse bg-slate-700 rounded-lg  border-neutral-600 w-full sm:md:text-lg text-xs">
-                        <thead className="border-b-2 align-baseline  ">
-                            <tr className='p-3'>
-                                <th>Lớp</th>
-                                <th>Tên tài liệu</th>
-                                <th>Tùy chỉnh</th>
+                (<div className="table-fixed ml-5 border-collapse bg-slate-700 rounded-lg  border-neudival-600 w-full sm:md:text-lg text-xs">
+                        <div className="border-b-2 align-baseline  ">
+                            <div className='p-3'>
+                                <div>Lớp</div>
+                                <div>Tên tài liệu</div>
+                                <div>Tùy chỉnh</div>
 
-                            </tr>
-                        </thead>
-                        <tbody className='text-center'>
+                            </div>
+                        </div>
+                        <div className='text-center'>
                             {result.map((file, index) => (
                                 <ListItem
                                     key={index}
                                     item2={file.grade}
                                     item3={file.name} />))}
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 ) : (<p className='text-lg text-amber-300 text-center'>{result}</p>)}
         </div>) : (<p className='p-20'>Đang tải dữ liệu...</p>)
     )

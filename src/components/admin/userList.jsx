@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ListItem from '../listItem/listItem';
+import ListItem from './listItem';
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ const UserList = () => {
                 <Link to={`/admin/1/add`}>
                 <div className='flex m-2 hover:text-green-300 sm:mr-20'>
                     <AiOutlinePlus size={30}/> 
-                    Thêm người dùng
+                    Thêm tài khoản
                 </div>
                 </Link>
                 
@@ -49,18 +49,17 @@ const UserList = () => {
                 </div>
 
                 {Array.isArray(usersResult) ?
-                    (<table className="table-fixed ml-5 border-collapse bg-slate-600 rounded-lg  border-neutral-600 w-full sm:md:text-lg text-xs">
-                            <thead className="border-b-2">
-                                <tr className='p-3'>
-                                    <th >Ảnh đại diện</th>
-                                    <th>Tên người dùng</th>
-                                    <th>Email</th>
-                                    <th>Vai trò</th>
-                                    <th>Tùy chỉnh</th>
-
-                                </tr>
-                            </thead>
-                            <tbody className='text-center'>
+                    (<div className=" ml-5 border-collapse bg-slate-600 rounded-lg  border-neudival-600 w-full sm:md:text-lg text-xs">
+                            <div className="border-b-2">
+                                <div className='p-3 grid grid-cols-5 gap-5'>
+                                    <div >Ảnh đại diện</div>
+                                    <div>Tên người dùng</div>
+                                    <div>Email</div>
+                                    <div>Vai trò</div>
+                                    <div className='text-right mr-5'>Tùy chỉnh</div>
+                                </div>
+                            </div>
+                            <div className=''>
                                 {usersResult.map((user, index) => (
                                     <ListItem
                                         key={index}
@@ -68,9 +67,9 @@ const UserList = () => {
                                         item2={user.name}
                                         item3={user.email}
                                         item4={user.permission}
-                                        user={true} />))}
-                            </tbody>
-                        </table>
+                                        user={user} />))}
+                            </div>
+                        </div>
                     ) : (<p className='text-lg text-amber-300 text-center'>{usersResult}</p>)}
             </div>) : (<p className='p-20'>Đang tải dữ liệu...</p>)
 
