@@ -1,28 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ThematicAdd = ({ auth }) => {
-    const [file, setFile] = useState();
-    const [code, setCode] = useState();
-    const [them, setThem] = useState();
+    const [thematics, setThematics] = useState([]);
+    const [file, setFile] = useState(null);
+    const [code, setCode] = useState(null);
+    const [them, setThem] = useState(null);
     const navigate = useNavigate()
+
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
+            .then(res => setThematics(res.data))
+            .catch(err => console.log(err))
+
+    }, []);
+    // console.log(themtics);
+    const thematic = thematics ? thematics.find((f) => f.code === code) : null;
+    // console.log(thematic);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData();
-        data.append("file", file);
-        data.append("code", code);
-        data.append("thematic", them);
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "themAdd", data)
-            .then(res => {
-                alert("Thêm thành công!");
-                // console.log(res)
-                navigate('/admin/2')
-            })
-            .catch(err => console.log(err))
-        
+        if (thematic) {
+            alert('Mã chuyên đề đã tồn tại!');
+        } else if (file === null) {
+            alert('Bạn chưa tải ảnh lên!');
+        } else {
+            const data = new FormData();
+            data.append("file", file);
+            data.append("code", code);
+            data.append("thematic", them);
+
+
+            axios.post(process.env.REACT_APP_SERVER_URL + "themAdd", data)
+                .then(res => {
+                    alert("Thêm thành công!");
+                    // console.log(res)
+                    navigate('/admin/2')
+                })
+                .catch(err => console.log(err))
+        }
+
     }
 
     return (
@@ -34,8 +53,8 @@ const ThematicAdd = ({ auth }) => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-6">
                         <span className="text-slate-400">Tải hình ảnh lên </span>
-                        <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file" 
-                        onChange={(e) => setFile(e.target.files[0])}/>
+                        <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
+                            onChange={(e) => setFile(e.target.files[0])} />
                     </div>
                     <div className="mb-6">
                         <label
@@ -44,10 +63,11 @@ const ThematicAdd = ({ auth }) => {
                             Mã chuyên đề
                         </label>
                         <input type="text" id="code"
-                            className="bg-slate-700 border  text-gray-900 
+                            className="bg-slate-700 border  text-white 
                                 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required 
-                            onChange={(e) => setCode(e.target.value)}/>
+                            required
+                            placeholder="1201.."
+                            onChange={(e) => setCode(e.target.value)} />
                     </div>
                     <div className="mb-6">
                         <label
@@ -58,10 +78,11 @@ const ThematicAdd = ({ auth }) => {
                         <input
                             type="thematic"
                             id="thematic"
-                            className="bg-slate-700 border  text-gray-900 text-sm rounded-lg
+                            className="bg-slate-700 border  text-white text-sm rounded-lg
                             focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                            required 
-                            onChange={(e) => setThem(e.target.value)}/>
+                            required
+                            placeholder="Dao động cơ..."
+                            onChange={(e) => setThem(e.target.value)} />
                     </div>
 
                     <button type="submit" className="text-white bg-green-400 hover:bg-green-600 

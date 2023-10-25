@@ -1,64 +1,48 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from 'react-router';
 import { useNavigate } from "react-router-dom";
 
 const ExAdd = ({ auth }) => {
-    const [exs, setExs] = useState();
-    const [thematics, setThematics] = useState([]);
 
     const location = useLocation();
     const navigate = useNavigate();
     const path = location.pathname.split('/')[4]
     // console.log(path);
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-            .then(exercises => setExs(exercises.data))
-            .catch(err => console.log(err))
-    }, []);
+    const [question, setQuestion] = useState();
+    const [answer, setAnswer] = useState()
+    const [content, setcontent] = useState()
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-            .then(thematics => setThematics(thematics.data))
-            .catch(err => console.log(err))
-    }, [])
-
-    const them = thematics.find((f) => f.code === path);
-    // console.log(them);
-
-    const nos = exs && exs.length  && them ? 
-                exs.filter(ex => ex.no.substring(0, 4) === them.code) : null;
-
-    const [no, setNo] = useState(null);
-    const [question, setQuestion] = useState(null);
-    const [answer, setAnswer] = useState(null)
-    const [content, setcontent] = useState(null)
-
-    const handleSubbmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(no === null) {
-            alert("Bạn quên chọn chủ đề!");
-        } else {
-            const subThematic = them.code;
-        axios.post(process.env.REACT_APP_SERVER_URL + 'add/ex', { subThematic, no, question, answer, content })
-                .then(res => {
-                    alert("Cập nhật thành công!");
-                    // navigate('/admin/2');
-                    // window.location.reload(true);
-                })
-                .catch(err => console.log(err));
-        }
+        // const data = new FormData();
+        // data.append('subThematic', path);
+        // data.append('no', path + '_' + Date.now());
+        // data.append('question', question);
+        // data.append('answer', answer);
+        // data.append('content', content);
+
+        const subThematic = path;
+        const no = path + '_' + Date.now();
+
+        axios.post(process.env.REACT_APP_SERVER_URL + "add/ex", {subThematic, no, question, answer, content})
+            .then(res => {
+                alert("Thêm thành công!");
+                // console.log(res)
+                navigate(`/admin/2/them/${path}`);
+            })
+            .catch(err => console.log(err))
     }
 
     return (
-        auth && auth.permission === "admin" && exs && exs.length && thematics && thematics.length ? (
+        auth && auth.permission === "admin" &&  (
             <div className="lg:mx-72 mx-5">
                 <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                     Thông tin bài tập mới
                 </div>
-                <form onSubmit={handleSubbmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="sm:flex">
                         <div className="sm:flex-none w-2/3 sm:mr-5 sm:w-fit">
                             <div className="mb-6">
@@ -68,25 +52,10 @@ const ExAdd = ({ auth }) => {
                                <div id="thematic" 
                                     className="bg-slate-700  
                                         text-slate-400 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 ">
-                                    {them.code} : {them.thematic}
+                                    {path}
                                 </div>
                             </div>
-                            <div className="mb-6">
-                                <label htmlFor="topic" className="block mb-2 text-sm font-medium text-slate-400">
-                                    Chủ đề
-                                </label>
-                                <select
-                                    id="topic"
-                                    className="bg-slate-700  
-                                        text-slate-400 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5"
-                                    onClick={(e) => setNo(e.target.value)}>
-                                    <option>---Chọn chủ đề---</option>
-                                    {Array.isArray(nos) ? nos.map((n, i) => (
-                                        <option key={i}>{n.no}</option>
-                                    )) : <option>{nos}</option>}
-                                </select>
-                                {/* {console.log(no)} */}
-                            </div>
+                            
                             <div className="mb-6 text-teal-400">
                                  Quy ước ký hiệu vật lý
                                  <a href="https://www.cmor-faculty.rice.edu/~heinken/latex/symbols.pdf"
@@ -142,10 +111,7 @@ const ExAdd = ({ auth }) => {
                     </div>
                 </form>
             </div>
-        ) : 
-        <div className='text-orange-700 text-lg  sm:text-xl text-center'>
-            Bạn không thể truy cập vào trang web này!
-        </div>
+        ) 
     )
 }
 

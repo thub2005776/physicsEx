@@ -5,9 +5,7 @@ const ExSchema = new mongoose.Schema({
     question: String,
     answer: String,
     content: String,
-    imageLink:String,
-    videoLink: String,
-    level: String
+    no: String
 });
 
 const ExModel = mongoose.model("exercises",ExSchema);

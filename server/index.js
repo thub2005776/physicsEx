@@ -16,6 +16,7 @@ const UserModel = require('./models/Users');
 const ExModel = require('./models/Execises');
 const ThematicsModel = require('./models/Thematics');
 const FilesModel = require('./models/Files');
+const { log } = require('console');
 
 
 
@@ -67,28 +68,19 @@ const upload = multer({
     storage: storage
 });
 
-app.post('/themAdd', upload.single('file'), (req, res) => {
-    // console.log(req.file);
-    const values = {
-        "code": req.body.code,
-        "thematic": req.body.thematic,
-        "img": req.file.filename
-    }
-    ThematicsModel.create(values)
-        .then(user => res.json(user))
-        .catch(err => err.json(err))
-})
+
 
 app.post('/edit/user', upload.single('file'), (req, res) => {
-    const id = req.body.id;
+    const uid = req.body.uid;
     const values = {
         "name": req.body.name,
         "email": req.body.email,
         "password": req.body.password,
-        "img": req.file.filename
+        "img": req.file? req.file.filename: req.body.img,
+        "permission": req.body.permission
     }
     // console.log(values);
-    UserModel.findOneAndUpdate({id : id}, values)
+    UserModel.findOneAndUpdate({uid : uid}, values)
         .then(user => res.json(user))
         .catch(err => err.json(err))
 })
@@ -215,6 +207,24 @@ app.get('/exercises', (req, res) => {
 
 //post add/ex
 app.post('/add/ex', (req, res) => {
+
+    const values = {
+        "subThematic": req.body.subThematic,
+        "no": req.body.no,
+        "question": req.body.question,
+        "answer": req.body.answer,
+        "content": req.body.content
+    }
+    console.log(req.body);
+
+    ExModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
+
+//post edit/ex
+app.post('/edit/ex', (req, res) => {
+    const no = req.body.id;
     const values = {
         "subThematic": req.body.subThematic,
         "no": req.body.no,
@@ -224,9 +234,9 @@ app.post('/add/ex', (req, res) => {
     }
     // console.log(values);
 
-    ExModel.create(values)
+    ExModel.findOneAndUpdate({ no: no }, values)
         .then(user => res.json(user))
-        .catch(err => err.json(err))
+        .catch(err => res.json(err))
 })
 
 // Get Thematics 
@@ -237,6 +247,33 @@ app.get('/thematics', (req, res) => {
         .catch(err => res.json(err))
 });
 
+app.post('/themAdd', upload.single('file'), (req, res) => {
+    // console.log(req.file);
+    const values = {
+        "code": req.body.code,
+        "thematic": req.body.thematic,
+        "img": req.file.filename
+    }
+    ThematicsModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
+
+app.post('/edit/them', upload.single('file'), (req, res) => {
+    // console.log(req.file);
+    const code = req.body.id;
+    // console.log(req.body.id);
+    const values = {
+        "code": req.body.code,
+        "thematic": req.body.thematic,
+        "img": req.file? req.file.filename : req.body.img
+    }
+    // console.log(values);
+    ThematicsModel.findOneAndUpdate({code: code}, values)
+        .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
+
 // Get Files
 app.get('/docs', (req, res) => {
     FilesModel
@@ -245,6 +282,35 @@ app.get('/docs', (req, res) => {
         .catch(err => res.json(err))
 });
 
+//post to add file
+
+app.post('/fileAdd', upload.single('file'), (req, res) => {
+    // console.log(req.file);
+    const values = {
+        "name": req.file.filename,
+        "grade": req.body.grade,
+        "fid": req.file.filename + "_" + Date.now()
+    }
+
+    FilesModel.create(values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+});
+
+//post to add file
+
+app.post('/edit/file', upload.single('file'), (req, res) => {
+    // console.log(req.body);
+    const name = req.body.name;
+    const values = {
+        "name": req.file? req.file.filename: req.body.name,
+        "grade": req.body.grade,
+    }
+
+    FilesModel.findOneAndUpdate({ name: name}, values)
+        .then(user => res.json(user))
+        .catch(err => err.json(err))
+});
 
 
 app.listen(3001, () => {

@@ -51,7 +51,7 @@ const ExList = () => {
                 {Array.isArray(themResult) ?
                     (<div className=" ml-5 border-collapse bg-slate-700 rounded-lg  border-neudival-600 w-full lg:text-lg text-md">
                         <div className="border-b-2">
-                            <div className='p-3 grid grid-cols-4'>
+                            <div className='p-3 grid grid-cols-4 font-medium'>
                                 <div>Ảnh bìa</div>
                                 <div>Mã chuyên đề</div>
                                 <div>Tên chuyên đề</div>

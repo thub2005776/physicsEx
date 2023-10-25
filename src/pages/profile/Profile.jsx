@@ -4,21 +4,17 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const Profile = () => {
+const Profile = ({ auth }) => {
     const [looked, setLooked] = useState(false);
-    const [edit, setEdit] = useState(false)
+    const [edit, setEdit] = useState(false);
 
-    
     const [file, setFile] = useState(null);
-    const [name, setName] = useState(null)
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        comfirmPassword: ''
-    })
+    const [name, setName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [comfirm, setComfirm] = useState(null);
+    const [admin, setAdmin] = useState(false);
+    const [error, setError] = useState();
 
     const [info, setInfo] = useState([]);
     const location = useLocation();
@@ -29,50 +25,60 @@ const Profile = () => {
         axios.post(process.env.REACT_APP_SERVER_URL + 'profile/find', { uid })
             .then(res => {
                 setInfo(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => console.log(err))
     }, []);
 
     // console.log(info);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData, [name]: value
-        })
-
-        setName(formData.name);
-        setEmail(formData.email);
-        setPassword(formData.password);
-    }
     const handleSubmit = (e) => {
         e.preventDefault();
-            // Post data 
-            const data = new FormData();
-            if (file !== null) {
-                data.append("file", file);
+        // Post data 
+            if ((comfirm === null && password === null) || (comfirm.trim() === password.trim())) {
+                const data = new FormData();
+                if (file !== null) {
+                    data.append("file", file);
+                } else {
+                    data.append("img", info.img);
+                }
+                if (name !== null) {
+                    data.append("name", name);
+                } else {
+                    data.append("name", info.name);
+                }
+                if (email !== null) {
+                    data.append("email", email);
+                } else {
+                    data.append("email", info.email);
+                }
+                if (password !== null) {
+                    data.append("password", password);
+                } else {
+                    data.append("password", info.password);
+                }
+
+                if (!admin && info.permission === 'admin') {
+                    data.append("permission", 'admin');
+                } else {
+                    data.append("permission", 'user');
+                }
+
+                data.append("uid", info.uid);
+                // console.log(data);
+                axios.post(process.env.REACT_APP_SERVER_URL + 'edit/user', data)
+                    .then(res => {
+                        alert("Cập nhật thành công!");
+                        window.location.reload(true);
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                setError("Mật khẩu không khớp")
             }
-            if (name !== null) {
-                data.append("name", name);
-            }
-            if (email !== null) {
-                data.append("email", email);
-            }
-            if (password !== null) {
-                data.append("password", password);
-            }
-            data.append("id", info.id);
-            // console.log(data);
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/user', data)
-                .then(res => {
-                    alert("Cập nhật thành công!");
-                    window.location.reload(true);
-                })
-                .catch(err => console.log(err));
+
     }
     return (
-        info?
+        info && auth ?
             (<div className='mt-5'>
                 <div className='sm:text-2xl text-lg sm:font-bold text-green-600 text-center mb-6'>
                     Thông tin tài khoản
@@ -91,13 +97,16 @@ const Profile = () => {
 
                     <div className='relative'>
                         <input type="file" hidden id={edit ? "fileUpLoad" : ""}
-                            onChange={(e) => setFile(e.target.files[0])} />
+                            onChange={(e) => {
+                                setFile(e.target.files[0]);
+                            }} />
                         <label htmlFor="fileUpLoad">
                             <img
                                 src={process.env.REACT_APP_SERVER_URL + info.img} alt={info.name}
                                 className={`md:mr-10 bg-slate-600 p-2 h-40  sm:ml-0 ml-10 w-40 rounded-full
                                     ${edit ? "cursor-pointer" : ""}`} />
                         </label>
+
                     </div>
                     {!edit ?
                         (<div className='sm:border-l-2 pl-10'>
@@ -133,9 +142,9 @@ const Profile = () => {
                                                 block w-full p-2.5 bg-gray-700  placeholder-gray-400 
                                                 text-white focus:ring-blue-500 focus:border-blue-500"
                                             placeholder={info.name}
-                                            onChange={handleChange} />
+                                            onChange={(e) => setName(e.target.value)} />
                                     </div>
-                                    
+                                   
                                     <div className="mb-6">
                                         <label htmlFor="email" className="font-normal  text-gray-400">Địa chỉ Email</label>
                                         <input type="email" id="email"
@@ -144,9 +153,9 @@ const Profile = () => {
                                                 block w-full p-2.5 bg-gray-700  placeholder-gray-400 text-white 
                                                 focus:ring-blue-500 focus:border-blue-500"
                                             placeholder={info.email}
-                                            onChange={handleChange} />
+                                            onChange={(e) => setEmail(e.target.value)} />
                                     </div>
-                                   
+
                                 </div>
 
                                 <div className='mr-10 sm:mr-0'>
@@ -156,20 +165,32 @@ const Profile = () => {
                                             name='password'
                                             className=" border border-gray-300 text-sm rounded-lg block w-full p-2.5 bg-gray-700  
                                             placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                                            onChange={handleChange} />
+                                            onChange={(e) => setPassword(e.target.value)} />
                                     </div>
-                                    
+
                                     <div className='mb-6'>
                                         <label htmlFor="comfirmpassword" className="font-normal  text-gray-400">Nhập lại mật khẩu</label>
                                         <input type="password" id="comformpassword"
                                             name='comfirmPassword'
                                             className=" border border-gray-300 text-sm rounded-lg   block w-full p-2.5 bg-gray-700  
                                                 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                                            onChange={handleChange} />
+                                            onChange={(e) => setComfirm(e.target.value)} />
                                     </div>
-                                    
+                                    {error ?
+                                        <div className='text-xs text-red-500 font-thin'>{error}</div> : null
+                                    }
                                 </div>
+
                             </div>
+
+                            {auth.permission === 'admin'?
+                                (<div className={`text-sm mb-3 ${admin ? "text-green-400" : "text-gray-600"}`}>
+                                    <input type="checkbox"
+                                        checked={info.permission === 'admin' ? true : false}
+                                        onChange={(e) => setAdmin(e.target.checked)} /> Admin
+                                </div>
+                                ):null}
+
                             <button type="submit"
                                 className="text-white  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm 
                                             w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">

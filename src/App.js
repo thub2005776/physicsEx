@@ -4,7 +4,8 @@ import './App.css';
 import {Navbar,Footer} from './components'
 import {Home, SearchBar, Login, Register, Thematics, 
         Exercises, Docs, Detail, Admin, UserAdd,
-        ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd, FileEdit, Profile
+        ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd, 
+        FileEdit, Profile, ExView
       } from './pages'
 import { Routes, Route} from "react-router-dom";
 import axios from 'axios';
@@ -50,7 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/searchbar" element={<SearchBar />} />
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile auth={info}/>} />
             <Route path="/login" element={ <Login handleLoginSuccess={handleLoginSuccess} />} />
             <Route path="/register" element={ <Register />} />
             <Route path="/thematics" element={<Thematics />} />
@@ -60,11 +61,12 @@ function App() {
             <Route path="/admin/:id" element={<Admin auth={info}/>} />
             <Route path="/admin/1/add" element={<UserAdd auth={info}/>} />
             <Route path="/admin/2/themAdd" element={<ThematicAdd auth={info}/>} />
-            <Route path="/admin/2/themEdit" element={<ThemEdit auth={info}/>} />
-            <Route path="/admin/2/add/:id" element={<ExAdd auth={info}/>} />
+            <Route path="/admin/2/edit/:id/:id" element={<ThemEdit auth={info}/>} />
+            <Route path="/admin/2/them/:id" element={<ExView auth={info}/>} />
+            <Route path="/admin/2/add/:id/:id" element={<ExAdd auth={info}/>} />
             <Route path="/admin/2/edit/:id" element={<ExEdit auth={info}/>} />
-            <Route path="/admin/3/add/:id" element={<FileAdd auth={info}/>} />
-            <Route path="/admin/3/edit/:id" element={<FileEdit auth={info}/>} />
+            <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info}/>} />
+            <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info}/>} />
           </Routes>
       <Footer />
     </div>

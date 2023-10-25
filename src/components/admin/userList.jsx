@@ -51,7 +51,7 @@ const UserList = () => {
                 {Array.isArray(usersResult) ?
                     (<div className=" ml-5 border-collapse bg-slate-600 rounded-lg  border-neudival-600 w-full sm:md:text-lg text-xs">
                             <div className="border-b-2">
-                                <div className='p-3 grid grid-cols-5 gap-5'>
+                                <div className='p-3 grid grid-cols-5 gap-5 font-medium'>
                                     <div >Ảnh đại diện</div>
                                     <div>Tên người dùng</div>
                                     <div>Email</div>

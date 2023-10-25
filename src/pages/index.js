@@ -15,3 +15,4 @@ export {default as FileAdd} from './admin/fileAdd';
 export {default as ThemEdit} from './admin/themEdit';
 export {default as ExEdit} from './admin/exEdit';
 export {default as FileEdit} from './admin/fileEdit';
+export {default as ExView} from './admin/exView';
