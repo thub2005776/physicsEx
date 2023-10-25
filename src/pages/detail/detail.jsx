@@ -30,7 +30,7 @@ function Detail() {
                 <Link to={`/exercises#` + exercise.subThematic}>
                     <div className='ml-32 text-green-600 float-left hover:text-green-400'><BsArrowLeftCircleFill size={30} />Trở lại</div>
                 </Link>
-                <h1 className='text-4xl  font-bold grid justify-center mb-10'>Chi tiết bài tập</h1>
+                <h1 className='lg:text-2xl text-lg font-bold text-center mb-10 mr-24 text-green-400'>Chi tiết bài tập</h1>
                 <div className='text-xl mx-10'>
                     <p className=' text-cyan-500 font-bold'>Đề bài:</p>
                     <p className='ml-10 pb-3 border-b'>

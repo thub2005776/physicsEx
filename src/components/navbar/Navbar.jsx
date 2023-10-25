@@ -30,8 +30,8 @@ const Navbar = ({auth}) => {
 
 
   return (
-    <div>
-      <div className='sticky z-50 top-0 bg-[#24252d]'>
+    <div className='relative mb-44'>
+      <div className='fixed z-50  top-0 bg-[#24252d] w-full'>
       <div className='navbar '>
         <div className="navbar-links">
           <Link to="/">

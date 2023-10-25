@@ -50,14 +50,14 @@ const UserList = () => {
 
                 {Array.isArray(usersResult) ?
                     (<div className=" ml-5 border-collapse bg-slate-600 rounded-lg  border-neudival-600 w-full sm:md:text-lg text-xs">
-                            <div className="border-b-2">
-                                <div className='p-3 grid grid-cols-5 gap-5 font-medium'>
+                            <div className="border-b-2 flex">
+                                <div className='flex-1 ml-5 py-3 grid grid-cols-4 gap-5 font-medium'>
                                     <div >Ảnh đại diện</div>
                                     <div>Tên người dùng</div>
                                     <div>Email</div>
                                     <div>Vai trò</div>
-                                    <div className='text-right mr-5'>Tùy chỉnh</div>
                                 </div>
+                                <div className=' mr-5 py-3'>Tùy chỉnh</div>
                             </div>
                             <div className=''>
                                 {usersResult.map((user, index) => (

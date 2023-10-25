@@ -85,6 +85,15 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         .catch(err => err.json(err))
 })
 
+//post to del user
+app.post("/del/user", (req, res) => {
+    const { uid } = req.body;
+  
+    UserModel.findOneAndDelete({ uid: uid })
+      .then(result => res.json(result))
+      .catch(error => res.json(error));
+  });
+
 app.use(cookieParser());
 
 //post to register user
@@ -274,6 +283,15 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
         .catch(err => res.json(err))
 })
 
+//post to del thematic
+app.post("/del/them", (req, res) => {
+    const { code } = req.body;
+
+    ThematicsModel.findOneAndDelete({ code : code })
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
+})
+
 // Get Files
 app.get('/docs', (req, res) => {
     FilesModel
@@ -311,6 +329,15 @@ app.post('/edit/file', upload.single('file'), (req, res) => {
         .then(user => res.json(user))
         .catch(err => err.json(err))
 });
+
+//post to del doc
+app.post("/del/file", (req, res) => {
+    const { name } = req.body;
+  
+    FilesModel.findOneAndDelete({ name: name })
+      .then(result => res.json(result))
+      .catch(error => res.json(error));
+  });
 
 
 app.listen(3001, () => {
