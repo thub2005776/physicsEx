@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../../components/bids/bids.css'
 
 function CardThematic ({thematic}) {
+    
 
     return ( 
     <Link to={`/thematics/${thematic.code}` }>
