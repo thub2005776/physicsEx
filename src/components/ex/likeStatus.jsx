@@ -1,5 +1,5 @@
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const LikeStatus = ({ exercise }) => {

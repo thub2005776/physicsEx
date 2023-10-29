@@ -5,7 +5,7 @@ import '../../components/bids/bids.css'
 function CardThematic ({thematic}) {
 
     return ( 
-    <Link to={`/exercises#` + thematic.code}>
+    <Link to={`/thematics/${thematic.code}` }>
       <div className="card-column" >
           <div className="bids-card">
             <div className="bids-card-top">

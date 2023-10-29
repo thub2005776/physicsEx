@@ -5,7 +5,7 @@ import {Navbar,Footer} from './components'
 import {Home, SearchBar, Login, Register, Thematics, 
         Exercises, Docs, Detail, Admin, UserAdd,
         ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd, 
-        FileEdit, Profile, ExView, ForgetPassword, ResetPassword
+        FileEdit, Profile, ExView, ForgetPassword, ResetPassword, ExOfThem
       } from './pages'
 import { Routes, Route} from "react-router-dom";
 import axios from 'axios';
@@ -57,6 +57,7 @@ function App() {
             <Route path="/reset-password" element={ <ResetPassword />} />
             <Route path="/register" element={ <Register />} />
             <Route path="/thematics" element={<Thematics />} />
+            <Route path="/thematics/:id" element={<ExOfThem />} />
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/docs" element={<Docs />} />

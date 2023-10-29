@@ -4,6 +4,7 @@ export {default as Profile} from './profile/Profile';
 export {default as Login} from './login/Login';
 export {default as Register} from './register/Register';
 export {default as Thematics} from './thematics/Thematics';
+export {default as ExOfThem} from './thematics/exofThem';
 export {default as Exercises} from './exercises/exercises';
 export {default as Docs} from './docs/docs';
 export {default as Detail} from './detail/detail';

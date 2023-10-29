@@ -8,6 +8,7 @@ import { AiOutlineCopy } from "react-icons/ai";
 import { BsArrowLeftCircleFill} from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { LikeStatus } from '../../components'
+import { useNavigate } from 'react-router-dom';
 
 function Detail() {
     const [exercises, setExercises] = useState([]);
@@ -23,27 +24,28 @@ function Detail() {
     const location = useLocation();
     const path = location.pathname.split('/')[2]
     const exercise = exercises.find((p) => p.no === path);
-
+    const navigate = useNavigate();
     return (
         exercise ? (
             <div className=' text-white m-4'>
                 <div className='flex justify-evenly'>
-                    <Link to={`/exercises#` + exercise.subThematic}>
-                    <div className=' text-green-600 float-left hover:text-green-400'><BsArrowLeftCircleFill size={30} />Trở lại</div>
-                </Link>
+                <div className=' text-green-600 float-left hover:text-green-400'
+                    onClick={() => navigate(-1)}>
+                    <BsArrowLeftCircleFill size={30} />Trở lại
+                </div>
                 <h1 className='lg:text-2xl text-lg font-bold text-center mb-10  text-green-400'>Chi tiết bài tập</h1>
                 <LikeStatus 
                     exercise={exercise}/>
                 </div>
                 
 
-                <div className='sm:text-md text-sm mx-10'>
+                <div className='sm:text-lg text-base mx-10'>
                     <p className=' text-cyan-500 font-bold'>Đề bài:</p>
                     <p className='ml-10 pb-3 border-b'>
                         <Latex>{exercise.question}</Latex>
                     </p>
 
-                    <div className='flex mt-5 text-teal-200 font-sans text-sm  sm:text-md'>
+                    <div className='flex mt-5 text-teal-200 font-sans text-base sm:text-lg'>
 
                         <div className='flex-none w-2/5 '>
                             <button className='font-bold p-2 w-full rounded-l-md'>
