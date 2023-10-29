@@ -6,7 +6,6 @@ import Latex from 'react-latex';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AiOutlineCopy } from "react-icons/ai";
 import { BsArrowLeftCircleFill} from "react-icons/bs";
-import { Link } from 'react-router-dom';
 import { LikeStatus } from '../../components'
 import { useNavigate } from 'react-router-dom';
 
@@ -27,7 +26,7 @@ function Detail() {
     const navigate = useNavigate();
     return (
         exercise ? (
-            <div className=' text-white m-4'>
+            <div className=' text-white m-5'>
                 <div className='flex justify-evenly'>
                 <div className=' text-green-600 float-left hover:text-green-400'
                     onClick={() => navigate(-1)}>
@@ -45,9 +44,9 @@ function Detail() {
                         <Latex>{exercise.question}</Latex>
                     </p>
 
-                    <div className='flex mt-5 text-teal-200 font-sans text-base sm:text-lg'>
+                    <div className='sm:flex mt-5 text-teal-200 font-sans text-base sm:text-lg'>
 
-                        <div className='flex-none w-2/5 '>
+                        <div className='flex-none lg:w-2/5 w-full'>
                             <button className='font-bold p-2 w-full rounded-l-md'>
                                 Đáp án
                             </button>
@@ -66,7 +65,7 @@ function Detail() {
                             </CopyToClipboard>
 
                         </div>
-                        <div className='flex-1 w-3/5'>
+                        <div className='flex-1 lg:w-3/5 w-full'>
                             <button className='font-bold p-2 rounded-r-md w-full'>
                                 Hướng dẫn
                             </button>
