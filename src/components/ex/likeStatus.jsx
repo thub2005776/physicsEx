@@ -52,7 +52,7 @@ const LikeStatus = ({ exercise }) => {
                 <div className={`m-2 items-center flex 
                     ${like? "text-blue-500" : "text-white"}`}
                     onClick={Like}>
-                    <div className='hover:bg-slate-400 p-2 rounded-md '>
+                    <div className='hover:bg-slate-400 p-2 rounded-md'>
                         <AiFillLike />
                     </div>
                     <div className={`text-sm font-semibold text-white`}>
@@ -62,7 +62,7 @@ const LikeStatus = ({ exercise }) => {
                 <div className={`flex items-center
                         ${dislike?  "text-red-600" : "text-white"}`}
                     onClick={disLike}>
-                    <div className='hover:bg-slate-400 p-2 rounded-md '>
+                    <div className='hover:bg-slate-400 p-2 rounded-md'>
                         <AiFillDislike />
                     </div>
                     <div className='text-sm font-semibold text-white mr-1'>

@@ -14,3 +14,4 @@ export {default as ProfileCard} from './profileCard/profileCard';
 export {default as ExList} from './admin/exList';
 export {default as Exercise} from './ex/exercise';
 export {default as LikeStatus} from './ex/likeStatus';
+export {default as CountLike} from './cardThematic/countLike';

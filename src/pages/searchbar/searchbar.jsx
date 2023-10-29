@@ -2,9 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../components/bids/bids.css";
-import {CardThematic }from "../../components";
-
-import { BlockMath } from 'react-katex';
+import {CardThematic, CountLike }from "../../components";
+import Latex from "react-latex";
 
 function SearchBar() {
     const [input, setInput] = useState('');
@@ -21,6 +20,11 @@ function SearchBar() {
             .then(res => setThematic(res.data))
             .catch(err => console.log(err));
     }, []);
+
+    const like = CountLike();
+    const liked = new Array([...like.entries()])
+    const most = liked[0]
+    // console.log(most);
 
     const handleChange = (e) => {
         setInput(e.target.value);
@@ -42,11 +46,12 @@ function SearchBar() {
             item.thematic ? (
                 <CardThematic
                     thematic={item}
+                    like={most}
                 />
 
             ) : (<Link to={`/exercises/` + item.subThematic}>
                 <div className="text-white text-lg font-bold hover:text-green-500 truncate">
-                    <BlockMath math={item.question} />
+                    <Latex>{item.question}</Latex>
                 </div>
             </Link>)
         )
