@@ -58,7 +58,7 @@ const Profile = ({ auth }) => {
                     data.append("password", info.password);
                 }
 
-                if (!admin && info.permission === 'admin') {
+                if (admin) {
                     data.append("permission", 'admin');
                 } else {
                     data.append("permission", 'user');
@@ -118,17 +118,7 @@ const Profile = ({ auth }) => {
                                 <p className="sm:font-normal text-gray-400">Địa chỉ Email</p>
                                 <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{info.email}</h5>
                             </div>
-                            <div className=''>
-                                <p className="font-normal  text-gray-400">Mật khẩu</p>
-                                <div className='flex'>
-                                    <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{looked ? info.password : "***********"}</h5>
-                                    <div className='text-white mt-2 ml-4'
-                                        onClick={() => setLooked(!looked)}>
-                                        {looked ?
-                                            <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                         ) :
                         (<form onSubmit={handleSubmit} className='lg:border-l-2 pl-10'>
@@ -186,7 +176,6 @@ const Profile = ({ auth }) => {
                             {auth.permission === 'admin'?
                                 (<div className={`text-sm mb-3 ${admin ? "text-green-400" : "text-gray-600"}`}>
                                     <input type="checkbox"
-                                        checked={info.permission === 'admin' ? true : false}
                                         onChange={(e) => setAdmin(e.target.checked)} /> Admin
                                 </div>
                                 ):null}

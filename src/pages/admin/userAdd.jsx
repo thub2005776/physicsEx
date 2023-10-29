@@ -76,8 +76,9 @@ const UserAdd = ({ auth }) => {
         data.append("email", email);
         data.append("password", password);
         data.append("permission", permission);
-        console.log(data);
-        axios.post(process.env.REACT_APP_SERVER_URL + 'users', data)
+        data.append("img", "Image.png");
+        // console.log(data);
+        axios.post(process.env.REACT_APP_SERVER_URL + 'users/add', data)
           .then(res => {
             alert("Thêm thành công!");
             // console.log(res)
@@ -90,7 +91,7 @@ const UserAdd = ({ auth }) => {
 
     
     return (
-        auth && auth.permission === "admin" ?
+        auth && auth.permission === "admin" &&
             (<div className="lg:mx-80 mx-20">
                 <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                     Thông tin tài khoản mới
@@ -209,10 +210,6 @@ const UserAdd = ({ auth }) => {
                     </button>
                 </form>
             </div>
-            ) : (
-                <div className='text-orange-700 text-lg  sm:text-xl text-center'>
-                    Bạn không thể truy cập vào trang web này!
-                </div>
             )
     )
 }

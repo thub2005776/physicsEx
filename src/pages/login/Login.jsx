@@ -49,8 +49,8 @@ const Login = ({ handleLoginSuccess }) => {
               placeholder='Mật khẩu'
               onChange={e => setPassword(e.target.value)}
             />
+            <Link to={`/forget-password`} className='text-blue-600 text-sm text-right'>Quên mật khẩu</Link>
           </div>
-
           <div className="login-button">
             {/* Xử lý đăng nhập */}
             <button
@@ -58,17 +58,9 @@ const Login = ({ handleLoginSuccess }) => {
               type='submit'
             >Đăng nhập
             </button>
-
             <Link to="/register">
               <button className='login-reg-writeButton'>Đăng ký</button>
             </Link>
-          </div>
-          <br />
-          <p className='or'>Hoặc</p>
-
-          {/* Xử lý đăng nhập bằng facebook/google  */}
-          <div className="flex justify-evenly">
-            
           </div>
         </form>
       </div>

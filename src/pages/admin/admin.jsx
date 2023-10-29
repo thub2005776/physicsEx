@@ -1,4 +1,4 @@
-import { SideBarAdmin, AdminCard, Chart, UserList, ExList, Files } from '../../components'
+import { SideBarAdmin, AdminCard, Chart, UserList, ThemList, Files } from '../../components'
 import { useLocation } from 'react-router';
 
 function Admin({ auth }) {
@@ -29,7 +29,7 @@ function Admin({ auth }) {
                                     <UserList />
                                 ) : (index === 2 ?
                                     (
-                                        <ExList />
+                                        <ThemList />
                                     ) : (index === 3 ?
                                         (
                                             <Files />

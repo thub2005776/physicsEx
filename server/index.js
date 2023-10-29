@@ -76,11 +76,11 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         "name": req.body.name,
         "email": req.body.email,
         "password": req.body.password,
-        "img": req.file? req.file.filename: req.body.img,
+        "img": req.file ? req.file.filename : req.body.img,
         "permission": req.body.permission
     }
     // console.log(values);
-    UserModel.findOneAndUpdate({uid : uid}, values)
+    UserModel.findOneAndUpdate({ uid: uid }, values)
         .then(user => res.json(user))
         .catch(err => err.json(err))
 })
@@ -88,11 +88,11 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
 //post to del user
 app.post("/del/user", (req, res) => {
     const { uid } = req.body;
-  
+
     UserModel.findOneAndDelete({ uid: uid })
-      .then(result => res.json(result))
-      .catch(error => res.json(error));
-  });
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+});
 
 app.use(cookieParser());
 
@@ -122,26 +122,22 @@ app.post('/users/add', upload.single('file'), (req, res) => {
 
 //post to add new user
 app.post('/users', (req, res) => {
-    // bcrypt.hash(req.body.password, salt, (err, hash) => {
-    //     if(err) return res.json({Error: "Error for hassing password "});
+    bcrypt.hash(req.body.password, salt, (err, hash) => {
+        if (err) return res.json({ Error: "Error for hassing password " });
+        const values = {
+            "name": req.body.name,
+            "email": req.body.email,
+            "password": req.body.password,
+            "permission": req.body.permission,
+            "img": req.body.img,
+            "uid": req.body.permission + Date.now()
+        }
 
+        UserModel.create(values)
+            .then(user => res.json(user))
+            .catch(err => err.json(err))
 
-    // });
-    
-    const values = {
-        "name": req.body.name,
-        "email": req.body.email,
-        "password": req.body.password,
-        "permission": req.body.permission,
-        "img": req.body.img,
-        "id": req.body.permission + Date.now()
-    }
-
-
-
-    UserModel.create(values)
-        .then(user => res.json(user))
-        .catch(err => err.json(err))
+    });
 });
 
 // post User login
@@ -150,14 +146,17 @@ app.post('/login', (req, res) => {
     UserModel.findOne({ email: email })
         .then(user => {
             if (user) {
-                if (user.password === password) {
-                    const name = user.email;
-                    const token = jwt.sign({ name }, "jwt-secret-key", { expiresIn: "1d" });
-                    res.cookie('token', token);
-                    res.json(user)
-                } else {
-                    res.json("Mật khẩu không đúng")
-                }
+                bcrypt.compare(password, user.password, (err, result) => {
+                    if (result) {
+                        const name = user.email;
+                        const token = jwt.sign({ name }, "jwt-secret-key", { expiresIn: "1d" });
+                        res.cookie('token', token);
+                        res.json(user)
+                    } else {
+                        res.json("Mật khẩu không đúng")
+                    }
+                })
+
             } else {
                 res.json("Tài khoản không tồn tại")
             }
@@ -201,7 +200,7 @@ app.post('/profile', (req, res) => {
 app.post('/profile/find', (req, res) => {
     const { uid } = req.body;
     // console.log(uid);
-    UserModel.findOne({uid : uid})
+    UserModel.findOne({ uid: uid })
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })
@@ -222,7 +221,9 @@ app.post('/add/ex', (req, res) => {
         "no": req.body.no,
         "question": req.body.question,
         "answer": req.body.answer,
-        "content": req.body.content
+        "content": req.body.content,
+        "like": 0,
+        "dislike": 0
     }
     console.log(req.body);
 
@@ -241,10 +242,32 @@ app.post('/edit/ex', (req, res) => {
         "answer": req.body.answer,
         "content": req.body.content
     }
-    // console.log(values);
 
     ExModel.findOneAndUpdate({ no: no }, values)
         .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
+
+app.post('/ex/like', (req, res) => {
+    const { exercise, status } = req.body;
+    const values = {
+        "like": exercise.like ,
+        "dislike": exercise.dislike
+    }
+    if (status !== ' ') {
+        if (status === 'like' || status === 'likeSubDislike') {
+            values.like += 1;
+        } else if (status === 'dislike' || status === 'dislikeSublike') {
+            values.dislike += 1;
+        }
+    }
+
+
+    // console.log(values);
+    const no = exercise.no;
+    // console.log(req.body);
+    ExModel.findOneAndUpdate({ no: no}, values)
+        .then(result => res.json(result))
         .catch(err => res.json(err))
 })
 
@@ -275,10 +298,10 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
     const values = {
         "code": req.body.code,
         "thematic": req.body.thematic,
-        "img": req.file? req.file.filename : req.body.img
+        "img": req.file ? req.file.filename : req.body.img
     }
     // console.log(values);
-    ThematicsModel.findOneAndUpdate({code: code}, values)
+    ThematicsModel.findOneAndUpdate({ code: code }, values)
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })
@@ -287,7 +310,7 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
 app.post("/del/them", (req, res) => {
     const { code } = req.body;
 
-    ThematicsModel.findOneAndDelete({ code : code })
+    ThematicsModel.findOneAndDelete({ code: code })
         .then(result => res.json(result))
         .catch(err => res.json(err))
 })
@@ -321,11 +344,11 @@ app.post('/edit/file', upload.single('file'), (req, res) => {
     // console.log(req.body);
     const name = req.body.name;
     const values = {
-        "name": req.file? req.file.filename: req.body.name,
+        "name": req.file ? req.file.filename : req.body.name,
         "grade": req.body.grade,
     }
 
-    FilesModel.findOneAndUpdate({ name: name}, values)
+    FilesModel.findOneAndUpdate({ name: name }, values)
         .then(user => res.json(user))
         .catch(err => err.json(err))
 });
@@ -333,11 +356,11 @@ app.post('/edit/file', upload.single('file'), (req, res) => {
 //post to del doc
 app.post("/del/file", (req, res) => {
     const { name } = req.body;
-  
+
     FilesModel.findOneAndDelete({ name: name })
-      .then(result => res.json(result))
-      .catch(error => res.json(error));
-  });
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+});
 
 
 app.listen(3001, () => {

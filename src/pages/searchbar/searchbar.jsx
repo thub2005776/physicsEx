@@ -28,9 +28,9 @@ function SearchBar() {
     }
 
     const handleKeyUp = () => {
-        const them = thematic.filter(f => f.code.includes(input));
-        const namethem = thematic.filter(f => f.thematic.includes(input));
-        const ex = exercise.filter(f => f.question.includes(input));
+        const them = thematic.filter(f => f.code !== undefined && f.code.includes(input));
+        const namethem = thematic.filter(f => f.thematic !== undefined && f.thematic.includes(input));
+        const ex = exercise.filter(f => f.question !== undefined && f.question.includes(input));
         setResult(them.length ? them :
             (namethem.length ? namethem :
                 (ex.length ? ex : "Không tìm thấy")))

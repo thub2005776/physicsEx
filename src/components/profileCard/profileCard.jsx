@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 const ProfileCard = ({auth, handlelogout}) => {
     return(
-        <div className="absolute right-5 top-24 z-50 sm:w-52 w-32">
+        <div className="absolute right-5 -top-20 z-50 sm:w-52 w-32">
              <div className="w-full border rounded-lg shadow bg-gray-800 border-gray-500">
                 <div className="flex flex-col items-center pb-10 mt-5">
                     <img className="sm:w-24 w-10 sm:h-24 mb-3 rounded-full shadow-lg" 
@@ -14,7 +14,7 @@ const ProfileCard = ({auth, handlelogout}) => {
                     <div id="dropdown" className="z-10  text-base list-none  divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700">
                         <ul className="py-2" aria-labelledby="dropdownButton">
                             <li>
-                                <Link to={`/profile/${auth.id}`} className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Thông tin</Link>
+                                <Link to={`/profile/${auth.uid}`} className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Thông tin</Link>
                             </li>
                             <li>
                                 <a href="#" className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Đánh giá</a>

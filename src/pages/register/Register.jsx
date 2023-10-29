@@ -59,7 +59,7 @@ const Register = () => {
       // Post data 
       const permission = "user";
       const img = 'Image.png';
-      axios.post(process.env.REACT_APP_SERVER_URL + 'users', { name, email, password, permission, img})
+      axios.post(process.env.REACT_APP_SERVER_URL + 'users/add', { name, email, password, permission, img})
         .then(res => {
           alert("Đăng ký thành công!");
           // console.log(res)

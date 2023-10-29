@@ -1,76 +1,53 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import ListItem from './listItem';
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiFillDelete, AiFillLike, AiFillDislike } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import { Delete } from '../../components'
+import { useState } from "react";
+import axios from "axios";
 
-const ExList = () => {
-    const [thematics, setThematics] = useState()
-    const [input, setInput] = useState();
-    const [themResult, setThemResult] = useState();
+const ExList = ({ ex }) => {
+    const [del, setDel] = useState(false);
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-            .then(res => {
-                setThematics(res.data)
-                setThemResult(res.data)
-            })
-            .catch(err => console.log(err))
-    }, []);
-
-
-    const handleKeyUp = () => {
-        const grade = thematics.filter(f => f.code.includes(input));
-        const names = thematics.filter(f => f.thematic.includes(input));
-
-        setThemResult(grade.length ? grade :
-            names.length ? names : "Không tìm thấy");
+    const handleDelete = (e) => {
+        if(e) {
+            const no = ex.no;
+            axios.post(process.env.REACT_APP_SERVER_URL + "del/ex", { no })
+                .then(res => {
+                    alert("Đã xóa!");
+                    window.location.reload(true);
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     return (
-        thematics ? (
-            <div className="lg:mx-10">
-                <div className="text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách chuyên đề</div>
-                <div className='mx-5 mb-2 p-1 bg-teal-700 rounded-xl w-full flex'>
-                    <Link to={`/admin/2/themAdd`}>
-                        <div className='flex m-2 hover:text-green-300 lg:text-lg'>
-                            <AiOutlinePlus size={30} />
-                            <div className=''>Thêm chuyên đề</div>
-                        </div>
-                    </Link>
-
-                    <div className='flex sm:ml-40'>
-                        <input className='rounded-lg text-black outline-none mt-1 h-10 px-3'
-                            type="text"
-                            placeholder='  Mã, tên chuyên đề...'
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyUp={handleKeyUp} />
-                    </div>
+        <div className='relative p-3 m-1 hover:bg-slate-600 rounded-lg'>
+            <div className="flex items-center ">
+                <Link to={`/admin/2/edit/${ex.no}`} className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate text-white">
+                        {ex.no}
+                    </p>
+                    <p className="text-sm truncate text-gray-400">
+                        {ex.question}
+                    </p>
+                </Link>
+                <div className="inline-flex items-center text-white hover:bg-slate-700 p-2 rounded-md">
+                    <AiFillLike />
+                    <span className='text-sm font-semibold text-slate-400'>{ex.like}</span>
                 </div>
-
-                {Array.isArray(themResult) ?
-                    (<div className=" ml-5 border-collapse bg-slate-700 rounded-lg  border-neudival-600 w-full lg:text-lg text-md">
-                        <div className="border-b-2">
-                            <div className='p-3 grid grid-cols-4 font-medium'>
-                                <div>Ảnh bìa</div>
-                                <div>Mã chuyên đề</div>
-                                <div>Tên chuyên đề</div>
-                                <div className='text-right mr-5'>Tùy chỉnh</div>
-
-                            </div>
-                        </div>
-                        <div className=''>
-                            {themResult.map((them, index) => (
-                                <ListItem
-                                    key={index}
-                                    item1={them.img}
-                                    item2={them.code}
-                                    item3={them.thematic} />))}
-                        </div>
-                    </div>
-                    ) : (<p className='text-lg text-amber-300 text-center'>{themResult}</p>)}
-            </div>) : (<p className='p-20'>Đang tải dữ liệu...</p>)
-
+                <div className="inline-flex items-center text-white ml-3 hover:bg-slate-700 p-2 rounded-md">
+                    <AiFillDislike />
+                    <span className='text-sm font-semibold text-slate-400'>{ex.dislike}</span>
+                </div>
+                <div className="ml-4 inline-flex items-center  text-white hover:bg-slate-700 p-2 rounded-md"
+                    onClick={() => setDel(!del)}>
+                    <AiFillDelete />
+                </div>
+            </div>
+            {del && 
+            <div className="absolute -top-10 right-80 z-[100]">
+                <Delete sendDelete={handleDelete}/>
+            </div>}
+        </div>
     )
 }
 

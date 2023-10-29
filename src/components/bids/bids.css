@@ -87,6 +87,11 @@ font-weight: normal;
   line-height: 21px;
 }
 
+.load-more button:hover {
+  background: rgb(36, 202, 150);
+  color: white;
+}
+
 @media screen and (max-width: 1440px) {
   .card-column {
     width: 250px;

@@ -5,7 +5,7 @@ import {Navbar,Footer} from './components'
 import {Home, SearchBar, Login, Register, Thematics, 
         Exercises, Docs, Detail, Admin, UserAdd,
         ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd, 
-        FileEdit, Profile, ExView
+        FileEdit, Profile, ExView, ForgetPassword, ResetPassword
       } from './pages'
 import { Routes, Route} from "react-router-dom";
 import axios from 'axios';
@@ -41,7 +41,7 @@ function App() {
             .catch(err => console.log(err))
     }, []);
 
-    const info = profile.find((p) => p.email === user);
+    const info = profile && profile.find((p) => p.email === user);
 
   // console.log("user:",user);
   // console.log(info)
@@ -53,6 +53,8 @@ function App() {
             <Route path="/searchbar" element={<SearchBar />} />
             <Route path="/profile/:id" element={<Profile auth={info}/>} />
             <Route path="/login" element={ <Login handleLoginSuccess={handleLoginSuccess} />} />
+            <Route path="/forget-password" element={ <ForgetPassword />} />
+            <Route path="/reset-password" element={ <ResetPassword />} />
             <Route path="/register" element={ <Register />} />
             <Route path="/thematics" element={<Thematics />} />
             <Route path="/exercises" element={<Exercises />} />
