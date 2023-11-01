@@ -18,23 +18,6 @@ const Bids = ({ title }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_SERVER_URL + "exercises")
-  //     .then((exercises) => setExercises(exercises.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  // const like = new Map();
-  // for(let i = 0; i < thematics.length; i++) {
-  //   var likes = 0;
-  //   for(let j = 0; j < exercises.length; j++) {
-  //     if(thematics[i].code === exercises[j].subThematic) {
-  //       likes+=exercises[j].like
-  //     }
-  //     like.set(thematics[i].code, likes)
-  //   }
-  // }
   const like =  CountLike();
 
   const liked = new Array([...like.entries()].sort((a, b) => b[1] - a[1]))

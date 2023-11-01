@@ -1,4 +1,4 @@
-import { SideBarAdmin, AdminCard, Chart, UserList, ThemList, Files } from '../../components'
+import { SideBarAdmin, AdminCard, ChartItem, UserList, ThemList, Files } from '../../components'
 import { useLocation } from 'react-router';
 
 function Admin({ auth }) {
@@ -14,14 +14,11 @@ function Admin({ auth }) {
                     <div className="fixed sm:w-1/5 w-1/12 bg-[#24252d]">
                         <SideBarAdmin active={index} />
                     </div>
-                    <div className='sm:ml-64 sm:w-4/5  '>
+                    <div className='sm:ml-64 sm:w-4/5 ml-10 w-10/12'>
                         {index === 0 ?
                             (< >
                                 <div className='sm:flex sm:ml-16 sm:w-5/6  ml-10'>
                                     <AdminCard />
-                                </div>
-                                <div className=''>
-                                    <Chart />
                                 </div>
                             </>)
                             : (index === 1 ?
@@ -34,7 +31,7 @@ function Admin({ auth }) {
                                         (
                                             <Files />
                                         ) : (
-                                            <Chart />
+                                            <ChartItem />
                                         ))))
                         }
                     </div>

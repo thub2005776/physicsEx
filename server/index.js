@@ -71,18 +71,22 @@ const upload = multer({
 
 
 app.post('/edit/user', upload.single('file'), (req, res) => {
-    const uid = req.body.uid;
-    const values = {
-        "name": req.body.name,
-        "email": req.body.email,
-        "password": req.body.password,
-        "img": req.file ? req.file.filename : req.body.img,
-        "permission": req.body.permission
-    }
-    // console.log(values);
-    UserModel.findOneAndUpdate({ uid: uid }, values)
-        .then(user => res.json(user))
-        .catch(err => err.json(err))
+    bcrypt.hash(req.body.password, salt, (err, hash) => {
+        if (err) return res.json({ Error: "Error for hassing password " });
+        const uid = req.body.uid;
+        const values = {
+            "name": req.body.name,
+            "email": req.body.email,
+            "password": hash,
+            "img": req.file ? req.file.filename : req.body.img,
+            "permission": req.body.permission
+        }
+
+        UserModel.findOneAndUpdate({ uid: uid }, values)
+            .then(user => res.json(user))
+            .catch(err => err.json(err))
+
+    });
 })
 
 //post to del user
@@ -99,46 +103,27 @@ app.use(cookieParser());
 //post to register user
 const salt = parseInt(process.env.SALT);
 app.post('/users/add', upload.single('file'), (req, res) => {
-    // bcrypt.hash(req.body.password, salt, (err, hash) => {
-    //     if(err) return res.json({Error: "Error for hassing password "});
-
-
-    // });
-    console.log(req.file);
-    const values = {
-        "name": req.body.name,
-        "email": req.body.email,
-        "password": req.body.password,
-        "permission": req.body.permission,
-        "img": req.file.filename
-    }
-
-
-
-    UserModel.create(values)
-        .then(user => res.json(user))
-        .catch(err => err.json(err))
-});
-
-//post to add new user
-app.post('/users', (req, res) => {
     bcrypt.hash(req.body.password, salt, (err, hash) => {
-        if (err) return res.json({ Error: "Error for hassing password " });
+        if(err) return res.json({Error: "Error for hassing password "});
         const values = {
             "name": req.body.name,
             "email": req.body.email,
-            "password": req.body.password,
+            "password": hash,
             "permission": req.body.permission,
-            "img": req.body.img,
+            "img": req.file.filename,
             "uid": req.body.permission + Date.now()
         }
-
+    
+    
+    
         UserModel.create(values)
             .then(user => res.json(user))
             .catch(err => err.json(err))
 
     });
+    
 });
+
 
 // post User login
 app.post('/login', (req, res) => {
@@ -251,7 +236,7 @@ app.post('/edit/ex', (req, res) => {
 app.post('/ex/like', (req, res) => {
     const { exercise, status } = req.body;
     const values = {
-        "like": exercise.like ,
+        "like": exercise.like,
         "dislike": exercise.dislike
     }
     if (status !== ' ') {
@@ -266,7 +251,7 @@ app.post('/ex/like', (req, res) => {
     // console.log(values);
     const no = exercise.no;
     // console.log(req.body);
-    ExModel.findOneAndUpdate({ no: no}, values)
+    ExModel.findOneAndUpdate({ no: no }, values)
         .then(result => res.json(result))
         .catch(err => res.json(err))
 })

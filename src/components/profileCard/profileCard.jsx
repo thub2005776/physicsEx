@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { AiOutlineInfoCircle, AiOutlineLogout } from "react-icons/ai";
+
 const ProfileCard = ({auth, handlelogout}) => {
     return(
         <div className="absolute right-5 -top-20 z-50 sm:w-52 w-32">
@@ -14,15 +16,15 @@ const ProfileCard = ({auth, handlelogout}) => {
                     <div id="dropdown" className="z-10  text-base list-none  divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700">
                         <ul className="py-2" aria-labelledby="dropdownButton">
                             <li>
-                                <Link to={`/profile/${auth.uid}`} className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Thông tin</Link>
+                                <Link to={`/profile/${auth.uid}`} 
+                                    className="flex gap-2 px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">
+                                    <AiOutlineInfoCircle className='mt-1'/> Thông tin
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="block px-4 py-2 text-sm   hover:bg-gray-600 text-gray-200 hover:text-white">Đánh giá</a>
-                            </li>
-                            <li>
-                                <div className="block px-4 py-2 text-sm  hover:bg-gray-600 text-gray-200 hover:text-white"
-                                onClick={handlelogout}>
-                                    Đăng xuất</div>
+                                <div className="flex gap-2 cursor-pointer px-4 py-2 text-sm  hover:bg-gray-600 text-gray-200 hover:text-white"
+                                    onClick={handlelogout}>
+                                    <AiOutlineLogout className='mt-1'/> Đăng xuất</div>
                             </li>
                         </ul>
                     </div>

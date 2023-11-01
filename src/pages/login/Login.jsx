@@ -49,7 +49,7 @@ const Login = ({ handleLoginSuccess }) => {
               placeholder='Mật khẩu'
               onChange={e => setPassword(e.target.value)}
             />
-            <Link to={`/forget-password`} className='text-blue-600 text-sm text-right'>Quên mật khẩu</Link>
+            {/* <Link to={`/forget-password`} className='text-blue-600 text-sm text-right'>Quên mật khẩu</Link> */}
           </div>
           <div className="login-button">
             {/* Xử lý đăng nhập */}

@@ -5,7 +5,7 @@ export {default as Bids} from './bids/Bids';
 export {default as Footer} from './footer/Footer';
 export {default as SideBarAdmin} from './admin/sideBarAdmin';
 export {default as AdminCard} from './admin/adminCard';
-export {default as Chart}  from './admin/chart';
+export {default as ChartItem}  from './admin/chart';
 export {default as UserList} from './admin/userList';
 export {default as ThemList} from './admin/themList';
 export {default as Files} from './admin/files';
