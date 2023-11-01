@@ -22,9 +22,10 @@ const UserList = () => {
     const handleKeyUp = () => {
         const emails = users.filter(f => f.email.includes(input));
         const names = users.filter(f => f.name.includes(input));
+        const permission = users.filter(f => f.permission.includes(input));
         
         setUserResult(emails.length ? emails :
-            names.length ? names : "Không tìm thấy");
+            names.length ? names   : permission.length? permission: "Không tìm thấy");
     }
 
 
@@ -42,7 +43,7 @@ const UserList = () => {
                 
                     <input className='rounded-lg text-black outline-none mt-1 w-2/5 h-10 px-3'
                         type="text"
-                        placeholder='  Tên, email...'
+                        placeholder='  Tên, email, user/admin...'
                         onChange={(e) => setInput(e.target.value)}
                         onKeyUp={handleKeyUp} 
                         />

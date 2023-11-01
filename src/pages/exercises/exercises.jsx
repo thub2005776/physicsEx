@@ -13,9 +13,9 @@ function Exercises() {
             .catch(err => console.log(err))
     }, []);
     // console.log(exercises);
-    const ex12 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('12')) : null;
-    const ex11 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('11')) : null;
-    const ex10 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('10')) : null;
+    const ex12 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('120')) : null;
+    const ex11 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('110')) : null;
+    const ex10 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('100')) : null;
 
 
     return (

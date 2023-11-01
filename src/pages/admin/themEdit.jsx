@@ -35,12 +35,12 @@ const ThemEdit = ({auth}) => {
         } else {
             data.append("img", th.img);
         }
-        if(code !== null) {
+        if(code !== null || code !== ' ') {
             data.append("code", code);
         } else {
             data.append("code", th.code);
         }
-        if(them !== null) {
+        if(them !== null || them !== ' ') {
              data.append("thematic", them);
         } else {
             data.append("thematic", th.thematic);

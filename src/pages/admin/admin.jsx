@@ -36,7 +36,7 @@ function Admin({ auth }) {
                         }
                     </div>
                 </div>
-            ) : <div className='text-orange-700 text-lg  sm:text-xl text-center'>
+            ) : <div className='text-lg  sm:text-xl text-center'>
                 Bạn không thể truy cập vào trang web này!
                 </div>
 

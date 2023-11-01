@@ -71,13 +71,30 @@ const upload = multer({
 
 
 app.post('/edit/user', upload.single('file'), (req, res) => {
-    bcrypt.hash(req.body.password, salt, (err, hash) => {
-        if (err) return res.json({ Error: "Error for hassing password " });
+    const old = req.body.old;
+    if (!old) {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) return res.json({ Error: "Error for hassing password " });
+            const uid = req.body.uid;
+            const values = {
+                "name": req.body.name,
+                "email": req.body.email,
+                "password": hash,
+                "img": req.file ? req.file.filename : req.body.img,
+                "permission": req.body.permission
+            }
+
+            UserModel.findOneAndUpdate({ uid: uid }, values)
+                .then(user => res.json(user))
+                .catch(err => err.json(err))
+
+        });
+    } else {
         const uid = req.body.uid;
         const values = {
             "name": req.body.name,
             "email": req.body.email,
-            "password": hash,
+            "password": req.body.password,
             "img": req.file ? req.file.filename : req.body.img,
             "permission": req.body.permission
         }
@@ -85,8 +102,8 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         UserModel.findOneAndUpdate({ uid: uid }, values)
             .then(user => res.json(user))
             .catch(err => err.json(err))
+    }
 
-    });
 })
 
 //post to del user
@@ -104,24 +121,24 @@ app.use(cookieParser());
 const salt = parseInt(process.env.SALT);
 app.post('/users/add', upload.single('file'), (req, res) => {
     bcrypt.hash(req.body.password, salt, (err, hash) => {
-        if(err) return res.json({Error: "Error for hassing password "});
+        if (err) return res.json({ Error: "Error for hassing password " });
         const values = {
             "name": req.body.name,
             "email": req.body.email,
             "password": hash,
             "permission": req.body.permission,
-            "img": req.file.filename,
+            "img": req.file ? req.file.filename : req.body.img,
             "uid": req.body.permission + Date.now()
         }
-    
-    
-    
+
+
+
         UserModel.create(values)
             .then(user => res.json(user))
             .catch(err => err.json(err))
 
     });
-    
+
 });
 
 
@@ -210,7 +227,7 @@ app.post('/add/ex', (req, res) => {
         "like": 0,
         "dislike": 0
     }
-    console.log(req.body);
+    // console.log(req.body);
 
     ExModel.create(values)
         .then(user => res.json(user))

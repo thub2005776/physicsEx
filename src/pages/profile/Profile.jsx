@@ -54,8 +54,10 @@ const Profile = ({ auth }) => {
                 }
                 if (password !== null) {
                     data.append("password", password);
+                    data.append("old", false);
                 } else {
                     data.append("password", info.password);
+                    data.append("old", true);
                 }
 
                 if (admin) {
@@ -65,7 +67,7 @@ const Profile = ({ auth }) => {
                 }
 
                 data.append("uid", info.uid);
-                // console.log(data);
+                console.log(data);
                 axios.post(process.env.REACT_APP_SERVER_URL + 'edit/user', data)
                     .then(res => {
                         alert("Cập nhật thành công!");
