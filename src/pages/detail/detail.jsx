@@ -8,6 +8,7 @@ import { AiOutlineCopy } from "react-icons/ai";
 import { BsArrowLeftCircleFill} from "react-icons/bs";
 import { LikeStatus } from '../../components'
 import { useNavigate } from 'react-router-dom';
+import { Comment } from '../../components'
 
 function Detail() {
     const [exercises, setExercises] = useState([]);
@@ -74,16 +75,17 @@ function Detail() {
                                 onCopy={() => setContentState(true)}
                             >
                                 <div className='bg-gray-900 rounded-md h-full'>
-                                    <button className='float-right p-5 text-teal-500 hover:text-white'
+                                    <button className='float-right p-2 text-teal-500 hover:text-white'
                                     >
                                         <AiOutlineCopy />
                                     </button>
                                     {contentState ? <p className='text-xs text-green-400 float-right pt-6'>Đã sao chép!</p> : null}
-                                    <div className='p-10'><Latex>{exercise.content}</Latex></div>
+                                    <div className='p-5'><Latex>{exercise.content}</Latex></div>
                                 </div>
                             </CopyToClipboard>
                         </div>
                     </div>
+                    <Comment/>
                 </div>
             </div>
         ) : <p className='text-white'>Loading...</p>

@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
-// const cookieSession = require('cookie-session');
-// const passport = require('passport');
-// const passportSetup = require('./passport');
-// const authRoute = require('./routes/auth');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
@@ -16,6 +12,7 @@ const UserModel = require('./models/Users');
 const ExModel = require('./models/Execises');
 const ThematicsModel = require('./models/Thematics');
 const FilesModel = require('./models/Files');
+const ComModel = require('./models/Comments');
 const { log } = require('console');
 
 
@@ -41,17 +38,6 @@ mongoose
 
 app.use(express.static("../src/assets"));
 
-//post exist
-// app.post('/exist', (req, res) => {
-//     const email = req.body;
-//     UserModel.findOne({ email: email })
-//         .then(user => {
-//             res.json("Email đã tồn tại");
-//         })
-//         .catch(err => {
-//             res.json({ Err: err, Status: "not found" })
-//         })
-// });
 
 // UpLoad file 
 const storage = multer.diskStorage({
@@ -364,6 +350,19 @@ app.post("/del/file", (req, res) => {
         .catch(error => res.json(error));
 });
 
+// add Comments
+app.post("/add/comment", (req, res) => {
+    const values = {
+        "uid": req.body.uid,
+        "eid": req.body.eid,
+        "content": req.body.content,
+        "time": Date()
+    }
+
+    ComModel.create(values)
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+});
 
 app.listen(3001, () => {
     console.log("Server is running");
