@@ -32,7 +32,7 @@ function Detail({user}) {
             .catch(err => console.log(err))
     }, []);
 
-    console.log(com);
+    const comm = exercise && com.filter(f => f.eid === exercise.no);
 
     return (
         exercise ? (
@@ -95,13 +95,21 @@ function Detail({user}) {
                     <div className="lg:mt-14 mt-5 rounded-lg border bg-gray-800 border-gray-600">
                         <h3 className="m-5 font-semibold">Bình luận </h3>
                         <Comment eid={exercise.no} user={user}/>
+                        {comm.length? 
+                        <>
                         <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium  text-white">
                             Tất cả bình luận
                         </label>
-                        {Array.isArray(com)? 
-                            com.map((c, i) => (
+                        {Array.isArray(comm)? 
+                            comm.map((c, i) => (
                                 <Comments key={i} com={c} />
                             )): <Comments com={com[0]}/>}
+                        </> : 
+                        <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium  text-white">
+                        Chưa có bình luận nào
+                    </label>
+                        }
+                        
                     </div>
                 </div>
             </div>
