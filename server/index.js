@@ -350,6 +350,12 @@ app.post("/del/file", (req, res) => {
         .catch(error => res.json(error));
 });
 
+// get Comments
+app.get("/comments", (req, res) => {
+    ComModel.find()
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+});
 // add Comments
 app.post("/add/comment", (req, res) => {
     const values = {
@@ -363,6 +369,7 @@ app.post("/add/comment", (req, res) => {
         .then(result => res.json(result))
         .catch(error => res.json(error));
 });
+
 
 app.listen(3001, () => {
     console.log("Server is running");

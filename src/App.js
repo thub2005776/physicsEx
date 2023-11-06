@@ -59,7 +59,7 @@ function App() {
             <Route path="/thematics" element={<Thematics />} />
             <Route path="/thematics/:id" element={<ExOfThem />} />
             <Route path="/exercises" element={<Exercises />} />
-            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/detail/:id" element={<Detail user={info} />} />
             <Route path="/docs" element={<Docs />} />
             <Route path="/admin/:id" element={<Admin auth={info}/>} />
             <Route path="/admin/1/add" element={<UserAdd auth={info}/>} />

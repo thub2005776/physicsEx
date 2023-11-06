@@ -16,3 +16,4 @@ export {default as Exercise} from './ex/exercise';
 export {default as LikeStatus} from './ex/likeStatus';
 export {default as CountLike} from './cardThematic/countLike';
 export {default as Comment} from './comment/comment';
+export {default as Comments} from './comment/comments';
