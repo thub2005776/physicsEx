@@ -9,7 +9,7 @@ import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { LikeStatus, Comment, Comments } from '../../components'
 import { useNavigate } from 'react-router-dom';
 
-function Detail({user}) {
+function Detail({ user }) {
     const [exercises, setExercises] = useState([]);
     const [answerState, setAnswerState] = useState(false);
     const [contentState, setContentState] = useState(false);
@@ -27,13 +27,18 @@ function Detail({user}) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "comments", )
+        axios.get(process.env.REACT_APP_SERVER_URL + "comments",)
             .then(com => setCom(com.data))
             .catch(err => console.log(err))
     }, []);
 
     const comm = exercise && com.filter(f => f.eid === exercise.no);
-
+    
+    const sended = (e) => {
+        if(e) {
+            document.location.reload();
+        }
+    }
     return (
         exercise ? (
             <div className=' text-white m-5'>
@@ -94,22 +99,21 @@ function Detail({user}) {
                     </div>
                     <div className="lg:mt-14 mt-5 rounded-lg border bg-gray-800 border-gray-600">
                         <h3 className="m-5 font-semibold">Bình luận </h3>
-                        <Comment eid={exercise.no} user={user}/>
-                        {comm.length? 
-                        <>
-                        <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium  text-white">
-                            Tất cả bình luận
-                        </label>
-                        {Array.isArray(comm)? 
-                            comm.map((c, i) => (
-                                <Comments key={i} com={c} />
-                            )): <Comments com={com[0]}/>}
-                        </> : 
-                        <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium  text-white">
-                        Chưa có bình luận nào
-                    </label>
+                        <Comment eid={exercise.no} user={user} sended={sended}/>
+                        {comm ?
+                            <>
+                                <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium  text-white">
+                                    Tất cả bình luận
+                                </label>
+                                {Array.isArray(comm) ?
+                                    comm.map((c, i) => (
+                                        <Comments key={i} com={c}/>
+                                    )) : <Comments com={comm} />}
+                            </> :
+                            <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium  text-white">
+                                Chưa có bình luận nào
+                            </label>
                         }
-                        
                     </div>
                 </div>
             </div>

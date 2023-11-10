@@ -4,10 +4,7 @@ const ComSchema = new mongoose.Schema({
     uid: String,
     eid: String,
     content: String,
-    time: Date,
-    like: Number,
-    dislike: Number,
-    reply: Array
+    time: Date
 });
 
 const ComModel = mongoose.model("comments",ComSchema);

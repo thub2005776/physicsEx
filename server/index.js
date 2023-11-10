@@ -356,12 +356,12 @@ app.get("/comments", (req, res) => {
         .then(result => res.json(result))
         .catch(error => res.json(error));
 });
-// add Comments
-app.post("/add/comment", (req, res) => {
+// add Comment
+app.post("/add/comm", (req, res) => {
     const values = {
         "uid": req.body.uid,
         "eid": req.body.eid,
-        "content": req.body.content,
+        "content": req.body.com,
         "time": Date()
     }
 
