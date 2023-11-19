@@ -10,12 +10,14 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const [del, setDel] = useState(false);
-
+    const [img, setImg] = useState(item1);
+    
     const handleDelete = (e) => {
         if(e) {
             if(user) {
                 const uid = user.uid;
-                axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid })
+
+                axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid, img })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);
@@ -23,7 +25,7 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
                 .catch(err => console.log(err))
         } else if(item1) {
             const code = item2;
-            const img = item1;
+
             axios.post(process.env.REACT_APP_SERVER_URL + "del/them/ex", { code })
                 .then()
                 .catch(err => console.log(err))

@@ -42,17 +42,21 @@ const Profile = ({ auth }) => {
 
         )
     }
-
+    const [img, setImg] = useState();
     const HandleDetele = (e) => {
-        axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid })
+        axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid, img })
             .then(res => {
                 alert("Đã xóa!");
-                if(auth && auth.permission === 'admin') {
+                if (auth && auth.permission === 'admin') {
                     navigate('/admin/1');
-                } else {navigate('/');}
-                
+                } else { navigate('/'); }
+
                 window.location.reload(true);
             })
+            .catch(err => console.log(err))
+
+        axios.post(process.env.REACT_APP_SERVER_URL + "del/comm", { uid })
+            .then()
             .catch(err => console.log(err))
     }
 
@@ -62,11 +66,8 @@ const Profile = ({ auth }) => {
         // Post data 
         if ((comfirm === null && password === null) || (comfirm.trim() === password.trim())) {
             const data = new FormData();
-            if (file !== null) {
-                data.append("file", file);
-            } else {
-                data.append("img", info.img);
-            }
+            data.append("file", file);
+            data.append("img", info.img);
             if (name !== null) {
                 data.append("name", name);
             } else {
@@ -98,7 +99,7 @@ const Profile = ({ auth }) => {
                     window.location.reload(true);
                 })
                 .catch(err => console.log(err));
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/uimg', data)
+            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/uimg', info)
                 .then()
                 .catch(err => console.log(err));
         } else {
@@ -155,12 +156,14 @@ const Profile = ({ auth }) => {
                             className="sm:mt-10 sm:ml-5 mt-5 ml-32 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 
                                 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 
                                 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-pink-800"
-                            onClick={() => setDel(true)}>
+                            onClick={() => {
+                                setDel(true)
+                                setImg(info.img)
+                            }}>
                             <span className="relative px-5 py-2.5 transition-all ease-in duration-75  bg-gray-800 rounded-md group-hover:bg-opacity-0">
                                 Xóa tài khoản
                             </span>
                         </button>
-
 
                     </div>
                     {!edit ?
@@ -174,7 +177,7 @@ const Profile = ({ auth }) => {
                                 <h5 className="mb-2 sm:text-2xl text-md font-bold text-white">{info.email}</h5>
                             </div>
                             <div className='mb-6'>
-                                <p className="sm:font-normal text-gray-400">Bình luận của bạn ({info.comments && info.comments.length > 0 && info.comments.length})</p>
+                                <p className="sm:font-normal text-gray-400">Bình luận của bạn ({info.comments && Array.isArray(info.comments) && info.comments.length})</p>
                                 <div className='rounded-lg border bg-gray-700 border-gray-600'>
                                     {info.comments && info.comments.map((com, i) => (
                                         <Comment key={i} comment={com} />

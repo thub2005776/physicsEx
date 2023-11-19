@@ -14,7 +14,7 @@ const ThematicsModel = require('./models/Thematics');
 const FilesModel = require('./models/Files');
 const ComModel = require('./models/Comments');
 
-
+const fs = require('fs').promises;
 
 
 const app = express();
@@ -53,7 +53,15 @@ const upload = multer({
     storage: storage
 });
 
-
+const removeFile = (img) => {
+    (async () => {
+        try {
+            await fs.unlink('../src/assets/'+ img);
+        } catch (e) {
+            console.log(e);
+        }
+    })();
+}
 
 app.post('/edit/user', upload.single('file'), (req, res) => {
     const old = req.body.old;
@@ -66,6 +74,8 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         "img": img,
         "permission": req.body.permission
     }
+    const oldImg = req.body.img;
+    removeFile(oldImg);
 
     if (!old) {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -82,10 +92,11 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
 
 })
 
-app.post('/edit/uimg', upload.single('file'), (req, res) => {
+app.post('/edit/uimg', (req, res) => {
     const uid = req.body.uid;
-    const img = req.file ? req.file.filename : req.body.img;
-    ComModel.updateOne({ uid: uid }, { uimg: img })
+    const img = req.body.img;
+    
+    ComModel.updateMany({ uid: uid }, { uimg: img })
         .then(result => res.json(result))
         .catch(error => res.json(error));
 })
@@ -104,8 +115,9 @@ app.post('/edit/userComm', (req, res) => {
 
 //post to del user
 app.post("/del/user", (req, res) => {
-    const { uid } = req.body;
-
+    const { uid, img } = req.body;
+    
+    removeFile(img);
     UserModel.findOneAndDelete({ uid: uid })
         .then(result => res.json(result))
         .catch(error => res.json(error));
@@ -301,14 +313,13 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
 })
 
 
-const fs = require('fs').promises;
+
 //post to del thematic
 app.post("/del/them", (req, res) => {
     const { code, img } = req.body;
-    console.log(img);
     (async () => {
         try {
-            await fs.unlink('../src/assets/'+ img);
+            await fs.unlink('../src/assets/' + img);
         } catch (e) {
             console.log(e);
         }
@@ -410,6 +421,14 @@ app.post("/add/comm", (req, res) => {
             .then(result => res.json(result))
             .catch(error => res.json(error));
     }
+});
+
+// delete Comment
+app.post("/del/comm", (req, res) => {
+    const uid = req.body.uid;
+        ComModel.deleteMany({uid: uid})
+            .then(result => res.json(result))
+            .catch(error => res.json(error));
 });
 
 
