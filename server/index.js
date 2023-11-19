@@ -13,7 +13,6 @@ const ExModel = require('./models/Execises');
 const ThematicsModel = require('./models/Thematics');
 const FilesModel = require('./models/Files');
 const ComModel = require('./models/Comments');
-const { log } = require('console');
 
 
 
@@ -58,38 +57,49 @@ const upload = multer({
 
 app.post('/edit/user', upload.single('file'), (req, res) => {
     const old = req.body.old;
+    const uid = req.body.uid;
+    const img = req.file ? req.file.filename : req.body.img;
+
+    const values = {
+        "name": req.body.name,
+        "email": req.body.email,
+        "img": img,
+        "permission": req.body.permission
+    }
+
     if (!old) {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
             if (err) return res.json({ Error: "Error for hassing password " });
-            const uid = req.body.uid;
-            const values = {
-                "name": req.body.name,
-                "email": req.body.email,
-                "password": hash,
-                "img": req.file ? req.file.filename : req.body.img,
-                "permission": req.body.permission
-            }
-
-            UserModel.findOneAndUpdate({ uid: uid }, values)
-                .then(user => res.json(user))
-                .catch(err => err.json(err))
-
+            values.password = hash;
         });
     } else {
-        const uid = req.body.uid;
-        const values = {
-            "name": req.body.name,
-            "email": req.body.email,
-            "password": req.body.password,
-            "img": req.file ? req.file.filename : req.body.img,
-            "permission": req.body.permission
-        }
-
-        UserModel.findOneAndUpdate({ uid: uid }, values)
-            .then(user => res.json(user))
-            .catch(err => err.json(err))
+        values.password = req.body.password;
     }
 
+    UserModel.findOneAndUpdate({ uid: uid }, values)
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+
+})
+
+app.post('/edit/uimg', upload.single('file'), (req, res) => {
+    const uid = req.body.uid;
+    const img = req.file ? req.file.filename : req.body.img;
+    ComModel.updateOne({ uid: uid }, { uimg: img })
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+})
+
+app.post('/edit/userComm', (req, res) => {
+    const uid = req.body.uid;
+    const values = {
+        "eid": req.body.eid,
+        "content": req.body.com,
+        "time": Date()
+    }
+    UserModel.findOneAndUpdate({ uid: uid }, { $push: { comments: values } })
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
 })
 
 //post to del user
@@ -114,10 +124,9 @@ app.post('/users/add', upload.single('file'), (req, res) => {
             "password": hash,
             "permission": req.body.permission,
             "img": req.file ? req.file.filename : req.body.img,
-            "uid": req.body.permission + Date.now()
+            "uid": req.body.permission + Date.now(),
+            "comments": []
         }
-
-
 
         UserModel.create(values)
             .then(user => res.json(user))
@@ -187,7 +196,6 @@ app.post('/profile', (req, res) => {
 //Post profile/find
 app.post('/profile/find', (req, res) => {
     const { uid } = req.body;
-    // console.log(uid);
     UserModel.findOne({ uid: uid })
         .then(user => res.json(user))
         .catch(err => res.json(err))
@@ -202,7 +210,7 @@ app.get('/exercises', (req, res) => {
 });
 
 //post add/ex
-app.post('/add/ex', (req, res) => {
+app.post('/add/ex', upload.single('file'), (req, res) => {
 
     const values = {
         "subThematic": req.body.subThematic,
@@ -210,10 +218,10 @@ app.post('/add/ex', (req, res) => {
         "question": req.body.question,
         "answer": req.body.answer,
         "content": req.body.content,
+        "img": req.file.filename,
         "like": 0,
         "dislike": 0
     }
-    // console.log(req.body);
 
     ExModel.create(values)
         .then(user => res.json(user))
@@ -221,17 +229,18 @@ app.post('/add/ex', (req, res) => {
 })
 
 //post edit/ex
-app.post('/edit/ex', (req, res) => {
-    const no = req.body.id;
+app.post('/edit/ex', upload.single('file'), (req, res) => {
+    const id = req.body.id;
     const values = {
         "subThematic": req.body.subThematic,
         "no": req.body.no,
         "question": req.body.question,
         "answer": req.body.answer,
-        "content": req.body.content
+        "content": req.body.content,
+        "img": req.file ? req.file.filename : req.body.img
     }
 
-    ExModel.findOneAndUpdate({ no: no }, values)
+    ExModel.findOneAndUpdate({ _id: id }, values)
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })
@@ -250,10 +259,7 @@ app.post('/ex/like', (req, res) => {
         }
     }
 
-
-    // console.log(values);
     const no = exercise.no;
-    // console.log(req.body);
     ExModel.findOneAndUpdate({ no: no }, values)
         .then(result => res.json(result))
         .catch(err => res.json(err))
@@ -294,11 +300,38 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
         .catch(err => res.json(err))
 })
 
+
+const fs = require('fs').promises;
 //post to del thematic
 app.post("/del/them", (req, res) => {
-    const { code } = req.body;
+    const { code, img } = req.body;
+    console.log(img);
+    (async () => {
+        try {
+            await fs.unlink('../src/assets/'+ img);
+        } catch (e) {
+            console.log(e);
+        }
+    })();
 
     ThematicsModel.findOneAndDelete({ code: code })
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
+})
+
+app.post("/del/them/ex", (req, res) => {
+    const { code } = req.body;
+
+    ExModel.deleteMany({ subThematic: code })
+        .then(result => res.json(result))
+        .catch(err => res.json(err))
+})
+
+//post to del exercise
+app.post("/del/ex", (req, res) => {
+    const { no } = req.body;
+
+    ExModel.findOneAndDelete({ no: no })
         .then(result => res.json(result))
         .catch(err => res.json(err))
 })
@@ -358,16 +391,25 @@ app.get("/comments", (req, res) => {
 });
 // add Comment
 app.post("/add/comm", (req, res) => {
+    const _id = req.body.id;
     const values = {
         "uid": req.body.uid,
+        "uimg": req.body.uimg,
         "eid": req.body.eid,
         "content": req.body.com,
-        "time": Date()
+        "time": Date(),
+        "reply": []
     }
 
-    ComModel.create(values)
-        .then(result => res.json(result))
-        .catch(error => res.json(error));
+    if (!req.body.rep) {
+        ComModel.create(values)
+            .then(result => res.json(result))
+            .catch(error => res.json(error));
+    } else {
+        ComModel.updateOne({ _id: _id }, { $push: { reply: values } })
+            .then(result => res.json(result))
+            .catch(error => res.json(error));
+    }
 });
 
 

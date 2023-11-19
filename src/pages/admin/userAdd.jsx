@@ -42,7 +42,7 @@ const UserAdd = ({ auth }) => {
         validationErrors.password = "Mật khẩu phải có ít nhất 8 ký tự : HOA, thường và đặc biệt"
       }
   
-      if (formData.comfirmPassword.trim() !== formData.password.trim()) {
+      if (formData.password.substring(0,formData.password.length-1).localeCompare(formData.comfirmPassword.trim()) !== 0) {
         validationErrors.comfirmPassword = "Mật khẩu không khớp"
       }
 
@@ -81,9 +81,8 @@ const UserAdd = ({ auth }) => {
         axios.post(process.env.REACT_APP_SERVER_URL + 'users/add', data)
           .then(res => {
             alert("Thêm thành công!");
-            // console.log(res)
             navigate('/admin/1')
-            
+            window.location.reload();
           })
           .catch(err => console.log(err));
       }

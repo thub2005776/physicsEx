@@ -1,25 +1,8 @@
 
-import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
-import axios from "axios";
 import { Exercise } from "../../components";
 
-const ExOfThem = () => {
-    const [exercises, setExercises] = useState([]);
-    const [thematics, setThematics] = useState([]);
-
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-            .then(exercises => setExercises(exercises.data))
-            .catch(err => console.log(err))
-    }, []);
-
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-            .then(them => setThematics(them.data))
-            .catch(err => console.log(err))
-    }, []);
-
+const ExOfThem = ({thematics, exercises}) => {
     const location = useLocation();
     const code = location.pathname.split('/')[2]
     const exercise = exercises.filter(f => f.subThematic === code);

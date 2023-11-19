@@ -1,24 +1,12 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import ListItem from './listItem';
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 
-const UserList = () => {
-    const [users, setUSers] = useState();
+const UserList = ({users}) => {
     const [input, setInput] = useState();
-
-
-    useEffect(() => {
-        axios.post(process.env.REACT_APP_SERVER_URL + "profile")
-            .then(res => {
-                setUSers(res.data)
-                setUserResult(res.data)})
-            .catch(err => console.log(err))
-    }, [])
-
-    const [usersResult, setUserResult] = useState();
-
+    const [usersResult, setUserResult] = useState(users);
+    console.log(users);
     const handleKeyUp = () => {
         const emails = users.filter(f => f.email.includes(input));
         const names = users.filter(f => f.name.includes(input));
@@ -73,7 +61,6 @@ const UserList = () => {
                         </div>
                     ) : (<p className='text-lg text-amber-300 text-center'>{usersResult}</p>)}
             </div>) : (<p className='p-20'>Đang tải dữ liệu...</p>)
-
     )
 }
 

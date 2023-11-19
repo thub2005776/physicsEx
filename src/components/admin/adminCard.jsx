@@ -2,31 +2,8 @@ import User from '../../assets/User-icon_.png'
 import File from '../../assets/file.png'
 import Exercise from '../../assets/exercise.png'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
-import axios from 'axios'
-import { useState } from 'react'
 
-const AdminCard = () => {
-    const [users, setUsers] = useState([]);
-    const [exercises, setExercises] = useState([]);
-    const [docs, setDocs] = useState([]);
-        useEffect(() => {
-            axios.post(process.env.REACT_APP_SERVER_URL + "profile")
-            .then(res => setUsers(res.data))
-            .catch(err => console.log(err))
-        }, []);
-
-        useEffect(() => {
-            axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-            .then(res => setExercises(res.data))
-            .catch(err => console.log(err))
-        }, []);
-
-        useEffect(() => {
-            axios.get(process.env.REACT_APP_SERVER_URL + "docs")
-            .then(res => setDocs(res.data))
-            .catch(err => console.log(err))
-        }, []);
+const AdminCard = ({users, exercises, docs}) => {
 
     const Items = [
         {

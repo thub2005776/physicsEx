@@ -2,7 +2,6 @@ import { useState } from "react";
 
 const Delete = (props) => {
     const [exit, setExit] = useState(false);
-    // const [sure, setSure] = useState(false);
 
     const sendStatus = () => {
         props.sendDelete(true);

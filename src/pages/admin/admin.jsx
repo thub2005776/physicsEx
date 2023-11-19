@@ -1,7 +1,7 @@
 import { SideBarAdmin, AdminCard, ChartItem, UserList, ThemList, Files } from '../../components'
 import { useLocation } from 'react-router';
 
-function Admin({ auth }) {
+function Admin({ auth, users, thematics, exercises, files }) {
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const index = parseInt(path);
@@ -18,20 +18,20 @@ function Admin({ auth }) {
                         {index === 0 ?
                             (< >
                                 <div className='sm:flex sm:ml-16 sm:w-5/6  ml-10'>
-                                    <AdminCard />
+                                    <AdminCard users={users} exercises={exercises} docs={files}/>
                                 </div>
                             </>)
                             : (index === 1 ?
                                 (
-                                    <UserList />
+                                    <UserList users={users} />
                                 ) : (index === 2 ?
                                     (
-                                        <ThemList />
+                                        <ThemList thematics={thematics}/>
                                     ) : (index === 3 ?
                                         (
-                                            <Files />
+                                            <Files files={files}/>
                                         ) : (
-                                            <ChartItem />
+                                            <ChartItem exercises={exercises}/>
                                         ))))
                         }
                     </div>

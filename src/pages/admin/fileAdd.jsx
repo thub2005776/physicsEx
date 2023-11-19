@@ -18,8 +18,8 @@ const FileAdd = ({ auth }) => {
         axios.post(process.env.REACT_APP_SERVER_URL + "fileAdd", data)
             .then(res => {
                 alert("Thêm thành công!");
-                // console.log(res)
                 navigate('/admin/3');
+                window.location.reload();
             })
             .catch(err => console.log(err))
     }

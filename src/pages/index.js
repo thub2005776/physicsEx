@@ -17,5 +17,3 @@ export {default as ThemEdit} from './admin/themEdit';
 export {default as ExEdit} from './admin/exEdit';
 export {default as FileEdit} from './admin/fileEdit';
 export {default as ExView} from './admin/exView';
-export {default as ForgetPassword} from './forgetPassword/forgetPassword';
-export {default as ResetPassword} from './forgetPassword/resetPassword'

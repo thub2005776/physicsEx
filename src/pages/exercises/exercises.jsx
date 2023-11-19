@@ -1,18 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState} from "react";
 import { Link } from 'react-router-dom';
 import { Exercise } from '../../components';
 
-function Exercises() {
-    const [exercises, setExercises] = useState([]);
+function Exercises({exercises}) {
     const [active, setActive] = useState('12');
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-            .then(exercises => setExercises(exercises.data))
-            .catch(err => console.log(err))
-    }, []);
-    // console.log(exercises);
     const ex12 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('120')) : null;
     const ex11 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('110')) : null;
     const ex10 = exercises ? exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('100')) : null;

@@ -13,13 +13,13 @@ function CardThematic ({thematic, like}) {
   // console.log(count);
     return ( 
     <Link to={`/thematics/${thematic.code}` }>
-      <div className="card-column" >
-          <div className="bids-card">
-            <div className="bids-card-top">
-              <img src={process.env.REACT_APP_SERVER_URL + thematic.img} alt={thematic.thematic} />
-              <p className="bids-title">{thematic.thematic}</p>
+      <div className="w-fit  md:h-full h-56 my-2 rounded-2xl border border-gray-400 text-white font-semibold" >
+          <div className="bg-[#2A2D3A] p-3 rounded-2xl h-full">
+            <div className="">
+              <img className='w-52 sm:h-40 h-36 rounded-3xl' src={process.env.REACT_APP_SERVER_URL + thematic.img} alt={thematic.thematic} />
+              <p className="lg:text-base text-xs">{thematic.thematic}</p>
             </div>
-            <div className='flex justify-end text-white'>
+            <div className='flex justify-end'>
               <div className='mt-1 pr-1 text-blue-500'><AiFillLike /></div>
               {count}
             </div>

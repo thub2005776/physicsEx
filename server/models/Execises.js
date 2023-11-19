@@ -6,6 +6,7 @@ const ExSchema = new mongoose.Schema({
     answer: String,
     content: String,
     no: String,
+    img: String,
     like: Number,
     dislike: Number
 });

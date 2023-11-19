@@ -1,32 +1,20 @@
 import React from 'react'
-import { useState, useEffect } from "react";
-import axios from "axios";
-
 import { CardThematic, CountLike } from '../../components';
 
 
-function Thematics() {
-  const [thematics, setThematics] = useState([]);
-
-  useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-      .then(thematics => setThematics(thematics.data))
-      .catch(err => console.log(err))
-  }, [])
-
-  const like = CountLike();
-  const liked = new Array([...like.entries()])
-  const most = liked[0]
-  // console.log(most);
+function Thematics({thematics, exercises}) {
+  const like = CountLike({thematics, exercises});
+  const liked = new Array([...like.entries()]);
+  const most = liked[0];
 
   return (
-    thematics.length ? (
-      <div className="bids section__padding">
-        <div className="bids-container">
-          <div className="bids-container-text">
+    thematics  && exercises ? (
+      <div className="text-white">
+        <div className="">
+          <div className="text-center sm:font-extrabold sm:text-4xl text-lg font-medium mb-5">
             <h1>Tất cả chuyên đề</h1>
           </div>
-          <div className="bids-container-card">
+          <div className="grid md:grid-cols-4 grid-cols-2 gap-4 sm:mx-24 mx-10">
             {thematics.map((thematic, index) => (
               <CardThematic
                 key={index}

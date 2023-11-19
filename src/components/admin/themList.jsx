@@ -4,20 +4,9 @@ import ListItem from './listItem';
 import { AiOutlinePlus } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 
-const ThemList = () => {
-    const [thematics, setThematics] = useState()
+const ThemList = ({thematics}) => {
     const [input, setInput] = useState();
-    const [themResult, setThemResult] = useState();
-
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-            .then(res => {
-                setThematics(res.data)
-                setThemResult(res.data)
-            })
-            .catch(err => console.log(err))
-    }, []);
-
+    const [themResult, setThemResult] = useState(thematics);
 
     const handleKeyUp = () => {
         const grade = thematics.filter(f => f.code.includes(input));

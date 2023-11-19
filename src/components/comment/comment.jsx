@@ -1,25 +1,32 @@
 import axios from "axios";
 import { useState } from "react";
 
-const Comment = ({ eid, user, sended }) => {
+const Comment = ({ id, eid, user, sended, reply }) => {
     const [com, setCom] = useState();
+    const [rep, setRep] = useState(reply);
     const HandleChange = (e) => {
         if (!user) {
             alert('Bạn chưa đăng nhập!');
         }
         setCom(e.target.value);
-        console.log(com);
     }
 
     const HandleSubmit = (e) => {
         e.preventDefault();
-
+        if (reply === null) {
+            setRep(false);
+        }
         const uid = user.uid;
-        axios.post(process.env.REACT_APP_SERVER_URL + 'add/comm', { eid, uid, com })
+        const uimg = user.img;
+        axios.post(process.env.REACT_APP_SERVER_URL + 'add/comm', { id, eid, uid, uimg, com, rep })
             .then(() => {
                 sended(true);
             })
             .catch(err => console.log(err))
+
+        axios.post(process.env.REACT_APP_SERVER_URL + 'edit/userComm', { uid, eid, com })
+            .then(res => {console.log('');})
+            .catch(err => console.log(err));
     }
     return (
         <div className="mx-10">

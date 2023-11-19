@@ -4,21 +4,9 @@ import { Link } from "react-router-dom";
 import CardThematic from "../cardThematic/cardThematic";
 import CountLike  from '../cardThematic/countLike';
 
-import { useState, useEffect } from "react";
-import axios from "axios";
+const Bids = ({ title, thematics, exercises }) => {
 
-const Bids = ({ title }) => {
-  const [thematics, setThematics] = useState([]);
-  // const [exercises, setExercises] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_SERVER_URL + "thematics")
-      .then((thematics) => setThematics(thematics.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  const like =  CountLike();
+  const like =  CountLike({thematics,exercises});
 
   const liked = new Array([...like.entries()].sort((a, b) => b[1] - a[1]))
   const most = liked[0].slice(0,8);
@@ -28,16 +16,14 @@ const Bids = ({ title }) => {
     them[i] = thematics.filter(f => f.code === l[0])
     
   })
-  
-  // console.log(them);
+
+  console.log(them);
   return (
-    thematics.length? (
-      <div className="bids section__padding">
-        <div className="bids-container">
-          <div className="bids-container-text">
-            <h1>{title}</h1>
-          </div>
-          <div className="bids-container-card">
+    thematics && exercises? (
+      <div className="text-white">
+        <div className="">
+            <h1 className=" text-center sm:font-extrabold sm:text-4xl text-base font-medium mb-5">{title}</h1>
+          <div className="grid md:grid-cols-4 grid-cols-2 gap-4 sm:mx-24 mx-10">
             {them.map((t, i) => (
               <CardThematic
                 key={i}
@@ -47,7 +33,7 @@ const Bids = ({ title }) => {
             ))}
           </div>
         </div>
-        <div className="load-more">
+        <div className="mt-5 p-2 border-[1px] lg:mx-96 md:mx-52 mx-24 text-center border-green-500 rounded-lg hover:bg-green-500">
           <Link to={`/thematics`}>
             <button>Xem thêm</button>
           </Link>

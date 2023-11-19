@@ -1,4 +1,4 @@
-
+/* 
 .bids-container{
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 font-weight: 600;
 font-size: 12px;
 line-height: 18px;
-/* text-align: right; */
+text-align: right;
 color: #FFFFFF;
 }
 .bids-card-bottom p:last-child{
@@ -74,6 +74,7 @@ font-weight: normal;
   align-items: center;
   margin-top: 2rem;
 }
+*/
 .load-more button{
   background: transparent;
   border: 1px solid var(--primary-color);
@@ -92,6 +93,7 @@ font-weight: normal;
   color: white;
 }
 
+/*
 @media screen and (max-width: 1440px) {
   .card-column {
     width: 250px;
@@ -148,4 +150,4 @@ font-weight: normal;
   }
  
 }
-
+ */

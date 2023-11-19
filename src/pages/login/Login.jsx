@@ -33,7 +33,7 @@ const Login = ({ handleLoginSuccess }) => {
       <div className="login-container">
         <h1>Đăng nhập</h1>
         {/* Kiểm tra đăng nhập */}
-        <form onSubmit={handleSubmit} className='login-writeForm' autoComplete='off'>
+        <form onSubmit={handleSubmit} className='login-writeForm' >
           <div className="login-formGroup">
             <label>Email</label>
             <input

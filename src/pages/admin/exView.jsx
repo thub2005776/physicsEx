@@ -4,19 +4,10 @@ import axios from 'axios';
 import { ExList } from '../../components';
 
 
-const ExView = ({ auth }) => {
-    const [exercises, setExercises] = useState([]);
+const ExView = ({ auth, exercises }) => {
     const location = useLocation();
     const path = location.pathname.split('/')[4];
-
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-            .then(res => setExercises(res.data))
-            .catch(err => console.log(err))
-    }, []);
-
     const exercise = exercises ? exercises.filter((f) => f.subThematic === path) : [];
-
 
     return (
         auth && auth.permission === 'admin' && exercises &&

@@ -23,7 +23,12 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
                 .catch(err => console.log(err))
         } else if(item1) {
             const code = item2;
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/them", { code })
+            const img = item1;
+            axios.post(process.env.REACT_APP_SERVER_URL + "del/them/ex", { code })
+                .then()
+                .catch(err => console.log(err))
+
+            axios.post(process.env.REACT_APP_SERVER_URL + "del/them", { code, img })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);
@@ -42,7 +47,6 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
         }
         
     }
-    // console.log(id);
 
     return (
         <div className={`relative flex justify-between border-b-0 my-2 hover:bg-slate-500 sm:text-base text-sx`}>

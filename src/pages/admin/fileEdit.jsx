@@ -3,22 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const FileEdit = ({auth}) => {
-    const [docs, setDocs] = useState();
+const FileEdit = ({auth, docs}) => {
     const location = useLocation();
     const path = location.pathname.split('/')[5];
 
-    useEffect(() =>{
-        axios.get(process.env.REACT_APP_SERVER_URL + "docs")
-            .then(res => {
-                setDocs(res.data);
-            })
-            .catch(err => console.log(err))
-    }, []);
-
-    // console.log(docs);
     const doc = docs?  docs.find((f) => f.name === path) : null;
-    // console.log(doc);
 
     const [file, setFile] = useState(null);
     const [grade, setGrade] = useState(null);
@@ -40,8 +29,8 @@ const FileEdit = ({auth}) => {
         axios.post(process.env.REACT_APP_SERVER_URL + "edit/file", data)
             .then(res => {
                 alert("Cập nhật thành công!");
-                // console.log(res)
                 navigate('/admin/3');
+                window.location.reload();
             })
             .catch(err => console.log(err))
     }

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BiSolidFilePdf } from "react-icons/bi";
 
-function Docs() {
+function Docs({files}) {
 
     const pdfjsVersion = packageJson.dependencies['pdfjs-dist'];
     const defaultLayoutPluginInstance = defaultLayoutPlugin({
@@ -17,15 +17,11 @@ function Docs() {
     });
 
     const [active, setActive] = useState('12');
-    const [files, setFiles] = useState([]);
+
     const [filename, setFilename] = useState(' ');
     const [view, setView] = useState(false);
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "docs")
-            .then(res => setFiles(res.data))
-            .catch(err => console.log(err))
-    }, []);
+
 
     const file12 = files.filter(f => f.grade === '12');
     const file11 = files.filter(f => f.grade === '11');

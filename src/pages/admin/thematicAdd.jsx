@@ -2,22 +2,13 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const ThematicAdd = ({ auth }) => {
-    const [thematics, setThematics] = useState([]);
+const ThematicAdd = ({ auth, thematics }) => {
     const [file, setFile] = useState(null);
     const [code, setCode] = useState(null);
     const [them, setThem] = useState(null);
     const navigate = useNavigate()
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-            .then(res => setThematics(res.data))
-            .catch(err => console.log(err))
-
-    }, []);
-    // console.log(themtics);
     const thematic = thematics ? thematics.find((f) => f.code === code) : null;
-    // console.log(thematic);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,8 +27,8 @@ const ThematicAdd = ({ auth }) => {
             axios.post(process.env.REACT_APP_SERVER_URL + "themAdd", data)
                 .then(res => {
                     alert("Thêm thành công!");
-                    // console.log(res)
-                    navigate('/admin/2')
+                    navigate('/admin/2');
+                    window.location.reload();
                 })
                 .catch(err => console.log(err))
         }

@@ -10,7 +10,7 @@ const Header = () => {
     <div className='header section__padding'>
       <div className="header-content">
         <div>
-          <h1>“Mọi sự thật đều dễ hiểu một khi chúng được khám phá; vấn đề là phát hiện ra chúng.” - Galileo Galilei</h1>
+          <h1 className='sm:text-lg text-xs'>“Mọi sự thật đều dễ hiểu một khi chúng được khám phá; vấn đề là phát hiện ra chúng.” - Galileo Galilei</h1>
           <img className='shake-vertical' src={coin} alt="" />
         </div>
       </div>

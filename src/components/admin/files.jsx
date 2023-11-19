@@ -2,19 +2,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ListItem from './listItem';
 
-const Files = () => {
+const Files = ({files}) => {
 
-    const [files, setFiles] = useState()
     const [input, setInput] = useState();
-    const [result, sedivesult] = useState();
+    const [result, sedivesult] = useState(files);
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "docs")
-            .then(res => {
-                setFiles(res.data)
-                sedivesult(res.data)})
-            .catch(err => console.log(err))
-    }, []);
 
     const handleKeyUp = () => {
         const grade = files.filter(f => f.grade.includes(input));

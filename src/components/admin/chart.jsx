@@ -2,23 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import axios from 'axios';
 import { Chart } from "react-google-charts";
 
-const ChartItem = () => {
-    const [exercises, setExercises] = useState([]);
-    const [thematics, setThematics] = useState([]);
-
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-            .then(exercises => setExercises(exercises.data))
-            .catch(err => console.log(err))
-    }, []);
-
-    useEffect(() => {
-        axios
-            .get(process.env.REACT_APP_SERVER_URL + "thematics")
-            .then((thematics) => setThematics(thematics.data))
-            .catch((err) => console.log(err));
-    }, []);
-
+const ChartItem = ({exercises}) => {
     var like = 0;
     var dislike = 0;
     exercises.forEach(e => {

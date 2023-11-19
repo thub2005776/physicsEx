@@ -8,7 +8,7 @@ const Register = () => {
   
   const [name, setName] = useState()
   const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [password, setPassword] = useState();
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
@@ -42,8 +42,7 @@ const Register = () => {
     } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(formData.password)) {
       validationErrors.password = "Mật khẩu phải có ít nhất 8 ký tự : HOA, thường và đặc biệt"
     }
-
-    if (formData.comfirmPassword.trim() !== formData.password.trim()) {
+    if (formData.password.substring(0,formData.password.length-1).localeCompare(formData.comfirmPassword.trim()) !== 0) {
       validationErrors.comfirmPassword = "Mật khẩu không khớp"
     }
     setErrors(validationErrors)
@@ -62,7 +61,6 @@ const Register = () => {
       axios.post(process.env.REACT_APP_SERVER_URL + 'users/add', { name, email, password, permission, img})
         .then(res => {
           alert("Đăng ký thành công!");
-          // console.log(res)
           navigate('/login')
           
         })
