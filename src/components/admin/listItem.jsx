@@ -2,7 +2,7 @@
 import { AiFillDelete, AiOutlineEdit, AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import Delete from './delete';
 
@@ -11,12 +11,19 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
     const path = location.pathname.split('/')[2];
     const [del, setDel] = useState(false);
     const [img, setImg] = useState(item1);
+    const [exercises, setExercises] = useState([]);
+
+    useEffect(() => {
+        //get exercises
+      axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
+      .then(exercises => setExercises(exercises.data))
+      .catch(err => console.log(err))
+    }, [])
     
     const handleDelete = (e) => {
         if(e) {
             if(user) {
                 const uid = user.uid;
-
                 axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid, img })
                 .then(res => {
                     alert("Đã xóa!");
@@ -25,8 +32,8 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
                 .catch(err => console.log(err))
         } else if(item1) {
             const code = item2;
-
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/them/ex", { code })
+            const ex = exercises && exercises.filter(f => f.subThematic === code)
+            axios.post(process.env.REACT_APP_SERVER_URL + "del/them/ex", { code, ex })
                 .then()
                 .catch(err => console.log(err))
 
@@ -38,7 +45,7 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
                 .catch(err => console.log(err))
             
         } else {
-            const name = item3
+            const name = item3;
             axios.post(process.env.REACT_APP_SERVER_URL + "del/file", { name })
                 .then(res => {
                     alert("Đã xóa!");

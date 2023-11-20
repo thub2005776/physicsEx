@@ -75,7 +75,7 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         "permission": req.body.permission
     }
     const oldImg = req.body.img;
-    removeFile(oldImg);
+    if(req.file) {removeFile(oldImg)}
 
     if (!old) {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -252,6 +252,8 @@ app.post('/edit/ex', upload.single('file'), (req, res) => {
         "img": req.file ? req.file.filename : req.body.img
     }
 
+    if(req.file) {removeFile(req.body.img)}
+
     ExModel.findOneAndUpdate({ _id: id }, values)
         .then(user => res.json(user))
         .catch(err => res.json(err))
@@ -298,32 +300,32 @@ app.post('/themAdd', upload.single('file'), (req, res) => {
 })
 
 app.post('/edit/them', upload.single('file'), (req, res) => {
-    // console.log(req.file);
+    const oldImg = req.body.img;
     const code = req.body.id;
-    // console.log(req.body.id);
     const values = {
         "code": req.body.code,
         "thematic": req.body.thematic,
         "img": req.file ? req.file.filename : req.body.img
     }
-    // console.log(values);
+    
+    if(req.file) {removeFile(oldImg)}
+
     ThematicsModel.findOneAndUpdate({ code: code }, values)
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })
 
-
+app.post('/edit/them/ex', (req, res) => {
+    const {subThematic, code} = req.body;
+    ExModel.updateMany({ subThematic: subThematic }, {subThematic: code})
+        .then(user => res.json(user))
+        .catch(err => res.json(err))
+})
 
 //post to del thematic
 app.post("/del/them", (req, res) => {
     const { code, img } = req.body;
-    (async () => {
-        try {
-            await fs.unlink('../src/assets/' + img);
-        } catch (e) {
-            console.log(e);
-        }
-    })();
+    removeFile(img);
 
     ThematicsModel.findOneAndDelete({ code: code })
         .then(result => res.json(result))
@@ -331,8 +333,10 @@ app.post("/del/them", (req, res) => {
 })
 
 app.post("/del/them/ex", (req, res) => {
-    const { code } = req.body;
-
+    const { code, ex } = req.body;
+    ex.forEach(e => {
+        removeFile(e.img);
+    });
     ExModel.deleteMany({ subThematic: code })
         .then(result => res.json(result))
         .catch(err => res.json(err))
@@ -340,8 +344,9 @@ app.post("/del/them/ex", (req, res) => {
 
 //post to del exercise
 app.post("/del/ex", (req, res) => {
-    const { no } = req.body;
+    const { no, img } = req.body;
 
+    removeFile(img);
     ExModel.findOneAndDelete({ no: no })
         .then(result => res.json(result))
         .catch(err => res.json(err))
@@ -380,6 +385,7 @@ app.post('/edit/file', upload.single('file'), (req, res) => {
         "grade": req.body.grade,
     }
 
+    if(req.file) {removeFile(req.body.name)}
     FilesModel.findOneAndUpdate({ name: name }, values)
         .then(user => res.json(user))
         .catch(err => err.json(err))
@@ -388,7 +394,7 @@ app.post('/edit/file', upload.single('file'), (req, res) => {
 //post to del doc
 app.post("/del/file", (req, res) => {
     const { name } = req.body;
-
+    removeFile(name);
     FilesModel.findOneAndDelete({ name: name })
         .then(result => res.json(result))
         .catch(error => res.json(error));

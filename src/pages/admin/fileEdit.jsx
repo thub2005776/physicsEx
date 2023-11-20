@@ -10,21 +10,14 @@ const FileEdit = ({auth, docs}) => {
     const doc = docs?  docs.find((f) => f.name === path) : null;
 
     const [file, setFile] = useState(null);
-    const [grade, setGrade] = useState(null);
+    const [grade, setGrade] = useState(doc.grade);
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = new FormData();
-        if(file !== null) {
             data.append("file", file);
-        } else {
             data.append("name", doc.name);
-        }
-        if(grade !== null) {
             data.append("grade", grade);
-        } else {
-            data.append("grade", doc.grade);
-        }
 
         axios.post(process.env.REACT_APP_SERVER_URL + "edit/file", data)
             .then(res => {

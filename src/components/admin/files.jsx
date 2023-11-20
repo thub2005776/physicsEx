@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import ListItem from './listItem';
 
 const Files = ({files}) => {

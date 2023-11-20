@@ -10,7 +10,8 @@ const ExList = ({ ex }) => {
     const handleDelete = (e) => {
         if(e) {
             const no = ex.no;
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/ex", { no })
+            const img = ex.img;
+            axios.post(process.env.REACT_APP_SERVER_URL + "del/ex", { no, img })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);
