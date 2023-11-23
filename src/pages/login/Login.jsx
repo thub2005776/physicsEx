@@ -31,7 +31,7 @@ const Login = ({ handleLoginSuccess }) => {
   return (
     <div className='login section__padding'>
       <div className="login-container">
-        <h1>Đăng nhập</h1>
+      <div className='text-4xl font-bold text-center'>Đăng nhập</div>
         {/* Kiểm tra đăng nhập */}
         <form onSubmit={handleSubmit} className='login-writeForm' >
           <div className="login-formGroup">

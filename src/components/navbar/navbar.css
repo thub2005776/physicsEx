@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 6rem;
+  /* padding: 2rem 6rem; */
   border-bottom: 1px solid rgba(165, 165, 165, 0.1);
 }
 .navbar-links{

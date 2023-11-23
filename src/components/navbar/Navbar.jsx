@@ -32,10 +32,10 @@ const Navbar = ({auth}) => {
   return (
     <div className='relative mb-44'>
       <div className='fixed z-[100]  top-0 bg-[#24252d] w-full'>
-      <div className='navbar '>
+      <div className='navbar py-2 px-10'>
         <div className="navbar-links">
           <Link to="/">
-            <img src={logo} alt="logo" className='sm:w-60 w-52' />
+            <img src={logo} alt="logo" className='sm:w-52 w-36' />
           </Link>
 
         </div>

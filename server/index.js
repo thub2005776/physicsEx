@@ -75,7 +75,7 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         "permission": req.body.permission
     }
     const oldImg = req.body.img;
-    if(req.file) {removeFile(oldImg)}
+    if(req.file && req.file !== "Image.png") {removeFile(oldImg)}
 
     if (!old) {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
