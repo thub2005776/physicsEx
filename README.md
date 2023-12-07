@@ -10,6 +10,10 @@ $ npm install
 # download .env file (send email to me: thub2005776@student.ctu.edu.vn)
 
 # serve with host at localhost:8000
+$ cd server
+$ npm start
+
+# serve with host at localhost:8000
 $ npm start
 ```
 
