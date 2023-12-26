@@ -6,7 +6,6 @@ const Home = ({thematics, exercises}) => {
 
   return <div>
    <Header />
-   {/* Thay các chuyên đề */}
    <Bids title="Chuyên đề nổi bật" thematics={thematics} exercises={exercises}/>
   </div>;
 };
