@@ -1,4 +1,4 @@
-require('dotenv').config({ path: "../.env" });
+require('dotenv').config({ path: "../user/.env" });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -35,13 +35,13 @@ mongoose
     });
 
 
-app.use(express.static("../src/assets"));
+app.use(express.static("../user/src/assets"));
 
 
 // UpLoad file 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../src/assets')
+        cb(null, '../user/src/assets')
     },
     filename: (req, file, cb) => {
         const fileName = file.originalname.substring(0, file.originalname.indexOf('.'));
@@ -56,7 +56,7 @@ const upload = multer({
 const removeFile = (img) => {
     (async () => {
         try {
-            await fs.unlink('../src/assets/'+ img);
+            await fs.unlink('../user/src/assets/'+ img);
         } catch (e) {
             console.log(e);
         }
