@@ -8,12 +8,3 @@ export {default as ExOfThem} from './thematics/exofThem';
 export {default as Exercises} from './exercises/exercises';
 export {default as Docs} from './docs/docs';
 export {default as Detail} from './detail/detail';
-export {default as Admin} from './admin/admin';
-export {default as UserAdd} from './admin/userAdd';
-export {default as ThematicAdd} from './admin/thematicAdd'
-export {default as ExAdd} from './admin/exAdd';
-export {default as FileAdd} from './admin/fileAdd';
-export {default as ThemEdit} from './admin/themEdit';
-export {default as ExEdit} from './admin/exEdit';
-export {default as FileEdit} from './admin/fileEdit';
-export {default as ExView} from './admin/exView';

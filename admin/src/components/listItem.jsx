@@ -58,7 +58,7 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
     }
 
     return (
-        <div className={`relative flex justify-between border-b-0 my-2 hover:bg-slate-500 sm:text-base text-sx`}>
+        <div className={`relative flex justify-between border-b-0 my-2 rounded-md hover:bg-slate-500 sm:text-base text-sx`}>
             <Link to={user? `/profile/${user.uid}`: item1? `them/${item2}`:`edit/${item2}/${item3}`}
                 className="flex-1 grid grid-cols-4 gap-5">
             {item1 ? 

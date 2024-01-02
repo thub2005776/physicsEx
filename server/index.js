@@ -19,7 +19,7 @@ const fs = require('fs').promises;
 
 const app = express();
 app.use(cors({
-    origin: [process.env.REACT_APP_URL],
+    origin: [process.env.REACT_APP_URL, process.env.REACT_APP_ADMIN_URL],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 }));

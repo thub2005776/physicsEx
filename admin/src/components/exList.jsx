@@ -1,6 +1,6 @@
 import { AiFillDelete, AiFillLike, AiFillDislike } from "react-icons/ai";
 import { Link } from 'react-router-dom';
-import { Delete } from '../../components'
+import { Delete } from '../components'
 import { useState } from "react";
 import axios from "axios";
 

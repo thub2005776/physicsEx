@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { ExList } from '../../components';
+import { ExList } from '../components';
 
 
 const ExView = ({ auth, exercises }) => {

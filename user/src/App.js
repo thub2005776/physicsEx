@@ -4,9 +4,7 @@ import './App.css';
 import { Navbar, Footer } from './components'
 import {
   Home, SearchBar, Login, Register, Thematics,
-  Exercises, Docs, Detail, Admin, UserAdd,
-  ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, ExOfThem
+  Exercises, Docs, Detail, Profile, ExOfThem
 } from './pages'
 import { Routes, Route } from "react-router-dom";
 import axios from 'axios';
@@ -74,17 +72,6 @@ function App() {
         <Route path="/exercises" element={<Exercises exercises={exercises} />} />
         <Route path="/detail/:id" element={<Detail user={info} exercises={exercises} />} />
         <Route path="/docs" element={<Docs files={files} />} />
-        <Route path="/admin/:id" element={<Admin
-          auth={info} users={profile} thematics={thematics} exercises={exercises} files={files}
-        />} />
-        <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
-        <Route path="/admin/2/themAdd" element={<ThematicAdd auth={info} thematics={thematics} />} />
-        <Route path="/admin/2/edit/:id/:id" element={<ThemEdit auth={info} thematics={thematics} />} />
-        <Route path="/admin/2/them/:id" element={<ExView auth={info} exercises={exercises} />} />
-        <Route path="/admin/2/add/:id/:id" element={<ExAdd auth={info} />} />
-        <Route path="/admin/2/edit/:id" element={<ExEdit auth={info} exercises={exercises} />} />
-        <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
-        <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
       </Routes>
       <Footer />
     </div>

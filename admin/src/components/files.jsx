@@ -17,10 +17,10 @@ const Files = ({files}) => {
 
     return(
         files ? (
-            <div className="mx-10">
-            <div className="text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách tài liệu</div>
-            <div className='mx-5 mb-2 p-1 bg-teal-700 rounded-xl w-full flex justify-center'>
-                <div className='flex'>
+            <div className="sm:mx-10">
+            <div className="mt-5 text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách tài liệu</div>
+            <div className='mx-5 mb-1 p-1 bg-teal-700 rounded-md w-full flex justify-center border border-gray-600'>
+                <div className='flex sm:text-base text-sm'>
                     <input className='rounded-lg text-black outline-none mt-1 h-10 px-3'
                     type="text"
                     placeholder='  Lớp, tên tài liệu...'
@@ -30,7 +30,7 @@ const Files = ({files}) => {
             </div>
 
             {Array.isArray(result) ?
-                (<div className="table-fixed ml-5 border-collapse bg-slate-700 rounded-lg  border-neudival-600 w-full sm:md:text-lg text-xs">
+                (<div className="table-fixed ml-5 border-collapse bg-slate-700 rounded-md  border border-gray-600 w-full sm:md:text-lg text-xs">
                         <div className="border-b-2 align-baseline ">
                             <div className='p-3 grid grid-cols-3 font-medium'>
                                 <div className='ml-4'>Lớp</div>
