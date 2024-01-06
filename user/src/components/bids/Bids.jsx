@@ -37,11 +37,13 @@ const Bids = ({ title, thematics, exercises }) => {
           </div>
         </div>
 
-        <div className="mt-5 p-2 border-[1px] lg:mx-96 md:mx-52 mx-24 text-center hover:cursor-pointer border-green-500 rounded-lg hover:bg-green-500"
+        <div className="flex justify-center mt-5 p-2 border-[1px] lg:mx-96 md:mx-52 mx-24 text-center hover:cursor-pointer border-green-500 rounded-lg hover:bg-green-500"
           onClick={handleSeeMore}>
           <button>Xem thêm</button>
+          <svg className="ml-2 mt-2 w-4 h-4 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+  </svg>
         </div>
-
       </div>
     ) : <p className="text-white">Loading...</p>
   )
