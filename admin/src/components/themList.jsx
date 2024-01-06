@@ -18,7 +18,7 @@ const ThemList = ({thematics}) => {
 
     return (
         thematics ? (
-            <div className="sm:mx-20">
+            <div className="sm:mx-10">
                 <div className="mt-5 text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách chuyên đề</div>
                 <div className='sticky top-[4.5rem] z-50 mx-5 mb-1 p-1 bg-teal-700 rounded-md w-full flex border border-gray-600'>
                     <Link to={`/admin/2/themAdd`}>

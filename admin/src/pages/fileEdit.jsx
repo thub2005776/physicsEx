@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const FileEdit = ({auth, docs}) => {
@@ -29,7 +29,7 @@ const FileEdit = ({auth, docs}) => {
     }
     return(
         auth && auth.permission === "admin" && docs?
-        (<div className="lg:mx-80 mx-10">
+        (<div className="lg:mx-80 mx-10 pt-5">
         <div className="lg:text-2xl text-lg mt-4 text-teal-400 sm:font-bold font-semibold mb-6 text-center">
             Thông tin tài liệu
         </div>

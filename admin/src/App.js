@@ -28,25 +28,25 @@ function App() {
 
       }).catch(err => console.log(err));
 
-      //get profile
-      axios.post(process.env.REACT_APP_SERVER_URL + 'profile')
+    //get profile
+    axios.post(process.env.REACT_APP_SERVER_URL + 'profile')
       .then(res => {
         setProfile(res.data);
       })
       .catch(err => console.log(err))
 
-       //get thematics
-      axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
+    //get thematics
+    axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
       .then(thematics => setThematics(thematics.data))
       .catch(err => console.log(err))
 
-      //get exercises
-      axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
+    //get exercises
+    axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
       .then(exercises => setExercises(exercises.data))
       .catch(err => console.log(err))
 
-      //get document files 
-      axios.get(process.env.REACT_APP_SERVER_URL + "docs")
+    //get document files 
+    axios.get(process.env.REACT_APP_SERVER_URL + "docs")
       .then(res => setFiles(res.data))
       .catch(err => console.log(err))
   }, []);
@@ -58,25 +58,26 @@ function App() {
 
 
 
-  const info = profile  && profile.find((p) => p.email === user);
+  const info = profile && profile.find((p) => p.email === user);
   return (
     <div className="App">
       <div className="App-header">
-        <Navbar auth={info}/>
+        <Navbar auth={info} />
         <Routes>
-        <Route path="/" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
-        <Route path="/admin/:id" 
-        element={<Admin
-          auth={info} users={profile} thematics={thematics} exercises={exercises} files={files}
-        />} />
-        <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
-        <Route path="/admin/2/themAdd" element={<ThematicAdd auth={info} thematics={thematics} />} />
-        <Route path="/admin/2/edit/:id/:id" element={<ThemEdit auth={info} thematics={thematics} />} />
-        <Route path="/admin/2/them/:id" element={<ExView auth={info} exercises={exercises} />} />
-        <Route path="/admin/2/add/:id/:id" element={<ExAdd auth={info} />} />
-        <Route path="/admin/2/edit/:id" element={<ExEdit auth={info} exercises={exercises} />} />
-        <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
-        <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
+          <Route path="/" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/admin/:id"
+            element={<Admin
+              auth={info} users={profile} thematics={thematics} exercises={exercises} files={files}
+            />} />
+          <Route path="/profile/:id" element={<Profile auth={info} />} />
+          <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
+          <Route path="/admin/2/themAdd" element={<ThematicAdd auth={info} thematics={thematics} />} />
+          <Route path="/admin/2/edit/:id/:id" element={<ThemEdit auth={info} thematics={thematics} />} />
+          <Route path="/admin/2/them/:id" element={<ExView auth={info} exercises={exercises} />} />
+          <Route path="/admin/2/add/:id/:id" element={<ExAdd auth={info} />} />
+          <Route path="/admin/2/edit/:id" element={<ExEdit auth={info} exercises={exercises} />} />
+          <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
+          <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
         </Routes>
       </div>
     </div>

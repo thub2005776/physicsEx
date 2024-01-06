@@ -44,7 +44,7 @@ const ExEdit = ({ auth, exercises }) => {
     }
     return (
         auth && auth.permission === "admin" && exercise &&
-        (<div className="lg:mx-52 mx-10">
+        (<div className="lg:mx-52 mx-10 p-5">
             <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                 Thông tin bài tập
             </div>

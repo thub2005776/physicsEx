@@ -26,7 +26,7 @@ const FileAdd = ({ auth }) => {
 
     return (
         auth && auth.permission === "admin" ?
-            (<div className="lg:mx-80 mx-10">
+            (<div className="lg:mx-80 mx-10 pt-5">
             <div className="lg:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                 Thông tin tài liệu mới
             </div>

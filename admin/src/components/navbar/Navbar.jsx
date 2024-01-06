@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import './navbar.css'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/logo.png'
-import { Link } from "react-router-dom";
-// import { BsSearch } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router';
 import axios from 'axios';
 import ProfileCard from '../profileCard';
 
@@ -19,6 +19,10 @@ import ProfileCard from '../profileCard';
 const Navbar = ({ auth }) => {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [profile, setProfile] = useState(false);
+  const location = useLocation();
+  const path = location.pathname.split('/')[2];
+  const navigate = useNavigate();
+  
   const handleLogout = () => {
 
     axios.get(process.env.REACT_APP_SERVER_URL + "logout")
@@ -34,7 +38,7 @@ const Navbar = ({ auth }) => {
 
   return (
     <div className='mb-[4rem]'>
-      {profile ? <ProfileCard handlelogout={handleLogout} auth={auth} state={state}/> : null}
+      {profile ? <ProfileCard handlelogout={handleLogout} auth={auth} state={state} /> : null}
       <div className='fixed z-[1000]  top-0 left-0 bg-[#24252d] w-full'>
         <div className='navbar py-2 px-10'>
           <div className="navbar-links">
@@ -43,21 +47,29 @@ const Navbar = ({ auth }) => {
             </Link>
 
           </div>
-          
-          <div className="navbar-sign">
+
+          <div className="navbar-sign gap-2">
 
             {/* <div className="menu_div">
             <Menu />
           </div> */}
             {auth ? (
               <>
-                {auth.permission === "admin" ?
-                  <Link to={`/admin/0`}>
-                    <div className='text-white text-sm font-semibold float-right bg-sky-400 rounded-2xl p-3'>
-                      admin
-                    </div></Link> : null}
+                {auth.permission === "admin" && path != 0?
+                    <button className='text-white text-sm font-semibold float-right bg-sky-400 rounded-lg '
+                    onClick={() => navigate(-1)}>
+                      Trở về
+                    </button>: null}
                 <Link to="/">
-                  <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
+                  <button 
+                    className="relative inline-flex items-center justify-center overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 
+                            group-hover:from-pink-500 group-hover:to-orange-400  text-white focus:ring-4 focus:outline-none  focus:ring-pink-800"
+                            onClick={handleLogout}>
+                    <span className="relative  rounded-md ">
+                      Đăng xuất
+                    </span>
+                  </button>
+                  
                 </Link>
                 {auth ? (
                   <>
@@ -67,7 +79,7 @@ const Navbar = ({ auth }) => {
                   </>
 
                 ) : (
-                    <img src={auth.picture} alt="profile" className='avartar' />
+                  <img src={auth.picture} alt="profile" className='avartar' />
                 )}
 
               </>
@@ -96,7 +108,7 @@ const Navbar = ({ auth }) => {
           </div>
         </div>
       </div>
-      
+
     </div>
 
   )

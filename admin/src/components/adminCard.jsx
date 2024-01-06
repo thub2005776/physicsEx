@@ -30,7 +30,7 @@ const AdminCard = ({users, exercises, docs}) => {
                     <div className="hover:bg-slate-500 bg-slate-600 p-3 m-3 rounded-xl border border-gray-400 ">
                         <img className='rounded-2xl w-fit p-px' src={item.img} alt="User" />
                         <div className='mt-5 flex justify-between'>
-                            <div className='text-xs font-bold sm:text-lg md:text-lg hover:text-emerald-300'>{item.title}</div>
+                            <div className='text-xs font-bold lg:text-lg hover:text-emerald-300'>{item.title}</div>
                         <div className='text-base text-right'>{item.count}</div>
                         </div>
                         

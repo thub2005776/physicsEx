@@ -15,10 +15,10 @@ function Admin({ auth, users, thematics, exercises, files }) {
                     <SideBarAdmin active={index} />
                 </div>
 
-                <div className='sm:ml-64 sm:w-4/5 ml-10 w-10/12'>
+                <div className='sm:ml-auto sm:w-4/5 ml-10 w-10/12'>
                     {index === 0 ?
                         (< >
-                            <div className='sm:flex sm:ml-16 sm:w-5/6  ml-10'>
+                            <div className='md:flex lg:ml-16 lg:w-5/6 w-full'>
                                 <AdminCard users={users} exercises={exercises} docs={files} />
                             </div>
                         </>)

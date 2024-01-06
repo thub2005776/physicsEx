@@ -5,27 +5,25 @@ import { Link } from 'react-router-dom';
 
 const UserList = ({ users }) => {
     const [input, setInput] = useState();
-    const [usersResult, setUserResult] = useState(users);
-    console.log(users);
+    const [usersResult, setUserResult] = useState(users.filter(f => f.permission.includes('user')));
+    const [acttive, setActive] = useState(true);
     const handleKeyUp = () => {
         const emails = users.filter(f => f.email.includes(input));
         const names = users.filter(f => f.name.includes(input));
-        const permission = users.filter(f => f.permission.includes(input));
 
         setUserResult(emails.length ? emails :
-            names.length ? names : permission.length ? permission : "Không tìm thấy");
+            names.length ? names : "Không tìm thấy");
     }
-
 
     return (
         users ? (
             <div className="sm:mx-10">
                 <div className="mt-5 text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách người dùng</div>
-                <div className='sticky top-[4.5rem] z-50 mx-5 mb-1 p-1 bg-teal-700 rounded-md w-full flex justify-start border border-gray-600'>
+                <div className='sticky top-[4.5rem] z-50 mx-5 mb-1 p-1 bg-teal-700 rounded-md w-full flex justify-around border border-gray-600'>
                     <Link to={`/admin/1/add`}>
-                        <div className='flex m-2 hover:text-green-300 sm:mr-20 sm:text-base text-sm'>
+                        <div className='flex m-2 hover:text-green-300 sm:mr-20 text-base'>
                             <AiOutlinePlus size={30} />
-                            Thêm tài khoản
+                            <span className='hidden sm:inline'>Thêm tài khoản</span>
                         </div>
                     </Link>
 
@@ -35,6 +33,23 @@ const UserList = ({ users }) => {
                         onChange={(e) => setInput(e.target.value)}
                         onKeyUp={handleKeyUp}
                     />
+
+                    <div className="flex items-center me-4">
+                        <input id="inline-radio" type="radio" value="" name="inline-radio-group" className="w-4 h-4" 
+                            onChange={() => {
+                                setUserResult(users.filter(f => f.permission.includes('user')))
+                                setActive(true)
+                                }} checked={acttive}/>
+                        <label htmlFor="inline-radio" className="ms-2 text-sm font-medium text-white">user</label>
+                    </div>
+                    <div className="flex items-center me-4">
+                        <input id="inline-2-radio" type="radio" value="" name="inline-radio-group" className="w-4 h-4 "
+                            onChange={() => {
+                                setUserResult(users.filter(f => f.permission.includes('admin')))
+                                setActive(false)
+                            }}/>
+                        <label htmlFor="inline-2-radio" className="ms-2 text-sm font-medium text-white">admin</label>
+                    </div>
                 </div>
 
                 {Array.isArray(usersResult) ?

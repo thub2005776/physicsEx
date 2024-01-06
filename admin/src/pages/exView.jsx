@@ -12,7 +12,7 @@ const ExView = ({ auth, exercises }) => {
     return (
         auth && auth.permission === 'admin' && exercises &&
         <div className="lg:mx-32 mx-20">
-            <div className='mt-3 text-green-500 lg:text-2xl text-lg text-center font-bold'>
+            <div className='p-5 text-green-500 lg:text-2xl text-lg text-center font-bold'>
                 Bài tập của chuyên đề {path}
             </div>
             <div className="p-3">

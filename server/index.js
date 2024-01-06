@@ -13,7 +13,6 @@ const ExModel = require('./models/Execises');
 const ThematicsModel = require('./models/Thematics');
 const FilesModel = require('./models/Files');
 const ComModel = require('./models/Comments');
-
 const fs = require('fs').promises;
 
 
