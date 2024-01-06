@@ -46,7 +46,7 @@ function SearchBar({ thematic, exercise }) {
     return (
         thematic && exercise &&
         <div>
-            <form className="lg:mx-52 mx-10">
+            <form className="lg:mx-52 mx-10 mt-24">
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

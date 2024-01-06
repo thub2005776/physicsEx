@@ -35,7 +35,7 @@ function Detail({ user, exercises }) {
 
     return (
         exercise ? (
-            <div className=' text-white m-5'>
+            <div className=' text-white m-5 mt-20'>
                 <div className='flex justify-evenly'>
                     <div className=' text-green-600 float-left hover:text-green-400'
                         onClick={() => navigate(-1)}>

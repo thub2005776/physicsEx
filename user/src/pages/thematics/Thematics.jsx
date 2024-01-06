@@ -9,7 +9,7 @@ function Thematics({thematics, exercises}) {
 
   return (
     thematics  && exercises ? (
-      <div className="text-white">
+      <div className="text-white mt-24">
         <div className="">
           <div className="text-center sm:font-extrabold sm:text-4xl text-lg font-medium mb-5">
             <h1>Tất cả chuyên đề</h1>

@@ -9,7 +9,7 @@ const ExOfThem = ({thematics, exercises}) => {
     const thematic = thematics.find(f => f.code === code);
     return(
         exercises && exercise && thematics && thematic &&
-        <div className="text-white">
+        <div className="text-white mt-24">
             <h3 className="text-center sm:text-3xl text-lg font-bold text-green-500 mb-5">
                 {code}: {thematic.thematic}
             </h3>

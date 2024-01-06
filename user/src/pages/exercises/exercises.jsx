@@ -12,7 +12,7 @@ function Exercises({exercises}) {
 
     return (
         exercises && ex12 && ex11 && ex10 ? (
-            <div className='sm:mx-20 mx-4 mt-3 border rounded-xl shadow  bg-gray-800 border-gray-700'>
+            <div className='sm:mx-20 mx-4 mt-24 border rounded-xl shadow  bg-gray-800 border-gray-700'>
                 <div className='flex justify-evenly text-white font-bold sm:text-xl text-lg bg-gray-700 text-center rounded-t-xl'>
                     <div className='hover:bg-gray-600 w-full '
                         onClick={() => setActive('12')}>

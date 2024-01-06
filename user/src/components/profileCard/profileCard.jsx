@@ -1,10 +1,22 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { AiOutlineInfoCircle, AiOutlineLogout } from "react-icons/ai";
 
-const ProfileCard = ({auth, handlelogout}) => {
+const ProfileCard = ({auth, handlelogout, state}) => {
+    const [profile, setProfile] = useState(true);
     return(
-        <div className="absolute right-5 -top-24 z-[120] sm:w-52 w-32">
+        <div className="absolute right-5 top-8 z-[120] sm:w-52 w-32">
              <div className="w-full border rounded-lg shadow bg-gray-800 border-gray-500">
+            {profile && 
+            <button type="button" className="absolute text-gray-400 bg-transparent  rounded-lg text-sm right-0 mt-1 p-2  hover:bg-gray-600 hover:text-white" data-modal-hide="default-modal"
+                    onClick={() => {setProfile(false)
+                    state(false)}}>
+                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                </button>
+            }
+             
                 <div className="flex flex-col items-center pb-10 mt-5">
                     <img className="sm:w-24 w-10 sm:h-24 mb-3 rounded-full shadow-lg" 
                     src={process.env.REACT_APP_SERVER_URL + auth.img} alt="" />

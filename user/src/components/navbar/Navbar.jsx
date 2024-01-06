@@ -28,9 +28,13 @@ const Navbar = ({auth}) => {
     
   }
 
+  const state = (s) => {
+    setProfile(s)
+  };
+
 
   return (
-    <div className='relative mb-44'>
+    <div className='relative mb-10'>
       <div className='fixed z-[100]  top-0 bg-[#24252d] w-full'>
       <div className='navbar py-2 px-10'>
         <div className="navbar-links">
@@ -93,7 +97,7 @@ const Navbar = ({auth}) => {
         </div>
       </div>
     </div>
-      {profile? <ProfileCard handlelogout={handleLogout} auth={auth}/> : null}
+      {profile? <ProfileCard handlelogout={handleLogout} auth={auth} state={state}/> : null}
     </div>
     
   )

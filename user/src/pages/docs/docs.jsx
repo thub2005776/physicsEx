@@ -5,8 +5,7 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 import packageJson from '../../../package.json';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { BiSolidFilePdf } from "react-icons/bi";
 
 function Docs({files}) {
@@ -29,7 +28,7 @@ function Docs({files}) {
 
     const PDFFile = ({ file }) => {
         return (
-            <div className='flex justify-center gap-5 p-3 bg-slate-500 rounded-lg cursor-pointer mt-2 text-white text-lg'
+            <div className='flex justify-center gap-5 p-3 bg-slate-500 rounded-md cursor-pointer mt-2 text-white text-lg'
                 onClick={() => {
                     setFilename(file.name);
                     setView(true)}}>
@@ -42,21 +41,21 @@ function Docs({files}) {
 
     return (
         files && file12 && file11 && file10 ?
-            (<div className="mt-4 sm:mx-20 bg-gray-900 rounded-xl pb-2">
+            (<div className="mt-24 sm:mx-20 border rounded-md shadow  bg-gray-800 border-gray-700 pb-2">
                 <div className=" flex justify-around text-white font-bold text-2xl text-center bg-slate-800">
-                    <div className={`rounded-t-md p-3 w-full ${active === '12' ? "bg-gray-900 border-b-[1px]" : "hover:bg-slate-400 "}`}
+                    <div className={`rounded-t-md p-3 w-full ${active === '12' ? "bg-gray-900 border-b-[1px]" : "hover:bg-slate-600 "}`}
                         onClick={() => {
                             setActive('12')
                             setView(false)}}>
                         Lớp 12
                     </div>
-                    <div className={`rounded-t-md w-full ${active === '11' ? "bg-gray-900 border-b-[1px]" : "hover:bg-slate-400  "}`}
+                    <div className={`rounded-t-md w-full ${active === '11' ? "bg-gray-900 border-b-[1px]" : "hover:bg-slate-600  "}`}
                         onClick={() => {
                             setActive('11')
                             setView(false)}}>
                         Lớp 11
                     </div>
-                    <div className={`rounded-t-md w-full ${active === '10' ? "bg-gray-900 border-b-[1px]" : "hover:bg-slate-400  "}`}
+                    <div className={`rounded-t-md w-full ${active === '10' ? "bg-gray-900 border-b-[1px]" : "hover:bg-slate-600  "}`}
                         onClick={() => {
                             setActive('10')
                             setView(false)}}>

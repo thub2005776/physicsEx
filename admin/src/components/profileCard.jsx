@@ -8,7 +8,7 @@ const ProfileCard = ({ auth, handlelogout, state }) => {
 
     return (
         profile &&
-        <div className="absolute top-16 right-2  z-[2000] sm:w-52 w-40">
+        <div className="absolute right-5 -top-24 z-[120] sm:w-52 w-32">
             <div className="relative  w-full border rounded-lg shadow bg-gray-800 border-gray-500">
                 <button type="button" className="absolute text-gray-400 bg-transparent  rounded-lg text-sm right-0 mt-1 p-2  hover:bg-gray-600 hover:text-white" data-modal-hide="default-modal"
                     onClick={() => {setProfile(false)
