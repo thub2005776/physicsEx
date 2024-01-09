@@ -9,11 +9,16 @@ $ npm install
 
 # download .env file (send email to me: thub2005776@student.ctu.edu.vn)
 
-# serve with host at localhost:8000
+# serve with host at localhost:3001
 $ cd server
 $ npm start
 
-# serve with host at localhost:8000
+# User page serves with host at localhost:3000
+$ cd user
+$ npm start
+
+# Admin page serves with host at localhost:3002
+$ cd admin
 $ npm start
 ```
 
@@ -28,6 +33,3 @@ $ npm start
     Tailwind: https://tailwindcss.com/
 
     Flowbite: https://flowbite.com/
-
-
- 
