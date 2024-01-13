@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import image from '../../assets/Image.png';
+import image from '../../assets/Image.jpg';
 import { Comment } from '../../components';
 
 const Comments = ({ auth, com, sended }) => {
-    const [user, setUser] = useState();
+   
     const [showComm, setShowComm] = useState(false);
     const [answer, setAnswer] = useState(false);
-    const uid = com.uid;
 
-    useEffect(() => {
-        axios.post(process.env.REACT_APP_SERVER_URL + "profile/find", { uid })
-            .then(user => setUser(user.data))
-            .catch(err => console.log(err))
-    }, []);
-
-    const CommentItem = ({ comm}) => {
+    const CommentItem = ({ comm }) => {
+        const [uid, setUid] = useState(comm.uid);
+        const [user, setUser] = useState();
+        useEffect(() => {
+            axios.post(process.env.REACT_APP_SERVER_URL + "profile/find", { uid })
+                .then(user => setUser(user.data))
+                .catch(err => console.log(err))
+        }, []);
         return (
             <div className="flex gap-4 m-2">
                 {user ?

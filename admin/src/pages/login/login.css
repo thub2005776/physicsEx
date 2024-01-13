@@ -7,14 +7,14 @@
   width: 100%;
 }
 .login-container {
-  background: #2A2D3A;
+  /* background: #444747; */
   border-radius: 20px;
   padding: 2rem;
   min-width: 30%;
 }
 .login-container h1{
   font-weight: 600;
-  font-size: 48px;
+  /* font-size: 48px; */
   line-height: 42px;
   margin-bottom: 40px;
   text-align: center;
@@ -29,7 +29,7 @@
 }
 .login-formGroup label{
   font-weight: 600;
-  font-size: 24px;
+  /* font-size: 24px; */
   line-height: 36px;
   margin-bottom: 20px;
 }

@@ -21,7 +21,7 @@ const ChartItem = ({exercises}) => {
 
     return (
         exercises &&
-        <div className='mt-10 sm:mx-auto ml-10 sm:w-5/6 bg-slate-900 p-2 rounded-md border border-gray-600' >
+        <div className='bg-slate-900 p-2 rounded-md border border-gray-600' >
             <div className='text-sm  sm:text-xl font-bold text-center mb-5'>Lượt yêu thích của các bài tập</div>
                 <Chart
                     chartType="PieChart"

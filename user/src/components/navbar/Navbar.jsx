@@ -53,11 +53,6 @@ const Navbar = ({auth}) => {
           </div>
           {auth ? (
             <>
-            {auth.permission === "admin" ? 
-                  <Link to={`/admin/0`}>
-                    <div className='text-white text-sm font-semibold float-right bg-sky-400 rounded-2xl p-3'>
-                    admin
-                  </div></Link>:null}
             <Link to="/">
                 <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
               </Link>

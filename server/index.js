@@ -55,7 +55,7 @@ const upload = multer({
 const removeFile = (img) => {
     (async () => {
         try {
-            await fs.unlink('../user/src/assets/'+ img);
+            await fs.unlink('../user/src/assets/' + img);
         } catch (e) {
             console.log(e);
         }
@@ -74,7 +74,7 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
         "permission": req.body.permission
     }
     const oldImg = req.body.img;
-    if(req.file && req.file !== "Image.png") {removeFile(oldImg)}
+    if (req.file && req.file !== "Image.png") { removeFile(oldImg) }
 
     if (!old) {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -94,18 +94,20 @@ app.post('/edit/user', upload.single('file'), (req, res) => {
 app.post('/edit/uimg', (req, res) => {
     const uid = req.body.uid;
     const img = req.body.img;
-    
+
     ComModel.updateMany({ uid: uid }, { uimg: img })
         .then(result => res.json(result))
         .catch(error => res.json(error));
 })
 
-app.post('/edit/userComm', (req, res) => {
+app.post('/add/userComm', (req, res) => {
     const uid = req.body.uid;
     const values = {
         "eid": req.body.eid,
+        "uid": req.body.uid,
         "content": req.body.com,
-        "time": Date()
+        "time": Date(),
+        "state": false,
     }
     UserModel.findOneAndUpdate({ uid: uid }, { $push: { comments: values } })
         .then(result => res.json(result))
@@ -115,7 +117,7 @@ app.post('/edit/userComm', (req, res) => {
 //post to del user
 app.post("/del/user", (req, res) => {
     const { uid, img } = req.body;
-    
+
     removeFile(img);
     UserModel.findOneAndDelete({ uid: uid })
         .then(result => res.json(result))
@@ -251,7 +253,7 @@ app.post('/edit/ex', upload.single('file'), (req, res) => {
         "img": req.file ? req.file.filename : req.body.img
     }
 
-    if(req.file) {removeFile(req.body.img)}
+    if (req.file) { removeFile(req.body.img) }
 
     ExModel.findOneAndUpdate({ _id: id }, values)
         .then(user => res.json(user))
@@ -306,8 +308,8 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
         "thematic": req.body.thematic,
         "img": req.file ? req.file.filename : req.body.img
     }
-    
-    if(req.file) {removeFile(oldImg)}
+
+    if (req.file) { removeFile(oldImg) }
 
     ThematicsModel.findOneAndUpdate({ code: code }, values)
         .then(user => res.json(user))
@@ -315,8 +317,8 @@ app.post('/edit/them', upload.single('file'), (req, res) => {
 })
 
 app.post('/edit/them/ex', (req, res) => {
-    const {subThematic, code} = req.body;
-    ExModel.updateMany({ subThematic: subThematic }, {subThematic: code})
+    const { subThematic, code } = req.body;
+    ExModel.updateMany({ subThematic: subThematic }, { subThematic: code })
         .then(user => res.json(user))
         .catch(err => res.json(err))
 })
@@ -384,7 +386,7 @@ app.post('/edit/file', upload.single('file'), (req, res) => {
         "grade": req.body.grade,
     }
 
-    if(req.file) {removeFile(req.body.name)}
+    if (req.file) { removeFile(req.body.name) }
     FilesModel.findOneAndUpdate({ name: name }, values)
         .then(user => res.json(user))
         .catch(err => err.json(err))
@@ -414,6 +416,7 @@ app.post("/add/comm", (req, res) => {
         "eid": req.body.eid,
         "content": req.body.com,
         "time": Date(),
+        "state": false,
         "reply": []
     }
 
@@ -422,18 +425,36 @@ app.post("/add/comm", (req, res) => {
             .then(result => res.json(result))
             .catch(error => res.json(error));
     } else {
+
         ComModel.updateOne({ _id: _id }, { $push: { reply: values } })
             .then(result => res.json(result))
             .catch(error => res.json(error));
     }
 });
 
+// edit Comments
+app.post("/edit/comm", (req, res) => {
+    const id = req.body.id;
+    ComModel.findByIdAndUpdate(id, { state: true })
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+});
+
 // delete Comment
+app.post("/comm/del", (req, res, next) => {
+    const id = req.body.id;
+    const uid = req.body.uid;
+    ComModel.findByIdAndDelete(id)
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
+    UserModel.findOneAndUpdate({ uid: uid });
+});
+
 app.post("/del/comm", (req, res) => {
     const uid = req.body.uid;
-        ComModel.deleteMany({uid: uid})
-            .then(result => res.json(result))
-            .catch(error => res.json(error));
+    ComModel.deleteMany({ uid: uid })
+        .then(result => res.json(result))
+        .catch(error => res.json(error));
 });
 
 

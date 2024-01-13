@@ -23,8 +23,9 @@ const Comment = ({ id, eid, user, sended, reply }) => {
                 sended(true);
             })
             .catch(err => console.log(err))
-
-        axios.post(process.env.REACT_APP_SERVER_URL + 'edit/userComm', { uid, eid, com })
+        
+        let state = false;
+        axios.post(process.env.REACT_APP_SERVER_URL + 'add/userComm', { uid, eid, com, state})
             .then(res => {console.log('');})
             .catch(err => console.log(err));
     }

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const UserList = ({ users }) => {
     const [input, setInput] = useState();
     const [usersResult, setUserResult] = useState(users.filter(f => f.permission.includes('user')));
-    const [acttive, setActive] = useState(true);
+    const [active, setActive] = useState(true);
     const handleKeyUp = () => {
         const emails = users.filter(f => f.email.includes(input));
         const names = users.filter(f => f.name.includes(input));
@@ -39,7 +39,7 @@ const UserList = ({ users }) => {
                             onChange={() => {
                                 setUserResult(users.filter(f => f.permission.includes('user')))
                                 setActive(true)
-                                }} checked={acttive}/>
+                                }} checked={active}/>
                         <label htmlFor="inline-radio" className="ms-2 text-sm font-medium text-white">user</label>
                     </div>
                     <div className="flex items-center me-4">

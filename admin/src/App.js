@@ -8,7 +8,7 @@ import { Navbar } from './components';
 import {
   Admin, UserAdd,
   ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, ExOfThem, Login
+  FileEdit, Profile, ExView, Login
 } from './pages'
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
   const [thematics, setThematics] = useState([]);
   const [exercises, setExercises] = useState([]);
   const [files, setFiles] = useState([]);
+  const [com, setCom] = useState([]);
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -49,6 +50,10 @@ function App() {
     axios.get(process.env.REACT_APP_SERVER_URL + "docs")
       .then(res => setFiles(res.data))
       .catch(err => console.log(err))
+
+    axios.get(process.env.REACT_APP_SERVER_URL + "comments",)
+      .then(com => setCom(com.data))
+      .catch(err => console.log(err))
   }, []);
 
   // Callback function để nhận thông tin profile từ component Login
@@ -56,18 +61,17 @@ function App() {
     setUser(profileData);
   };
 
-
-
   const info = profile && profile.find((p) => p.email === user);
+  const comm = com && com.filter(f => f.state === false);
   return (
     <div className="App">
-      <div className="App-header">
-        <Navbar auth={info} />
+      <div className="">
+        <Navbar auth={info} com={comm} />
         <Routes>
           <Route path="/" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
           <Route path="/admin/:id"
             element={<Admin
-              auth={info} users={profile} thematics={thematics} exercises={exercises} files={files}
+              auth={info} users={profile} thematics={thematics} exercises={exercises} files={files} com={comm}
             />} />
           <Route path="/profile/:id" element={<Profile auth={info} />} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />

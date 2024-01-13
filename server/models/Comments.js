@@ -6,6 +6,7 @@ const ComSchema = new mongoose.Schema({
     eid: String,
     content: String,
     time: Date,
+    state:Boolean,
     reply: Array
 });
 

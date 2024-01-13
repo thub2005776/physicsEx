@@ -1,6 +1,6 @@
 import React from 'react';
 import './login.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState} from 'react';
 
 import axios from 'axios';
@@ -29,11 +29,11 @@ const Login = ({ handleLoginSuccess }) => {
   }
 
   return (
-    <div className='login section__padding mt-10'>
-      <div className="login-container">
-      <div className='text-4xl font-bold text-center'>Đăng nhập</div>
+    <div className='login section__padding pt-8 '>
+      <div className="login-container border border-gray-500 bg-slate-600">
+      <div className='md:text-xl text-base font-bold text-center'>Đăng nhập</div>
         {/* Kiểm tra đăng nhập */}
-        <form onSubmit={handleSubmit} className='login-writeForm' >
+        <form onSubmit={handleSubmit} className='login-writeForm text-base' >
           <div className="login-formGroup">
             <label>Email</label>
             <input
@@ -51,16 +51,13 @@ const Login = ({ handleLoginSuccess }) => {
             />
             {/* <Link to={`/forget-password`} className='text-blue-600 text-sm text-right'>Quên mật khẩu</Link> */}
           </div>
-          <div className="login-button">
+          <div className="flex justify-center">
             {/* Xử lý đăng nhập */}
             <button
-              className='login-writeButton'
-              type='submit'
-            >Đăng nhập
+              className='cursor-pointer rounded-lg bg-green-600 hover:bg-green-500 p-2'
+              type='submit'>
+              Đăng nhập
             </button>
-            <Link to="/register">
-              <button className='login-reg-writeButton'>Đăng ký</button>
-            </Link>
           </div>
         </form>
       </div>
