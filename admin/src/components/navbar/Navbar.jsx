@@ -7,14 +7,6 @@ import { useLocation } from 'react-router';
 import axios from 'axios';
 import ProfileCard from '../profileCard';
 
-// const Menu = () => (
-//   <>
-//     <Link to="/docs" className='menu'><p>Tài liệu</p> </Link>
-//     <Link to="/exercises" className='menu'><p>Bài tập</p></Link>
-
-//   </>
-// )
-
 
 const Navbar = ({ auth, com }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -69,7 +61,7 @@ const Navbar = ({ auth, com }) => {
                     <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M20 3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L12.414 16H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM7.5 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
                     </svg>
-                    {com &&
+                    {com && com.length > 0 &&
                       <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500   rounded-full -top-1 -end-0">
                         {com.length}
                       </div>}
@@ -77,7 +69,7 @@ const Navbar = ({ auth, com }) => {
                 </Link>
 
 
-                {/* Login button  */}
+                {/* Logout button  */}
                 <Link to="/">
                   <button
                     className="relative inline-flex items-center justify-center overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 
@@ -119,9 +111,22 @@ const Navbar = ({ auth, com }) => {
             {toggleMenu && (
               <div className="navbar-menu_container scale-up-center" >
                 <div className="navbar-menu_container-links">
-                  <Link to="/login">
-                    <button type='button' className='primary-btn'>Đăng nhập</button>
-                  </Link>
+                  {auth ?
+                    <Link to="/">
+                      <button
+                        className="relative inline-flex items-center justify-center overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 
+                            group-hover:from-pink-500 group-hover:to-orange-400  text-white focus:ring-4 focus:outline-none  focus:ring-pink-800"
+                        onClick={handleLogout}>
+                        <span className="relative  rounded-md ">
+                          Đăng xuất
+                        </span>
+                      </button>
+
+                    </Link>
+                    : <Link to="/login">
+                      <button type='button' className='primary-btn'>Đăng nhập</button>
+                    </Link>
+                  }
                 </div>
               </div>
             )}

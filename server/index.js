@@ -103,12 +103,14 @@ app.post('/edit/uimg', (req, res) => {
 app.post('/add/userComm', (req, res) => {
     const uid = req.body.uid;
     const values = {
+        "id": Date().substring(),
         "eid": req.body.eid,
         "uid": req.body.uid,
         "content": req.body.com,
         "time": Date(),
-        "state": false,
+        "state": req.body.rep? true:false,
     }
+
     UserModel.findOneAndUpdate({ uid: uid }, { $push: { comments: values } })
         .then(result => res.json(result))
         .catch(err => res.json(err))
@@ -151,6 +153,8 @@ app.post('/users/add', upload.single('file'), (req, res) => {
 
 
 // post User login
+
+
 app.post('/login', (req, res) => {
     const { email, password, permission } = req.body;
     UserModel.findOne({ email: email })
@@ -411,6 +415,7 @@ app.get("/comments", (req, res) => {
 app.post("/add/comm", (req, res) => {
     const _id = req.body.id;
     const values = {
+        "id": req.body.id,
         "uid": req.body.uid,
         "uimg": req.body.uimg,
         "eid": req.body.eid,
@@ -442,12 +447,16 @@ app.post("/edit/comm", (req, res) => {
 
 // delete Comment
 app.post("/comm/del", (req, res, next) => {
-    const id = req.body.id;
+    const time = req.body.time;
     const uid = req.body.uid;
-    ComModel.findByIdAndDelete(id)
+    const id = req.body.id;
+    
+    // ComModel.findByIdAndDelete(id)
+    //     .then(result => res.json(result))
+    //     .catch(error => res.json(error));
+    UserModel.updateOne({uid: uid}, {$pullAll : {comments :  [{uid : uid}]}})
         .then(result => res.json(result))
         .catch(error => res.json(error));
-    UserModel.findOneAndUpdate({ uid: uid });
 });
 
 app.post("/del/comm", (req, res) => {

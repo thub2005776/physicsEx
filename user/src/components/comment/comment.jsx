@@ -16,6 +16,7 @@ const Comment = ({ id, eid, user, sended, reply }) => {
         if (reply === null) {
             setRep(false);
         }
+        
         const uid = user.uid;
         const uimg = user.img;
         axios.post(process.env.REACT_APP_SERVER_URL + 'add/comm', { id, eid, uid, uimg, com, rep })
@@ -24,8 +25,7 @@ const Comment = ({ id, eid, user, sended, reply }) => {
             })
             .catch(err => console.log(err))
         
-        let state = false;
-        axios.post(process.env.REACT_APP_SERVER_URL + 'add/userComm', { uid, eid, com, state})
+        axios.post(process.env.REACT_APP_SERVER_URL + 'add/userComm', { uid, eid, com, rep})
             .then(res => {console.log('');})
             .catch(err => console.log(err));
     }

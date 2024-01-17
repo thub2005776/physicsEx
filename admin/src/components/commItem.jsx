@@ -14,9 +14,10 @@ const CommItem = ({ auth, com }) => {
     const handleDelete = (e) => {
         setDel(!e);
         if(e) {
+            let time = com.time;
             let id = com._id;
             let uid = com.uid;
-            axios.post(process.env.REACT_APP_SERVER_URL + "comm/del", { id, uid })
+            axios.post(process.env.REACT_APP_SERVER_URL + "comm/del", { time, id, uid })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);
