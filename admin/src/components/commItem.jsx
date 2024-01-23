@@ -41,12 +41,17 @@ const CommItem = ({ auth, com }) => {
                         {com.content}
                     </p>
                     <p className="text-sm  truncate text-gray-400">
-                        {com && com.time.toString().slice(0, 10)}
+                        {com && com.time.toString().slice(0,10)}
                     </p>
                 </div>
             </div>
             {/* Reply and delete button  */}
             <div className="inline-flex gap-2 items-center text-base font-semibold  text-white">
+            {com && com.state === false?
+            <div className=" text-xs font-medium me-2 px-2.5 py-0.5 rounded bg-yellow-900 text-yellow-300">Chưa phản hồi</div>
+            :<div className=" text-xs font-medium me-2 px-2.5 py-0.5 rounded bg-green-900 text-green-300">Đã phản hồi</div>
+            }
+            
                 <div className='p-2 border border-gray-600 hover:bg-slate-600 rounded-lg'
                     onClick={() => setRep(!rep)}>
                     <svg className="w-4 h-4 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 16">

@@ -14,6 +14,8 @@ const Navbar = ({ auth, com }) => {
   const location = useLocation();
   const path = location.pathname.split('/')[2];
   const navigate = useNavigate();
+
+  const comm = com && com.filter(f => f.state === false);
   // Handle Logout 
   const handleLogout = () => {
     axios.get(process.env.REACT_APP_SERVER_URL + "logout")
@@ -61,7 +63,7 @@ const Navbar = ({ auth, com }) => {
                     <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M20 3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L12.414 16H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM7.5 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
                     </svg>
-                    {com && com.length > 0 &&
+                    {comm && comm.length > 0 &&
                       <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500   rounded-full -top-1 -end-0">
                         {com.length}
                       </div>}
@@ -124,7 +126,7 @@ const Navbar = ({ auth, com }) => {
 
                     </Link>
                     : <Link to="/login">
-                      <button type='button' className='primary-btn'>Đăng nhập</button>
+                      <button type='button' className='primary-btn rounded-lg'>Đăng nhập</button>
                     </Link>
                   }
                 </div>

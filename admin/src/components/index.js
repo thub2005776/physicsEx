@@ -13,4 +13,3 @@ export {default as profileCard} from './profileCard';
 export {default as Comments} from './comments';
 export {default as CommItem} from './commItem';
 export {default as Reply} from './reply';
-export {default as FilterComm} from './filterComm';

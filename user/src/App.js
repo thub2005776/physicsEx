@@ -71,7 +71,7 @@ function App() {
         <Route path="/thematics/:id" element={<ExOfThem thematics={thematics} exercises={exercises} />} />
         <Route path="/exercises" element={<Exercises exercises={exercises} />} />
         <Route path="/detail/:id" element={<Detail user={info} exercises={exercises} />} />
-        <Route path="/docs" element={<Docs files={files} />} />
+        <Route path="/docs" element={<Docs files={files} user={info}/>} />
       </Routes>
       <Footer />
     </div>

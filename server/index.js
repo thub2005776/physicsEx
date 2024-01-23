@@ -451,12 +451,12 @@ app.post("/comm/del", (req, res, next) => {
     const uid = req.body.uid;
     const id = req.body.id;
     
-    // ComModel.findByIdAndDelete(id)
-    //     .then(result => res.json(result))
-    //     .catch(error => res.json(error));
-    UserModel.updateOne({uid: uid}, {$pullAll : {comments :  [{uid : uid}]}})
+    ComModel.findByIdAndDelete(id)
         .then(result => res.json(result))
         .catch(error => res.json(error));
+    // UserModel.updateOne({uid: uid}, {$pullAll : {comments :  [{uid : uid}]}})
+    //     .then(result => res.json(result))
+    //     .catch(error => res.json(error));
 });
 
 app.post("/del/comm", (req, res) => {

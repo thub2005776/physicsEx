@@ -63,16 +63,15 @@ function App() {
   };
 
   const info = profile && profile.find((p) => p.email === user);
-  const comm = com && com.filter(f => f.state === false);
   return (
     <div className="App">
       <div className="">
-        <Navbar auth={info} com={comm} />
+        <Navbar auth={info} com={com} />
         <Routes>
           <Route path="/" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
           <Route path="/admin/:id"
             element={<Admin
-              auth={info} users={profile} thematics={thematics} exercises={exercises} files={files} com={comm}
+              auth={info} users={profile} thematics={thematics} exercises={exercises} files={files} com={com}
             />} />
           <Route path="/profile/:id" element={<Profile auth={info} />} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
