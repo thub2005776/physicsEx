@@ -21,7 +21,7 @@ const Reply = ({ auth, comm, closed }) => {
             let eid = comm.eid;
             let com = content;
             let rep = true;
-            axios.post(process.env.REACT_APP_SERVER_URL + 'add/comm', { id, eid, uid, uimg, com, rep })
+            axios.post(process.env.REACT_APP_SERVER_URL + 'comments', { id, eid, uid, uimg, com, rep })
                 .then(() => {
                     alert('Đã trả lời bình luận!');
                     setClose(true);
@@ -30,11 +30,11 @@ const Reply = ({ auth, comm, closed }) => {
                 })
                 .catch(err => console.log(err))
 
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/comm', { id })
+            axios.post(process.env.REACT_APP_SERVER_URL + 'comments/update', { id })
                 .then(res => { console.log('') })
                 .catch(err => console.log(err))
 
-            axios.post(process.env.REACT_APP_SERVER_URL + 'add/userComm', { uid, eid, com })
+            axios.post(process.env.REACT_APP_SERVER_URL + 'users/'+ uid, { uid, eid, com })
                 .then(res => { console.log('') })
                 .catch(err => console.log(err));
         }

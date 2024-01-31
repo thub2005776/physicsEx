@@ -23,8 +23,8 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
     const handleDelete = (e) => {
         if(e) {
             if(user) {
-                const uid = user.uid;
-                axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid, img })
+                const id = user._id;
+                axios.delete(process.env.REACT_APP_SERVER_URL + "users/" + id, { id, img })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);
@@ -33,11 +33,11 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
         } else if(item1) {
             const code = item2;
             const ex = exercises && exercises.filter(f => f.subThematic === code)
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/them/ex", { code, ex })
+            axios.delete(process.env.REACT_APP_SERVER_URL + "exercises", { code, ex })
                 .then()
                 .catch(err => console.log(err))
 
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/them", { code, img })
+            axios.delete(process.env.REACT_APP_SERVER_URL + "thematics", { code, img })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);
@@ -46,7 +46,7 @@ const ListItem = ({ item1, item2, item3, item4, user }) => {
             
         } else {
             const name = item3;
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/file", { name })
+            axios.delete(process.env.REACT_APP_SERVER_URL + "docs", { name })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);

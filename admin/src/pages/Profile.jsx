@@ -20,11 +20,11 @@ const Profile = ({ auth }) => {
 
     const [info, setInfo] = useState([]);
     const location = useLocation();
-    const uid = location.pathname.split('/')[2];
+    const id = location.pathname.split('/')[2];
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.post(process.env.REACT_APP_SERVER_URL + 'profile/find', { uid })
+        axios.get(process.env.REACT_APP_SERVER_URL + 'users/' + id, { id })
             .then(res => {
                 setInfo(res.data);
             })
@@ -44,7 +44,7 @@ const Profile = ({ auth }) => {
     }
     const [img, setImg] = useState();
     const HandleDetele = (e) => {
-        axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid, img })
+        axios.delete(process.env.REACT_APP_SERVER_URL + "users/" + id, { id, img })
             .then(res => {
                 alert("Đã xóa!");
                 if (auth && auth.permission === 'admin') {
@@ -55,7 +55,7 @@ const Profile = ({ auth }) => {
             })
             .catch(err => console.log(err))
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "del/comm", { uid })
+        axios.delete(process.env.REACT_APP_SERVER_URL + "comments" + id)
             .then()
             .catch(err => console.log(err))
     }
@@ -93,13 +93,13 @@ const Profile = ({ auth }) => {
             }
 
             data.append("uid", info.uid);
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/user', data)
+            axios.patch(process.env.REACT_APP_SERVER_URL + 'user/' + id, data)
                 .then(res => {
                     alert("Cập nhật thành công!");
                     window.location.reload(true);
                 })
                 .catch(err => console.log(err));
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/uimg', info)
+            axios.patch(process.env.REACT_APP_SERVER_URL + 'comments/updateImg', info)
                 .then()
                 .catch(err => console.log(err));
         } else {

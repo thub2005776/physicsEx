@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
-import axios from 'axios';
+import { useRef } from 'react'
 import { Chart } from "react-google-charts";
 
 const ChartItem = ({exercises}) => {

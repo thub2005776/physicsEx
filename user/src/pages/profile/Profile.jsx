@@ -19,11 +19,11 @@ const Profile = ({ auth }) => {
 
     const [info, setInfo] = useState([]);
     const location = useLocation();
-    const uid = location.pathname.split('/')[2];
+    const id = location.pathname.split('/')[2];
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.post(process.env.REACT_APP_SERVER_URL + 'profile/find', { uid })
+        axios.get(process.env.REACT_APP_SERVER_URL + 'users/' + id)
             .then(res => {
                 setInfo(res.data);
             })
@@ -43,7 +43,7 @@ const Profile = ({ auth }) => {
     }
     const [img, setImg] = useState();
     const HandleDetele = (e) => {
-        axios.post(process.env.REACT_APP_SERVER_URL + "del/user", { uid, img })
+        axios.delete(process.env.REACT_APP_SERVER_URL + "users/" + id, { id, img })
             .then(res => {
                 alert("Đã xóa!");
                 navigate('/');
@@ -51,7 +51,7 @@ const Profile = ({ auth }) => {
             })
             .catch(err => console.log(err))
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "del/comm", { uid })
+        axios.delete(process.env.REACT_APP_SERVER_URL + "comments" + id)
             .then()
             .catch(err => console.log(err))
     }
@@ -59,7 +59,7 @@ const Profile = ({ auth }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Post data 
+        
         if ((comfirm === null && password === null) || (comfirm.trim() === password.trim())) {
             const data = new FormData();
             data.append("file", file);
@@ -84,16 +84,34 @@ const Profile = ({ auth }) => {
 
             data.append("permission", 'user');
 
-            data.append("uid", info.uid);
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/user', data)
+            data.append("id", info._id);
+            
+            const values = {
+                'file': file,
+                'img': info.img,
+                'name': 'abc',
+                'email': info.email,
+                'password':info.password,
+                'old': true,
+                'permission':'user',
+                'id': info._id,
+            }
+            // console.log(values.file);
+            axios.patch(process.env.REACT_APP_SERVER_URL + 'users/edit', file)
                 .then(res => {
-                    alert("Cập nhật thành công!");
+                    if(res.status === 200) {
+                         alert("Cập nhật thành công!");
                     window.location.reload(true);
+                    console.log(res);
+                    }
                 })
                 .catch(err => console.log(err));
-            axios.post(process.env.REACT_APP_SERVER_URL + 'edit/uimg', info)
+            if(file) {
+                axios.patch(process.env.REACT_APP_SERVER_URL + 'comments/updateImg', info)
                 .then()
                 .catch(err => console.log(err));
+            }
+            
         } else {
             setError("Mật khẩu không khớp")
         }

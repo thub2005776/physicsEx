@@ -30,7 +30,7 @@ const ExAdd = ({ auth }) => {
             data.append('answer', answer);
             data.append('content', content);
 
-            axios.post(process.env.REACT_APP_SERVER_URL + "add/ex", data)
+            axios.post(process.env.REACT_APP_SERVER_URL + "exercises", data)
             .then(res => {
                 alert("Thêm thành công!");
                 navigate(`/admin/2/them/${path}`);

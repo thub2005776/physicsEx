@@ -22,21 +22,22 @@ function App() {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER_URL + "token")
+    axios.get(process.env.REACT_APP_SERVER_URL + "log/ad/token")
       .then(res => {
         if (res.data.Status === "Success") {
-          setUser(res.data.name);
+          setUser(res.data.email);
         }
 
       }).catch(err => console.log(err));
 
     //get profile
-    axios.post(process.env.REACT_APP_SERVER_URL + 'profile')
+    axios.get(process.env.REACT_APP_SERVER_URL + 'users')
       .then(res => {
         setProfile(res.data);
       })
       .catch(err => console.log(err))
 
+      
     //get thematics
     axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
       .then(thematics => setThematics(thematics.data))

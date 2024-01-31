@@ -9,23 +9,17 @@ import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { LikeStatus, Comment, Comments } from '../../components'
 import { useNavigate } from 'react-router-dom';
 
-function Detail({ user, exercises }) {
+function Detail({ user, exercises, com }) {
     const [answerState, setAnswerState] = useState(false);
     const [contentState, setContentState] = useState(false);
-    const [com, setCom] = useState([]);
 
     const location = useLocation();
     const path = location.pathname.split('/')[2]
     const exercise = exercises.find((p) => p.no === path);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "comments",)
-            .then(com => setCom(com.data))
-            .catch(err => console.log(err))
-    }, []);
 
-    const comm = exercise && com? com.filter(f => f.eid === exercise.no):null;
+    const comm = exercise && com && com.length > 0 && com.filter(f => f.eid === exercise.no);
 
     const sended = (e) => {
         if (e) {

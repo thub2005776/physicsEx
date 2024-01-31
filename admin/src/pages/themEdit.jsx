@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,11 +25,11 @@ const ThemEdit = ({ auth, thematics }) => {
         data.append("thematic", them);
         data.append("id", th.code);
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "edit/them/ex", {subThematic, code})
+        axios.patch(process.env.REACT_APP_SERVER_URL + "exercises/update/many", {subThematic, code})
             .then()
             .catch(err => console.log(err))
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "edit/them", data)
+        axios.put(process.env.REACT_APP_SERVER_URL + "thematics/update", data)
             .then(res => {
                 alert("Cập nhật thành công!");
                 navigate('/admin/2');

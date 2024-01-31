@@ -33,7 +33,7 @@ const ExEdit = ({ auth, exercises }) => {
         data.append('content', content);
         data.append('img', img);
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "edit/ex", data)
+        axios.patch(process.env.REACT_APP_SERVER_URL + "exercises/update", data)
             .then(res => {
                 alert("Cập nhật thành công!");
                 navigate('/admin/2/them/' + exercise.subThematic);

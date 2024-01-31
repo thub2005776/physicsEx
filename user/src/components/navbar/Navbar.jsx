@@ -20,8 +20,7 @@ const Navbar = ({auth}) => {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [profile, setProfile] = useState(false);
   const handleLogout = () => {
-    
-      axios.get(process.env.REACT_APP_SERVER_URL + "logout")
+      axios.get(process.env.REACT_APP_SERVER_URL + "log/u/logout")
         .then(res => {
           window.location.reload(true);
         }).catch(err => console.log(err));

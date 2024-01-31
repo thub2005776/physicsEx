@@ -9,9 +9,9 @@ const ExList = ({ ex }) => {
 
     const handleDelete = (e) => {
         if(e) {
-            const no = ex.no;
+            const id = ex._id;
             const img = ex.img;
-            axios.post(process.env.REACT_APP_SERVER_URL + "del/ex", { no, img })
+            axios.delete(process.env.REACT_APP_SERVER_URL + "exercises/" + id, { id, img })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);

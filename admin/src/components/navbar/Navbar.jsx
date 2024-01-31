@@ -15,10 +15,10 @@ const Navbar = ({ auth, com }) => {
   const path = location.pathname.split('/')[2];
   const navigate = useNavigate();
 
-  const comm = com && com.filter(f => f.state === false);
+  const comm = com && com.length > 0 && com.filter(f => f.state === false);
   // Handle Logout 
   const handleLogout = () => {
-    axios.get(process.env.REACT_APP_SERVER_URL + "logout")
+    axios.get(process.env.REACT_APP_SERVER_URL + "log/ad/logout")
       .then(res => {
         window.location.reload(true);
       }).catch(err => console.log(err));

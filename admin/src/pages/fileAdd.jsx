@@ -15,7 +15,7 @@ const FileAdd = ({ auth }) => {
         data.append("file", file);
         data.append("grade", path);
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "fileAdd", data)
+        axios.post(process.env.REACT_APP_SERVER_URL + "docs", data)
             .then(res => {
                 alert("Thêm thành công!");
                 navigate('/admin/3');

@@ -78,7 +78,7 @@ const UserAdd = ({ auth }) => {
         data.append("permission", permission);
         data.append("img", "Image.png");
         // console.log(data);
-        axios.post(process.env.REACT_APP_SERVER_URL + 'users/add', data)
+        axios.post(process.env.REACT_APP_SERVER_URL + 'users', data)
           .then(res => {
             alert("Thêm thành công!");
             navigate('/admin/1')

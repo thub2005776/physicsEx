@@ -5,21 +5,12 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 import packageJson from '../../../package.json';
-import { useState, useEffect } from 'react';
-import axios from "axios";
+import { useState } from 'react';
 import { BiSolidFilePdf } from "react-icons/bi";
 import { Comment, Comments } from '../../components'
 
-function Docs({ files, user }) {
-
-    const [com, setCom] = useState([]);
-    useEffect(() => {
-        axios.get(process.env.REACT_APP_SERVER_URL + "comments",)
-            .then(com => setCom(com.data))
-            .catch(err => console.log(err))
-    }, []);
-
-    const comm = files && com ? com.filter(f => f.eid === files.fid) : null;
+function Docs({ files, user, com }) {
+    const comm = files && com && com.length > 0 && com.filter(f => f.eid === files.fid);
 
     const sended = (e) => {
         if (e) {

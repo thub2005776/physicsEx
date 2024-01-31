@@ -14,12 +14,9 @@ const Login = ({ handleLoginSuccess }) => {
   axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(process.env.REACT_APP_SERVER_URL + 'login', { email, password, permission })
+    axios.post(process.env.REACT_APP_SERVER_URL + 'log/ad/login', { email, password, permission })
       .then(res => {
-        if (res.data.permission === "user") {
-          navigate('/');
-          window.location.reload(true);
-        } else if(res.data.permission === "admin") {
+        if(res.data.permission === "admin") {
           navigate('/admin/0');
           window.location.reload(true);
         } else {alert(res.data);}

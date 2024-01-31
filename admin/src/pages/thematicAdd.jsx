@@ -24,7 +24,7 @@ const ThematicAdd = ({ auth, thematics }) => {
             data.append("thematic", them);
 
 
-            axios.post(process.env.REACT_APP_SERVER_URL + "themAdd", data)
+            axios.post(process.env.REACT_APP_SERVER_URL + "thematics", data)
                 .then(res => {
                     alert("Thêm thành công!");
                     navigate('/admin/2');

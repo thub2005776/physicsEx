@@ -28,7 +28,7 @@ const ProfileCard = ({auth, handlelogout, state}) => {
                     <div id="dropdown" className="z-10  text-base list-none  divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700">
                         <ul className="py-2" aria-labelledby="dropdownButton">
                             <li>
-                                <Link to={`/profile/${auth.uid}`} 
+                                <Link to={`/profile/${auth._id}`} 
                                     className="flex gap-2 px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">
                                     <AiOutlineInfoCircle className='mt-1'/> Thông tin
                                 </Link>

@@ -17,7 +17,7 @@ const CommItem = ({ auth, com }) => {
             let time = com.time;
             let id = com._id;
             let uid = com.uid;
-            axios.post(process.env.REACT_APP_SERVER_URL + "comm/del", { time, id, uid })
+            axios.delete(process.env.REACT_APP_SERVER_URL + "comments/" + id, { time, id, uid })
                 .then(res => {
                     alert("Đã xóa!");
                     window.location.reload(true);

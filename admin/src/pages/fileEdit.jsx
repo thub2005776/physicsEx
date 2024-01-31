@@ -19,7 +19,7 @@ const FileEdit = ({auth, docs}) => {
             data.append("name", doc.name);
             data.append("grade", grade);
 
-        axios.post(process.env.REACT_APP_SERVER_URL + "edit/file", data)
+        axios.put(process.env.REACT_APP_SERVER_URL + "docs/update", data)
             .then(res => {
                 alert("Cập nhật thành công!");
                 navigate('/admin/3');
