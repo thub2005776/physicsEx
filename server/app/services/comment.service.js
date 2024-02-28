@@ -1,4 +1,4 @@
-const { CommentsModel } = require('../models/models');
+const { CommentsModel } = require('../models');
 
 class CommentsService {
     constructor() {
@@ -6,7 +6,7 @@ class CommentsService {
     }
 
     async findAll() {
-        const result = await CommentsModel.find({})
+        const result = await CommentsModel.find({}).sort({time: -1})
         return result;
     }
 

@@ -1,4 +1,4 @@
-const { UserModel } = require('../models/models');
+const { UserModel } = require('../models');
 
 class LoginService {
     constructor() {
@@ -10,7 +10,6 @@ class LoginService {
         return result;
     }
 
-    
 }
 
 module.exports = LoginService;

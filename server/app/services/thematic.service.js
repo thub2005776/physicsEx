@@ -1,5 +1,5 @@
-const { ThematicsModel } = require('../models/models');
-const FileService = require('./file.serice');
+const { ThematicsModel } = require('../models');
+const FileService = require('./file.service');
 
 class ThematicsService {
     constructor() {

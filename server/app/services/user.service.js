@@ -1,5 +1,5 @@
-const { UserModel } = require('../models/models');
-const FileService = require('./file.serice');
+const { UserModel } = require('../models');
+const FileService = require('./file.service');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 

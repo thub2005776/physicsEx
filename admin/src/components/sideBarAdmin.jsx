@@ -4,7 +4,9 @@ import {
     BsFillHouseDoorFill,
     BsFillPersonLinesFill,
     BsFillFileTextFill,
-    BsBarChartLineFill
+    BsBarChartLineFill,
+    BsClipboardCheckFill,
+    BsBookmarksFill
 } from "react-icons/bs";
 
 const SideBarAdmin = ({ active }) => {
@@ -26,9 +28,18 @@ const SideBarAdmin = ({ active }) => {
             "icon":<AiFillFilePdf />
         },
         {
+            "title": "Khóa học",
+            "icon":<BsBookmarksFill />
+        },
+        {
+            "title": "Kiểm tra",
+            "icon":<BsClipboardCheckFill />
+        },
+        {
             "title": "Thống kê",
             "icon":<BsBarChartLineFill />
         }
+
     ];
 
     const SideBarItem = ({icon, index}) => {

@@ -1,5 +1,5 @@
-const { ExModel } = require('../models/models');
-const FileService = require('./file.serice');
+const { ExModel } = require('../models');
+const FileService = require('./file.service');
 
 class ExercisesService {
     constructor() {

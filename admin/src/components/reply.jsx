@@ -4,7 +4,7 @@ import axios from 'axios';
 const Reply = ({ auth, comm, closed }) => {
     const [close, setClose] = useState(false);
     const [content, setContent] = useState();
-    console.log(auth);
+    
     const HandleClosed = () => {
         setClose(true);
         closed(true);
@@ -43,7 +43,7 @@ const Reply = ({ auth, comm, closed }) => {
 
     return (
         !close &&
-        <div id="crud-modal" tabindex="-1" aria-hidden="true" className="absolute top-0 left-40  z-[500] justify-center items-center w-full  h-[calc(100%-1rem)] max-h-full">
+        <div id="crud-modal" tabIndex="-1" aria-hidden="true" className="absolute top-0 left-40  z-[500] justify-center items-center w-full  h-[calc(100%-1rem)] max-h-full">
             <div className="relative p-4 w-full max-w-md max-h-full">
                 <div className="relative  rounded-lg shadow bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
@@ -54,7 +54,7 @@ const Reply = ({ auth, comm, closed }) => {
                         <button type="button" className="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white" data-modal-toggle="crud-modal"
                             onClick={HandleClosed}>
                             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                             <span className="sr-only">Close modal</span>
                         </button>
@@ -63,7 +63,7 @@ const Reply = ({ auth, comm, closed }) => {
                     <form onSubmit={handSubmit} className="p-4 md:p-5">
                         <div className="grid gap-4 mb-4 grid-cols-2">
                             <div className="col-span-2">
-                                <label for="description" className="block mb-2 text-sm font-medium text-white">Bình luận</label>
+                                <label htmlFor="description" className="block mb-2 text-sm font-medium text-white">Bình luận</label>
                                 <textarea id="description" rows="4" className="block p-2.5 w-full text-sm  rounded-lg border  bg-gray-600  border-gray-500  placeholder-gray-400  text-white  focus:ring-blue-500  focus:border-blue-500" placeholder="Viết bình luận tại đây"
                                     onChange={(e) => setContent(e.target.value)}></textarea>
                             </div>

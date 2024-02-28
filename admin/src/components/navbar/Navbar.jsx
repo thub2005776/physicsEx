@@ -49,7 +49,7 @@ const Navbar = ({ auth, com }) => {
           </div> */}
             {auth ? (
               <>
-                {path !== 0 &&
+                {path !== "0" &&
                   // Back buuton
                   <button className='float-right rounded-lg hover:bg-green-500'
                     onClick={() => navigate(-1)}>

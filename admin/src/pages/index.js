@@ -11,3 +11,5 @@ export {default as ExView} from './exView';
 export {default as Profile} from './Profile';
 export {default as ExOfThem} from './exofThem';
 export {default as Statatics} from './statatics';
+export {default as Courses} from '../components/coursesList';
+export {default as CourseAdd} from './courseAdd';

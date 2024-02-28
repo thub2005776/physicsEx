@@ -4,7 +4,7 @@ const ApiError = require('../api-error');
 exports.findAll = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = commentService.findAll();
+        const document = await commentService.findAll();
         return res.json(document);
     } catch (err) {
         return next(
@@ -16,7 +16,7 @@ exports.findAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = commentService.create(req.body);
+        const document = await commentService.create(req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -28,7 +28,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = commentService.update(req.params.id);
+        const document = await commentService.update(req.params.id);
         return res.json(document);
     } catch (err) {
         return next(
@@ -40,7 +40,7 @@ exports.update = async (req, res, next) => {
 exports.updateImg = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = commentService.updateImg(req.body);
+        const document = await commentService.updateImg(req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -52,7 +52,7 @@ exports.updateImg = async (req, res, next) => {
 exports.deleteOne = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = commentService.deleteOne(req.body);
+        const document = await commentService.deleteOne(req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -64,7 +64,7 @@ exports.deleteOne = async (req, res, next) => {
 exports.deleteMany = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = commentService.deleteMany(req.params.uid);
+        const document = await commentService.deleteMany(req.params.uid);
         return res.json(document);
     } catch (err) {
         return next(

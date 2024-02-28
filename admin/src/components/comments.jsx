@@ -5,6 +5,7 @@ const Comments = ({ auth, user, comm }) => {
     const [more, setMore] = useState(false);
     const com5 = [];
     const len = comm && comm.length > 5? 5:comm.length;
+    
     for(let i = 0; i < len; i++) {
         com5.push(comm[i]);
     }

@@ -2,8 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const ApiError = require('./app/api-error');
-const { userRouter, thematicRouter, exerciseRouter, docRouter, commRouter, LogRoter }= require('./app/routes');
+
 require('dotenv').config();
+
+const { userRouter, 
+    thematicRouter, 
+    exerciseRouter, 
+    docRouter, 
+    commRouter, 
+    LogRouter, 
+    CourseRouter, 
+    FileRouter 
+}   = require('./app/routes');
 
 const app = express();
 app.use(cors({
@@ -28,7 +38,12 @@ app.use('/docs', docRouter);
 
 app.use('/comments', commRouter);
 
-app.use('/log',LogRoter);
+app.use('/courses', CourseRouter);
+
+app.use('/log',LogRouter);
+
+app.use('/file', FileRouter);
+
 
 // handle 404 response 
 app.use((req, res, next) => {

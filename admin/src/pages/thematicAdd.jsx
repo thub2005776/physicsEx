@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ const ThematicAdd = ({ auth, thematics }) => {
     const [file, setFile] = useState(null);
     const [code, setCode] = useState(null);
     const [them, setThem] = useState(null);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const thematic = thematics ? thematics.find((f) => f.code === code) : null;
 

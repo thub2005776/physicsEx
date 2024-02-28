@@ -9,7 +9,7 @@ import { Navbar } from './components';
 import {
   Admin, UserAdd,
   ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, Login
+  FileEdit, Profile, ExView, Login, CourseAdd
 } from './pages'
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
   const [exercises, setExercises] = useState([]);
   const [files, setFiles] = useState([]);
   const [com, setCom] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -53,8 +54,12 @@ function App() {
       .then(res => setFiles(res.data))
       .catch(err => console.log(err))
 
-    axios.get(process.env.REACT_APP_SERVER_URL + "comments",)
+    axios.get(process.env.REACT_APP_SERVER_URL + "comments")
       .then(com => setCom(com.data))
+      .catch(err => console.log(err))
+    
+    axios.get(process.env.REACT_APP_SERVER_URL + "courses")
+      .then(course => setCourses(course.data))
       .catch(err => console.log(err))
   }, []);
 
@@ -72,7 +77,13 @@ function App() {
           <Route path="/" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
           <Route path="/admin/:id"
             element={<Admin
-              auth={info} users={profile} thematics={thematics} exercises={exercises} files={files} com={com}
+              auth={info} 
+              users={profile} 
+              thematics={thematics} 
+              exercises={exercises} 
+              files={files} 
+              com={com}
+              courses={courses}
             />} />
           <Route path="/profile/:id" element={<Profile auth={info} />} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
@@ -83,6 +94,7 @@ function App() {
           <Route path="/admin/2/edit/:id" element={<ExEdit auth={info} exercises={exercises} />} />
           <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
           <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
+          <Route path="/admin/4/add" element={<CourseAdd auth={info}/>} />
         </Routes>
       </div>
     </div>

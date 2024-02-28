@@ -12,7 +12,7 @@ Router.route('/u/token')
 Router.route('/u/logout')
     .get(log.Ulogout)
 
-    Router.route('/ad/login')
+Router.route('/ad/login')
     .post(log.login)
 
 Router.route('/ad/token')
