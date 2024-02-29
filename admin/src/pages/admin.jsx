@@ -19,7 +19,7 @@ function Admin({ auth, users, thematics, exercises, files, com, courses }) {
                 <div className='sm:ml-auto sm:w-4/5 ml-10 w-10/12'>
                     {index === 0 &&
                         <div className='mt-10 md:grid grid-cols-3 float-right sm:w-5/6 w-5/6'>
-                            <AdminCard users={users} exercises={exercises} docs={files} />
+                            <AdminCard users={users} exercises={exercises} docs={files} courses={courses}/>
                         </div>}
                     {index === 1 && <UserList users={users} />}
                     {index === 2 && <ThemList thematics={thematics} />}

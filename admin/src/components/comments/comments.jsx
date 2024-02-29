@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CommItem } from '../components';
+import { CommItem } from '..';
 
 const Comments = ({ auth, user, comm }) => {
     const [more, setMore] = useState(false);

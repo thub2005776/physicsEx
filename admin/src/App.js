@@ -9,7 +9,7 @@ import { Navbar } from './components';
 import {
   Admin, UserAdd,
   ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, Login, CourseAdd
+  FileEdit, Profile, ExView, Login, CourseAdd, CourseEdit
 } from './pages'
 
 function App() {
@@ -95,6 +95,7 @@ function App() {
           <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
           <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
           <Route path="/admin/4/add" element={<CourseAdd auth={info}/>} />
+          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses}/>} />
         </Routes>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
-import { Reply, Delete } from '../components';
+import { Reply, Delete } from '..';
 import axios from 'axios';
 
 const CommItem = ({ auth, com }) => {

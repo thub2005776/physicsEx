@@ -37,8 +37,8 @@ class CoursesService {
     }
 
     async updateOne(id, payload) {
-        const values = data(payload)
-        const result = await this.course.findByIdAndUpdate(id, values)
+        const values = this.data(payload)
+        const result = await this.course.findByIdAndUpdate(id, values);
         return result;
     }
 

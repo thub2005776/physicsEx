@@ -1,6 +1,8 @@
-
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import Search from '../search';
+import CourseItem from './courseItem';
+
 const CoursesList = ({ courses }) => {
     //12  https://www.youtube.com/playlist?list=PLNEiyqaLw3NkfBj_Cx2aF-O5mOOyBfYg_
     // https://www.youtube.com/playlist?list=PLhM0cQTOB54o6Nhxlv9fnhzGX3NEz4hav
@@ -19,52 +21,28 @@ const CoursesList = ({ courses }) => {
     // https://www.youtube.com/playlist?list=PLOVaCZ_HQkvezF1X0bXTDSdUNkjHF4U1I
 
     const [active, setActive] = useState('12');
+    const [search, setSearch] = useState(false);
+
     const courseFilter = courses && courses.length > 0 && courses.filter(f => f.grade === active);
 
-    const CourseItem = ({ course }) => {
-        return (
-            <Link to={`/admin/4/${course._id}`}>
-                <div className="py-1 sm:py-4 hover:border-b-[0.5px]">
-                    <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                            <img className="w-8 h-8 rounded-full" src={process.env.REACT_APP_SERVER_URL + course.img} alt={course.name} />
-                        </div>
-                        <div className="flex-1 min-w-0 ms-4">
-                            <p className="text-sm font-medium  truncate text-white">
-                                {course.name}
-                            </p>
-                            <p className="text-sm truncate text-gray-400">
-                                view
-                            </p>
-                        </div>
-                        <div className={`inline-flex items-center`}>
-                            <p className={`text-xs font-medium me-2 px-2.5 py-0.5 rounded 
-                            ${course.level === 'easy' ? 'bg-green-900 text-green-300' :
-                                    course.level === 'medium' ? 'bg-blue-900 text-blue-300' :
-                                        course.level === 'hard' ? 'bg-yellow-900 text-yellow-300' :
-                                            'bg-pink-900 text-pink-300'}`}>
-                                {course.level}
-                            </p>
-                            <div className='p-1 border border-gray-600 hover:bg-slate-600 rounded-lg'>
-                                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fillRule="evenodd" d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </Link>
-
-        )
+    const handleClosed = (e) => {
+        setSearch(!e);
     }
-
     return (
         courses && courses.length > 0 &&
         <div className='pt-20 md:mx-10'>
-            <div className="w-full p-4  border  rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
-                <ul className="hidden text-sm font-medium text-center  rounded-lg shadow sm:flex divide-gray-700 text-gray-400">
+            <div className="relative w-full p-4 border rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
+                {search && <Search data={courses} name='courses' closed={handleClosed} />}
+                <div className='flex justify-between'>
+                    <button type="button" id="simple-search"
+                        className="flex-1 border text-sm text-gray-400 rounded-lg max-w-sm mx-auto mb-2 ps-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                        onClick={() => setSearch(!search)} >Vật lý 12 </button>
+
+                    <svg className="w-10 h-10 text-white hover:text-green-400 hover:cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
+                <ul className="text-sm font-medium text-center  rounded-lg shadow flex divide-gray-700 text-gray-400">
                     <li className="w-full focus-within:z-10">
                         <div className={`inline-block w-full p-4  border-r  border-gray-700 rounded-s-lg focus:ring-4 focus:ring-blue-300 focus:outline-none  text-white bg-gray-800 hover:bg-green-500 hover:cursor-pointer 
                         ${active === '12' && 'bg-green-600'}`}
@@ -85,7 +63,6 @@ const CoursesList = ({ courses }) => {
                     <div className="divide-y  divide-gray-700">
                         {courseFilter && courseFilter.length > 0 ? courseFilter.map((c, i) => (
                             <CourseItem key={i} course={c} />
-
                         )) : <p className='mt-2 text-white text-center text-base'>Không có khóa học nào</p>}
 
                     </div>

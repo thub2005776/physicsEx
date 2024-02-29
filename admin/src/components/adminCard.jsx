@@ -6,7 +6,7 @@ import Testing from '../assets/testing.jpg';
 import Statitics from '../assets/statitics.jpg'
 import { Link } from 'react-router-dom';
 
-const AdminCard = ({ users, exercises, docs }) => {
+const AdminCard = ({ users, exercises, docs, courses }) => {
 
     const Items = [
         {
@@ -27,7 +27,7 @@ const AdminCard = ({ users, exercises, docs }) => {
         {
             "img": Course,
             "title": "Khóa học",
-            "count": docs.length
+            "count": courses.length
         },
         {
             "img": Testing,
