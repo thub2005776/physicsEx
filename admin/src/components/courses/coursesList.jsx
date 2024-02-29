@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Search from '../search';
 import CourseItem from './courseItem';
+import { Link } from 'react-router-dom';
 
 const CoursesList = ({ courses }) => {
     //12  https://www.youtube.com/playlist?list=PLNEiyqaLw3NkfBj_Cx2aF-O5mOOyBfYg_
@@ -37,10 +38,12 @@ const CoursesList = ({ courses }) => {
                     <button type="button" id="simple-search"
                         className="flex-1 border text-sm text-gray-400 rounded-lg max-w-sm mx-auto mb-2 ps-10 p-2.5  bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                         onClick={() => setSearch(!search)} >Vật lý 12 </button>
+                    <Link to={`/admin/4/add`}>
+                        <svg className="w-10 h-10 text-white hover:text-green-400 hover:cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </Link>
 
-                    <svg className="w-10 h-10 text-white hover:text-green-400 hover:cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
                 </div>
                 <ul className="text-sm font-medium text-center  rounded-lg shadow flex divide-gray-700 text-gray-400">
                     <li className="w-full focus-within:z-10">

@@ -10,5 +10,6 @@ router.route('/')
 router.route('/:id')
     .get(course.findById)
     .put(course.updateOne)
+    .delete(course.deleteOne)
 
 module.exports = router;

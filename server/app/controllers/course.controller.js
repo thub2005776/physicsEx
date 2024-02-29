@@ -40,3 +40,13 @@ exports.updateOne = async (req, res, next) => {
         return next(new ApiError(500, err));
     }
 }
+
+exports.deleteOne = async (req, res, next) => {
+    try {
+        const courseService = new CoursesService();
+        const document = await courseService.deleteOne(req.params.id);
+        return res.json(document);
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}

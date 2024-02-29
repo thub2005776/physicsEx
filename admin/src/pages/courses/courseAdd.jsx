@@ -50,7 +50,7 @@ const CourseAdd = ({ auth }) => {
             <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                 Thông tin khóa học mới
             </div>
-            <form onSubmit={handleSubmit}>
+            <form className="shadow bg-gray-800 rounded-lg p-3" onSubmit={handleSubmit}>
                 <div className="mb-6 text-base">
                     <span className="text-slate-400">Tải hình ảnh lên </span>
                     <input required className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
