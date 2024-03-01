@@ -16,7 +16,10 @@ const CourseItem = ({ course }) => {
                     navigate(0, { replace: true });
                 })
                 .catch(err => console.log(err))
-            console.log(e);
+
+            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${course.img}`)
+                .then(res => { console.log(res.data) })
+                .catch(err => console.log(err))
         }
     }
 
