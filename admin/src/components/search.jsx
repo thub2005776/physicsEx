@@ -29,8 +29,8 @@ const Search = ({ data, name, closed }) => {
 
     return (
         !close &&
-        <div id="default-modal" tabIndex="-1" aria-hidden="true" className="absolute z-[500] overflow-y-auto overflow-x-hidden top-0 right-0 left-0 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div className="relative p-4 w-full max-w-2xl max-h-full">
+        <div id="default-modal" tabIndex="-1" aria-hidden="true" className="absolute z-[5000] top-0 right-0 left-0   justify-center items-center w-full  h-[calc(100%-1rem)] max-h-full">
+            <div className="relative lg:left-[15%]  p-4 w-full max-w-2xl max-h-full">
                 <div className="relative  rounded-lg shadow bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                         <form className="flex-1">

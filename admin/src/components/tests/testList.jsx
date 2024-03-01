@@ -4,22 +4,7 @@ import Search from '../search';
 import CourseItem from './courseItem';
 import { Link } from 'react-router-dom';
 
-const CoursesList = ({ courses }) => {
-    //12  https://www.youtube.com/playlist?list=PLNEiyqaLw3NkfBj_Cx2aF-O5mOOyBfYg_
-    // https://www.youtube.com/playlist?list=PLhM0cQTOB54o6Nhxlv9fnhzGX3NEz4hav
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkvff80K_Dzf7a0O1Q0WB0vrf
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkvdHQ5TBJ6fArFkknzw492pN
-
-    // 11 https://www.youtube.com/playlist?list=PLhM0cQTOB54q7x_IYr5HFWVkqdXD9vFL2
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkveSVHAL8LqCcXGzAQe-EGEU
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkvdf54wayAyZeQuhnp61N7vg
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkve1V_FrTKyoXUBuE5-gqc7A
-
-    // 10 https://www.youtube.com/playlist?list=PLhM0cQTOB54p9H3SMbTeom4VS4j5VOvwl
-    // https://www.youtube.com/playlist?list=PLOz0SKVB63i2FHaJuDmyigBJ60nzKig0m
-    // https://www.youtube.com/playlist?list=PLDHr_ecbSve6YWoN2Fe7nLWppcY8-drI3
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkvevQFyg0Xc4K9NNrj5cBpV7
-    // https://www.youtube.com/playlist?list=PLOVaCZ_HQkvezF1X0bXTDSdUNkjHF4U1I
+const TestList = ({ courses }) => {
 
     const [active, setActive] = useState('12');
     const [search, setSearch] = useState(false);
@@ -82,4 +67,4 @@ const CoursesList = ({ courses }) => {
     )
 }
 
-export default CoursesList;
+export default TestList;

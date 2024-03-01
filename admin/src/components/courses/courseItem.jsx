@@ -29,7 +29,7 @@ const CourseItem = ({ course }) => {
     return (
         <div className='flex justify-between'>
             {del &&
-                <div className="absolute top-0 right-48 z-[500]">
+                <div className="absolute top-0 lg:left-[35%] md:left-[30%] left-[10%] z-[500]">
                     <Delete sendDelete={handleDelete} Exit={handleExit} />
                 </div>}
             <Link className='flex-1' to={`/admin/4/${course._id}`}>

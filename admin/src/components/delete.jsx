@@ -15,10 +15,9 @@ const Delete = (props) => {
 
     return (
         !exit &&
-             <div
-            id="popup-modal"
-            className=" top-10 left-0 right-0 p-4  md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div className="relative w-full max-h-full">
+             <div id="popup-modal"
+            className=" top-10 -left-0 right-0 p-4 md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div className="relative border border-gray-400 rounded-md w-full max-h-full">
                 <div className="relative rounded-lg shadow bg-gray-700">
                     <button type="button"
                         className="absolute top-3 right-2.5 text-gray-400 bg-transparent  rounded-lg text-sm w-8 h-8 
