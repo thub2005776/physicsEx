@@ -9,7 +9,7 @@ import { Navbar } from './components';
 import {
   Admin, UserAdd,
   ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, Login, CourseAdd, CourseEdit
+  FileEdit, Profile, ExView, Login, CourseAdd, CourseEdit, TestAdd, QuestionsList
 } from './pages'
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
   const [files, setFiles] = useState([]);
   const [com, setCom] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [tests, setTests] = useState([]);
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -33,20 +34,18 @@ function App() {
 
     //get profile
     axios.get(process.env.REACT_APP_SERVER_URL + 'users')
-      .then(res => {
-        setProfile(res.data);
-      })
+      .then(res => setProfile(res.data))
       .catch(err => console.log(err))
 
-      
+
     //get thematics
     axios.get(process.env.REACT_APP_SERVER_URL + "thematics")
-      .then(thematics => setThematics(thematics.data))
+      .then(res => setThematics(res.data))
       .catch(err => console.log(err))
 
     //get exercises
     axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-      .then(exercises => setExercises(exercises.data))
+      .then(res => setExercises(res.data))
       .catch(err => console.log(err))
 
     //get document files 
@@ -55,11 +54,15 @@ function App() {
       .catch(err => console.log(err))
 
     axios.get(process.env.REACT_APP_SERVER_URL + "comments")
-      .then(com => setCom(com.data))
+      .then(res => setCom(res.data))
       .catch(err => console.log(err))
-    
+
     axios.get(process.env.REACT_APP_SERVER_URL + "courses")
-      .then(course => setCourses(course.data))
+      .then(res => setCourses(res.data))
+      .catch(err => console.log(err))
+
+    axios.get(process.env.REACT_APP_SERVER_URL + "tests")
+      .then(res => setTests(res.data))
       .catch(err => console.log(err))
   }, []);
 
@@ -77,13 +80,14 @@ function App() {
           <Route path="/" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
           <Route path="/admin/:id"
             element={<Admin
-              auth={info} 
-              users={profile} 
-              thematics={thematics} 
-              exercises={exercises} 
-              files={files} 
+              auth={info}
+              users={profile}
+              thematics={thematics}
+              exercises={exercises}
+              files={files}
               com={com}
               courses={courses}
+              tests={tests}
             />} />
           <Route path="/profile/:id" element={<Profile auth={info} />} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
@@ -94,8 +98,10 @@ function App() {
           <Route path="/admin/2/edit/:id" element={<ExEdit auth={info} exercises={exercises} />} />
           <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
           <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
-          <Route path="/admin/4/add" element={<CourseAdd auth={info}/>} />
-          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses}/>} />
+          <Route path="/admin/4/add" element={<CourseAdd auth={info} />} />
+          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} />} />
+          <Route path="/admin/5/add" element={<TestAdd auth={info} />} />
+          <Route path="/admin/5/add/:id" element={<QuestionsList auth={info} />} />
         </Routes>
       </div>
     </div>

@@ -6,6 +6,8 @@ const commRouter = require('./comment.route');
 const LogRouter = require('./login.route');
 const CourseRouter = require('./course.route');
 const FileRouter = require('./file.route')
+const TestRouter = require('./test.route');
+const QuestionRouter = require('./question.route');
 
 module.exports =  { 
     userRouter, 
@@ -15,5 +17,7 @@ module.exports =  {
     commRouter, 
     LogRouter, 
     CourseRouter,
-    FileRouter
+    FileRouter,
+    TestRouter,
+    QuestionRouter
 };

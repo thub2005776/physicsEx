@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 const LessonSchema = new mongoose.Schema({
     tid: String,
-    lid: String,
     question: String,
-    answer: Array,
+    selections: Array,
     trueAns: String,
     explain: String,
 });

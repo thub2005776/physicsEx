@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/upload', upload.single('file'), file.upload);
+router.post('/upload/:json', upload.single('file'), file.uploadJSON);
 router.delete('/remove/:img', file.remove)
 
 module.exports = router;

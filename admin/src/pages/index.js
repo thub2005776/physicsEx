@@ -13,3 +13,5 @@ export {default as ExOfThem} from './exofThem';
 export {default as Statatics} from './statatics';
 export {default as CourseAdd} from './courses/courseAdd';
 export {default as CourseEdit} from './courses/courseEdit';
+export {default as TestAdd} from './tests/testAdd';
+export {default as QuestionsList} from  './tests/questionsList';

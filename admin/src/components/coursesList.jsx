@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Search from '../search';
-import CourseItem from './courseItem';
+import Search from './search';
+import CardItem from './cardItem';
 import { Link } from 'react-router-dom';
 
 const CoursesList = ({ courses }) => {
@@ -70,7 +70,7 @@ const CoursesList = ({ courses }) => {
                 <div className="flow-root">
                     <div className="divide-y  divide-gray-700">
                         {courseFilter && courseFilter.length > 0 ? courseFilter.map((c, i) => (
-                            <CourseItem key={i} course={c} />
+                            <CardItem key={i} data={c} name={'course'} />
                         )) : <p className='mt-2 text-white text-center text-base'>Không có khóa học nào</p>}
 
                     </div>

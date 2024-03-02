@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CourseItem from "./courses/courseItem";
+import CourseItem from "./cardItem";
 
 const Search = ({ data, name, closed }) => {
     const [input, setInput] = useState('');

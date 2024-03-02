@@ -5,5 +5,17 @@ const DocsModel = require('./docs.model');
 const CommentsModel = require('./comments.model');
 const CourseModel = require('./courses.model');
 const LessonModel = require('./lessons.model');
+const TestModel = require('./tests.model');
+const QuestionModel = require('./questions.model');
 
-module.exports = { UserModel, ExModel, ThematicsModel, DocsModel, CommentsModel, CourseModel, LessonModel };
+module.exports = { 
+    UserModel, 
+    ExModel, 
+    ThematicsModel, 
+    DocsModel, 
+    CommentsModel, 
+    CourseModel, 
+    LessonModel, 
+    TestModel,
+    QuestionModel
+};

@@ -1,8 +1,8 @@
-import { SideBarAdmin, AdminCard, UserList, ThemList, Files, CoursesList, TestingList } from '../components'
+import { SideBarAdmin, AdminCard, UserList, ThemList, Files, CoursesList, TestList } from '../components'
 import { Statatics } from '../pages'
 import { useLocation } from 'react-router';
 
-function Admin({ auth, users, thematics, exercises, files, com, courses }) {
+function Admin({ auth, users, thematics, exercises, files, com, courses, tests }) {
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const index = parseInt(path);
@@ -25,7 +25,7 @@ function Admin({ auth, users, thematics, exercises, files, com, courses }) {
                     {index === 2 && <ThemList thematics={thematics} />}
                     {index === 3 && <Files files={files} />}
                     {index === 4 && <CoursesList courses={courses}/>}
-                    {index === 5 && <TestingList />}
+                    {index === 5 && <TestList tests={tests} />}
                     {index === 6 && <Statatics auth={auth} user={users} exe={exercises} comm={com} />}
 
                 </div>

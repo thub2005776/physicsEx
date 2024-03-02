@@ -1,23 +1,33 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Delete } from '..';
+import { Delete } from '.';
 import axios from 'axios';
 
-const CourseItem = ({ course }) => {
+const CardItem = ({ data, name }) => {
     const [del, setDel] = useState(false);
     const navigate = useNavigate();
 
     const handleDelete = (e) => {
         setDel(!e);
         if (e) {
-            axios.delete(process.env.REACT_APP_SERVER_URL + `courses/${course._id}`)
+            if(name === 'course') {
+                axios.delete(process.env.REACT_APP_SERVER_URL + `courses/${data._id}`)
                 .then(res => {
                     alert("Đã xóa!");
                     navigate(0, { replace: true });
                 })
                 .catch(err => console.log(err))
+            } else {
+                axios.delete(process.env.REACT_APP_SERVER_URL + `tests/${data._id}`)
+                .then(res => {
+                    alert("Đã xóa!");
+                    navigate(0, { replace: true });
+                })
+                .catch(err => console.log(err))
+            }
+            
 
-            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${course.img}`)
+            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${data.img}`)
                 .then(res => { console.log(res.data) })
                 .catch(err => console.log(err))
         }
@@ -32,15 +42,15 @@ const CourseItem = ({ course }) => {
                 <div className="absolute top-0 lg:left-[35%] md:left-[30%] left-[10%] z-[500]">
                     <Delete sendDelete={handleDelete} Exit={handleExit} />
                 </div>}
-            <Link className='flex-1' to={`/admin/4/${course._id}`}>
+            <Link className='flex-1' to={`/admin/4/${data._id}`}>
                 <div className="py-1 sm:py-4 hover:border-b-[0.5px]">
                     <div className="flex items-center">
                         <div className="flex-shrink-0">
-                            <img className="w-8 h-8 rounded-full" src={process.env.REACT_APP_SERVER_URL + course.img} alt={course.name} />
+                            <img className="w-8 h-8 rounded-full" src={process.env.REACT_APP_SERVER_URL + data.img} alt={data.name} />
                         </div>
                         <div className="flex-1 min-w-0 ms-4">
                             <p className="text-sm font-medium  truncate text-white">
-                                {course.name}
+                                {data.name}
                             </p>
                             <p className="text-sm truncate text-gray-400">
                                 view
@@ -48,11 +58,11 @@ const CourseItem = ({ course }) => {
                         </div>
                         <div className="inline-flex items-center">
                             <p className={`text-xs font-medium me-2 px-2.5 py-0.5 rounded 
-                        ${course.level === 'easy' ? 'bg-green-900 text-green-300' :
-                                    course.level === 'medium' ? 'bg-blue-900 text-blue-300' :
-                                        course.level === 'hard' ? 'bg-yellow-900 text-yellow-300' :
+                        ${data.level === 'easy' ? 'bg-green-900 text-green-300' :
+                                    data.level === 'medium' ? 'bg-blue-900 text-blue-300' :
+                                        data.level === 'hard' ? 'bg-yellow-900 text-yellow-300' :
                                             'bg-pink-900 text-pink-300'}`}>
-                                {course.level}
+                                {data.level}
                             </p>
 
                         </div>
@@ -71,4 +81,4 @@ const CourseItem = ({ course }) => {
     )
 }
 
-export default CourseItem;
+export default CardItem;

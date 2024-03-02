@@ -1,0 +1,25 @@
+[{
+    "tid": "testID",
+    "question": "Câu hỏi",
+    "selections": 
+    [
+        {"0": "a..."},
+        {"1": "b..."},
+        {"2": "c..."}
+    ],
+    "trueAns": "a",
+    "explain": "Bởi vì..."
+},
+{
+    "tid": "testID2",
+    "question": "Câu hỏi",
+    "selections": 
+    [
+        {"0": "a..."},
+        {"1": "b..."},
+        {"2": "c..."}
+    ],
+    "trueAns": "a",
+    "explain": "Bởi vì..."
+}
+]

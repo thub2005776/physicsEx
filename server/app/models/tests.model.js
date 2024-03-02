@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 
 const TestSchema = new mongoose.Schema({
     name: String,
-    cid: String,
+    grade: String,
+    tag: String,
     content: String,
     img: String,
     level: String,
-    times: Number,
+    duration: Number,
 });
 
 const TestModel = mongoose.model("tests",TestSchema);

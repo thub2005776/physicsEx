@@ -1,5 +1,6 @@
 const ApiError = require('../api-error');
 const fs = require('fs');
+const QuestionsService = require('../services/question.service');
 
 exports.upload = (req, res, next) => {
     try {
@@ -7,6 +8,28 @@ exports.upload = (req, res, next) => {
             return res.json("Uploaded")
         } else return next(new ApiError(400, "File is not empty"));
 
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}
+
+exports.uploadJSON = (req, res, next) => {
+    try {
+        const filePath = '../user/src/assets/' + req.params.json;
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                return next(new ApiError(500, err));
+            }
+
+            try {
+                const jsonData = JSON.parse(data);
+                const courseService = new QuestionsService();
+                const document = courseService.insertMany(jsonData);
+                return res.json(document);
+            } catch (err) {
+                return next(new ApiError(500, err));
+            }
+        });
     } catch (err) {
         return next(new ApiError(500, err));
     }

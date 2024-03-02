@@ -12,7 +12,9 @@ const { userRouter,
     commRouter, 
     LogRouter, 
     CourseRouter, 
-    FileRouter 
+    FileRouter, 
+    TestRouter,
+    QuestionRouter
 }   = require('./app/routes');
 
 const app = express();
@@ -39,6 +41,10 @@ app.use('/docs', docRouter);
 app.use('/comments', commRouter);
 
 app.use('/courses', CourseRouter);
+
+app.use('/tests', TestRouter);
+
+app.use('/questions', QuestionRouter);
 
 app.use('/log',LogRouter);
 
