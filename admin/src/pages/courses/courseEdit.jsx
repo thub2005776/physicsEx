@@ -65,12 +65,13 @@ const CourseEdit = ({ auth, courses }) => {
                 Cập nhật khóa học
             </div>
             <form className="shadow bg-gray-800 rounded-lg p-3" onSubmit={handleSubmit}>
+                {uploaded? <img className="mx-[38%] md:w-32 md:h-32 w-20 h-20 rounded-full border border-gray-400 p-1" src={uploaded} alt={course.name} />
+                        : <img className="mx-[38%] md:w-32 md:h-32 w-20 h-20 rounded-full border border-gray-400 p-1" src={process.env.REACT_APP_SERVER_URL + course.img} alt={course.name} />}
                 <div className="flex justify-evenly mb-6 text-base">
                     <span className="text-slate-400">Tải hình ảnh lên </span>
                     <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
                         onChange={HandleFileChange} />
-                    {uploaded? <img className="w-10 h-10 rounded-full" src={uploaded} alt={course.name} />
-                        : <img className="w-10 h-10 rounded-full" src={process.env.REACT_APP_SERVER_URL + course.img} alt={course.name} />}
+                    
                 </div>
                 <div className="mb-6">
                     <label
