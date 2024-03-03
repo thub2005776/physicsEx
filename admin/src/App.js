@@ -9,7 +9,8 @@ import { Navbar } from './components';
 import {
   Admin, UserAdd,
   ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, Login, CourseAdd, CourseEdit, TestAdd, QuestionsList
+  FileEdit, Profile, ExView, Login, CourseAdd, 
+  CourseEdit, TestAdd, QuestionsList, TestEdit
 } from './pages'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const [com, setCom] = useState([]);
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -64,6 +66,10 @@ function App() {
     axios.get(process.env.REACT_APP_SERVER_URL + "tests")
       .then(res => setTests(res.data))
       .catch(err => console.log(err))
+
+      axios.get(process.env.REACT_APP_SERVER_URL + "questions")
+      .then(res => setQuestions(res.data))
+      .catch(err => console.log(err))
   }, []);
 
   // Callback function để nhận thông tin profile từ component Login
@@ -102,6 +108,7 @@ function App() {
           <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} />} />
           <Route path="/admin/5/add" element={<TestAdd auth={info} />} />
           <Route path="/admin/5/add/:id" element={<QuestionsList auth={info} />} />
+          <Route path="/admin/5/:id" element={<TestEdit auth={info} tests={tests} questions={questions}/>} />
         </Routes>
       </div>
     </div>

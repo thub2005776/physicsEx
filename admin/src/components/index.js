@@ -17,3 +17,4 @@ export {default as CoursesList} from './coursesList';
 export {default as CardItem} from './cardItem';
 export {default as TestList} from './tests/testList';
 export {default as Search} from './search';
+export {default as QuestionEdit} from './tests/questionEdit';

@@ -42,7 +42,7 @@ const CardItem = ({ data, name }) => {
                 <div className="absolute top-0 lg:left-[35%] md:left-[30%] left-[10%] z-[500]">
                     <Delete sendDelete={handleDelete} Exit={handleExit} />
                 </div>}
-            <Link className='flex-1' to={`/admin/4/${data._id}`}>
+            <Link className='flex-1' to={`/admin/${name === 'course'? 4:5}/${data._id}`}>
                 <div className="py-1 sm:py-4 hover:border-b-[0.5px]">
                     <div className="flex items-center">
                         <div className="flex-shrink-0">

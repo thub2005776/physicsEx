@@ -42,44 +42,45 @@ const QuestionsList = ({ auth }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const data = new FormData();
-        data.append("file", file);
-
-        const temp = selections.map((e, i) => {
-            const newObj = {};
-            newObj[i] = e;
-            return newObj;
-        })
-
-        const values = {
-            "tid": tid,
-            "question": question,
-            "selections": temp,
-            "trueAns": trueAns,
-            "explain": explain
-        }
-
-        if(!file) {
-            axios.post(process.env.REACT_APP_SERVER_URL + "questions", values)
-            .then(res => {
-                if (res.status === 200) {
-                    alert("Thêm thành công!");
-                    document.location.reload();
-                }
+        if(selections.length > 2) {
+            const data = new FormData();
+            data.append("file", file);
+    
+            const temp = selections.map((e, i) => {
+                const newObj = {};
+                newObj[i] = e;
+                return newObj;
             })
-            .catch(err => console.log(err))
-        } else { 
-            axios.post(process.env.REACT_APP_SERVER_URL + `file/upload/${file.name}`, data)
-            .then(res => {
-                if (res.status === 200) {
-                    alert("Thêm thành công!");
-                    document.location.reload();
-                }
-            })
-            .catch(err => console.log(err))
-        }
-
-
+    
+            const values = {
+                "tid": tid,
+                "question": question,
+                "selections": temp,
+                "trueAns": trueAns,
+                "explain": explain
+            }
+    
+            if(!file) {
+                axios.post(process.env.REACT_APP_SERVER_URL + "questions", values)
+                .then(res => {
+                    if (res.status === 200) {
+                        alert("Thêm thành công!");
+                        document.location.reload();
+                    }
+                })
+                .catch(err => console.log(err))
+            } else { 
+                axios.post(process.env.REACT_APP_SERVER_URL + `file/upload/${file.name}`, data)
+                .then(res => {
+                    if (res.status === 200) {
+                        alert("Thêm thành công!");
+                        document.location.reload();
+                    }
+                })
+                .catch(err => console.log(err))
+            }
+    
+        } else { alert('Bạn phải nhập ít nhất 2 lựa chọn')}
 
     }
 
@@ -182,7 +183,7 @@ const QuestionsList = ({ auth }) => {
                                 Đáp án
                             </label>
                             <div className="flex gap-4" id="Ans">
-                                {selections.length > 1 && selections.map((e, i) => (
+                                {selections.length > 0 && selections.map((e, i) => (
                                     <div key={i}>
                                         <input id="inline-radio" type="radio" name="inline-radio-group"
                                             className="w-4 h-4 text-blue-600 focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"
