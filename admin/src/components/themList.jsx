@@ -37,7 +37,7 @@ const ThemList = ({thematics}) => {
                 </div>
 
                 {Array.isArray(themResult) ?
-                    (<div className=" ml-5 border-collapse bg-slate-700 rounded-md  border border-gray-600 w-full sm:text-lg text-sm">
+                    (<div className=" ml-5 border-collapse bg-gray-800 rounded-md  border border-gray-600 w-full sm:text-lg text-sm">
                         <div className="border-b-2">
                             <div className='p-3 grid grid-cols-4 font-medium'>
                                 <div>Ảnh bìa</div>

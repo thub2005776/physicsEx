@@ -1,8 +1,9 @@
 import { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+import { Delete } from '..';
 
-
-const QuestionEdit = ({ tid, quest }) => {
+const QuestionEdit = ({ quest }) => {
     const [question, setQuestion] = useState(quest && quest.question);
     const [selections, setSelections] = useState(quest && quest.selections);
     const [trueAns, setTrueAns] = useState(quest && quest.trueAns);
@@ -14,9 +15,8 @@ const QuestionEdit = ({ tid, quest }) => {
     const [err, setErr] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
 
-
     const handleChangeInput = (index, value) => {
-        
+
         const updatedSelections = [...selections];
         const temp = {};
         temp[index] = value
@@ -29,37 +29,59 @@ const QuestionEdit = ({ tid, quest }) => {
         if (updatedSelections.length > 2) {
             updatedSelections.splice(index, 1);
             setSelections(updatedSelections);
-        } else { 
+        } else {
             setErr(true)
             const timer = setTimeout(() => {
                 setIsVisible(false);
             }, 2000);
-    
+
             return () => clearTimeout(timer);
-         }
+        }
+    }
+
+    const [del, setDel] = useState(false);
+    const navigate = useNavigate();
+
+    const handleDelete = (e) => {
+        setDel(!e);
+        if (e) {
+            axios.delete(process.env.REACT_APP_SERVER_URL + `questions/${quest._id}`)
+                .then(res => {
+                    alert("Đã xóa!");
+                    navigate(0, { replace: true });
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    const handleExit = (e) => {
+        setDel(!e);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (selections.length > 1) {
-
+            const temp = selections.map((e, i) => {
+                const newObj = {};
+                newObj[i] = e;
+                return newObj;
+            })
             const values = {
                 "tid": quest && quest.tid,
                 "question": question,
-                "selections": selections,
+                "selections": temp,
                 "trueAns": trueAns,
                 "explain": explain
             }
 
-            // console.log(values);
             axios.put(process.env.REACT_APP_SERVER_URL + `questions/${quest._id}`, values)
-            .then(res => {
-                if (res.status === 200) {
-                    alert("Cập nhật thành công!");
-                }
-            })
-            .catch(err => console.log(err))
+                .then(res => {
+                    if (res.status === 200) {
+                        alert("Cập nhật thành công!");
+                    }
+                })
+                .catch(err => console.log(err))
 
 
         } else { alert('Bạn phải nhập ít nhất 2 lựa chọn') }
@@ -78,10 +100,15 @@ const QuestionEdit = ({ tid, quest }) => {
                     {quest.question}
                 </button>
                 <button type="button" className="bg-red-400 mb-1 text-white text-sm rounded-lg h-10
-                     hover:bg-red-500 block w-fit  p-2.5 ">
+                     hover:bg-red-500 block w-fit  p-2.5 "
+                    onClick={() => setDel(!del)}>
                     Xóa
                 </button>
             </div>
+            {del &&
+                <div className="absolute top-30 lg:left-[35%] md:left-[30%] left-[10%] z-[500]">
+                    <Delete sendDelete={handleDelete} Exit={handleExit} />
+                </div>}
             {status &&
                 <form className="w-full shadow bg-gray-900 rounded-lg p-3" onSubmit={handleSubmit}>
                     <div className="mb-6">

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import Search from '../search';
 import CardItem from '../cardItem';
 import { Link } from 'react-router-dom';
@@ -8,12 +7,14 @@ const TestList = ({ tests }) => {
 
     const [active, setActive] = useState('12');
     const [search, setSearch] = useState(false);
+    
 
     const testFilter = tests && tests.length > 0 && tests.filter(f => f.grade === active);
 
     const handleClosed = (e) => {
         setSearch(!e);
     }
+
     return (
         tests && tests.length > 0 &&
         <div className='mt-20 mx-2'>

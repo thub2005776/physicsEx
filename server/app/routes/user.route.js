@@ -10,7 +10,7 @@ router.route('/')
 router.route('/:id')
     .get(users.findOne)
     .post(users.createComm)
-    .patch(users.update)
+    .put(users.update)
     .delete(users.delete)
 
 router.route('/edit')

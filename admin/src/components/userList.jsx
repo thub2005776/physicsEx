@@ -53,7 +53,7 @@ const UserList = ({ users }) => {
                 </div>
 
                 {Array.isArray(usersResult) ?
-                    (<div className=" ml-5 border-collapse bg-slate-700 rounded-md border border-gray-600 w-full sm:md:text-lg text-xs">
+                    (<div className=" ml-5 border-collapse bg-gray-800 rounded-md border border-gray-600 w-full sm:md:text-lg text-xs">
                         <div className="border-b-2 flex">
                             <div className='flex-1 ml-5 py-3 grid grid-cols-4 gap-5 font-medium'>
                                 <div >Ảnh đại diện</div>

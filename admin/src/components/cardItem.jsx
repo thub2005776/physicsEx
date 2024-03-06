@@ -11,14 +11,14 @@ const CardItem = ({ data, name }) => {
         setDel(!e);
         if (e) {
             if(name === 'course') {
-                axios.delete(process.env.REACT_APP_SERVER_URL + `courses/${data._id}`)
+                axios.delete(process.env.REACT_APP_SERVER_URL + `courses/${data && data._id}`)
                 .then(res => {
                     alert("Đã xóa!");
                     navigate(0, { replace: true });
                 })
                 .catch(err => console.log(err))
             } else {
-                axios.delete(process.env.REACT_APP_SERVER_URL + `tests/${data._id}`)
+                axios.delete(process.env.REACT_APP_SERVER_URL + `tests/${data && data._id}`)
                 .then(res => {
                     alert("Đã xóa!");
                     navigate(0, { replace: true });
@@ -27,7 +27,7 @@ const CardItem = ({ data, name }) => {
             }
             
 
-            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${data.img}`)
+            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${data && data.img}`)
                 .then(res => { console.log(res.data) })
                 .catch(err => console.log(err))
         }
@@ -37,6 +37,7 @@ const CardItem = ({ data, name }) => {
         setDel(!e);
     }
     return (
+        data &&
         <div className='flex justify-between'>
             {del &&
                 <div className="absolute top-0 lg:left-[35%] md:left-[30%] left-[10%] z-[500]">

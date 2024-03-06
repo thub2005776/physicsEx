@@ -1,41 +1,45 @@
 const { UserModel } = require('../models');
-const FileService = require('./file.service');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 class UsersService {
     constructor() {
-        this.User = UserModel;
+        this.user = UserModel;
+    }
+
+    data(payload) {
+        const values = {
+            "email": payload.email,
+            "name": payload.name,
+            "password": payload.password,
+            "img": payload.img,
+            "comments": payload.comments,
+            "courses": payload.courses,
+            "tests": payload.tests,
+            "permission": payload.permission
+        }
+        Object.keys(values).forEach(
+            (key) => values[key] === undefined && delete values[key]
+        );
+        return values;
     }
 
     async findAll() {
-        const result = await UserModel.find({})
+        const result = await this.user.find({})
         return result;
     }
 
     async findOne(id) {
-        const result = await UserModel.findOne({ _id: id })
+        const result = await this.user.findOne({ _id: id })
         return result;
     }
 
     async create(payload) {
-        if (payload.file) {
-            const fileService = new FileService(payload.file);
-            fileService.upload.single('file');
-        }
+        const values = this.data(payload);
         const salt = parseInt(process.env.SALT);
-        bcrypt.hash(payload.body.password, salt, async (err, hash) => {
+        bcrypt.hash(values.password, salt, async (err, hash) => {
             if (err) return "Error for hassing password ";
-            const values = {
-                "name": payload.body.name,
-                "email": payload.body.email,
-                "password": hash,
-                "permission": payload.body.permission,
-                "img": payload.file ? payload.file.filename : payload.body.img,
-                "comments": []
-            }
-
-            const result = await UserModel.create(values)
+            const result = await this.user.create(values)
             return result;
         });
     }
@@ -69,11 +73,7 @@ class UsersService {
         }
 
         const oldImg = payload.body.img;
-        const fileService = new FileService(payload.body.file);
-        if (payload.body.file && payload.body.file !== "Image.jpg") {
-            fileService.upload.single('file');
-             fileService.removeFile(oldImg) 
-            }
+        
 
         if (!old) {
             bcrypt.hash(payload.password, salt, (err, hash) => {
@@ -90,8 +90,7 @@ class UsersService {
 
     async delete(payload) {
         const { id, img } = payload;
-        const fileService = new FileService();
-        fileService.removeFile(img);
+        
         const result = await UserModel.findOneAndDelete({ _id: id })
         return result;
     }

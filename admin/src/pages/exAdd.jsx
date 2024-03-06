@@ -46,7 +46,7 @@ const ExAdd = ({ auth }) => {
                 <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                     Thông tin bài tập mới
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form className="bg-gray-800 " onSubmit={handleSubmit}>
                     <div className="sm:flex">
                         <div className="sm:flex-none w-2/3 sm:mr-5 sm:w-fit">
                             <div className="mb-6">

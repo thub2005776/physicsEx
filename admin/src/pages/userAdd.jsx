@@ -72,17 +72,27 @@ const UserAdd = ({ auth }) => {
         // const img = image !== null? image :'Image.png';
         const data = new FormData();
         data.append("file",file);
-        data.append("name", name);
-        data.append("email", email);
-        data.append("password", password);
-        data.append("permission", permission);
-        data.append("img", "Image.png");
-        // console.log(data);
-        axios.post(process.env.REACT_APP_SERVER_URL + 'users', data)
+        
+        const values = {
+            "email": email,
+            "name": name,
+            "password": password,
+            "img": file && file.name,
+            "permission": permission,
+        }
+        console.log(values);
+        axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
+            .then(res => {
+                if (res.status === 200) {
+                   console.log(res.data);
+                }
+            })
+            .catch(err => console.log(err))
+
+        axios.post(process.env.REACT_APP_SERVER_URL + 'users', values)
           .then(res => {
             alert("Thêm thành công!");
-            navigate('/admin/1')
-            window.location.reload();
+            navigate('/admin/1', { replace: true})
           })
           .catch(err => console.log(err));
       }
@@ -95,10 +105,10 @@ const UserAdd = ({ auth }) => {
                 <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                     Thông tin tài khoản mới
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="relative z-0 w-full mb-6 group text-gray-400">
+                <form className="bg-gray-800 p-5 border border-gray-400 rounded-md" onSubmit={handleSubmit}>
+                    <div className="relative z-0 w-full mb-6 group text-white text-base">
                         <span>Tải hình ảnh lên </span>
-                        <input className="ml-4 rounded-lg bg-emerald-100" type="file"
+                        <input className="ml-4 rounded-lg bg-green-400" type="file"
                             name="file"
                             onChange={(e) => setFile(e.target.files[0])}/>
                     </div>

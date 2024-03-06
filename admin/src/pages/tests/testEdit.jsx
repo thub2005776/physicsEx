@@ -205,7 +205,7 @@ const TestEdit = ({ auth, tests, questions }) => {
                     </div>
                     <div className="p-2 bg-gray-800 border border-gray-600 rounded-md">
                         {questionList && questionList.map((q, i) => (
-                            <QuestionEdit key={i} tid={'abjj'} quest={q} />
+                            <QuestionEdit key={i} quest={q} />
                         ))}
                     </div>
 

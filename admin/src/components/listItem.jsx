@@ -1,14 +1,11 @@
 
 import { AiFillDelete, AiOutlineEdit, AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Delete from './delete';
 
 const ListItem = ({ item1, item2, item3, item4, user }) => {
-    const location = useLocation();
-    const path = location.pathname.split('/')[2];
     const [del, setDel] = useState(false);
     const [img, setImg] = useState(item1);
     const [exercises, setExercises] = useState([]);

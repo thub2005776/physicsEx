@@ -30,7 +30,7 @@ const Files = ({files}) => {
             </div>
 
             {Array.isArray(result) ?
-                (<div className="table-fixed ml-5 border-collapse bg-slate-700 rounded-md  border border-gray-600 w-full sm:md:text-lg text-xs">
+                (<div className="table-fixed ml-5 border-collapse bg-gray-800 rounded-md  border border-gray-600 w-full sm:md:text-lg text-xs">
                         <div className="border-b-2 align-baseline ">
                             <div className='p-3 grid grid-cols-3 font-medium'>
                                 <div className='ml-4'>Lớp</div>
