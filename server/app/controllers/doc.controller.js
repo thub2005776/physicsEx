@@ -17,7 +17,7 @@ exports.findAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     try {
         const docsService = new DocsService();
-        const document = await docsService.create(req);
+        const document = await docsService.create(req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -29,7 +29,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const docsService = new DocsService();
-        const document = await docsService.update(req);
+        const document = await docsService.update(req.params.id, req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -41,7 +41,7 @@ exports.update = async (req, res, next) => {
 exports.deleteOne = async (req, res, next) => {
     try {
         const docsService = new DocsService();
-        const document = await docsService.deleteOne(req.body);
+        const document = await docsService.deleteOne(req.params.id);
         return res.json(document);
     } catch (err) {
         return next(

@@ -37,10 +37,14 @@ class UsersService {
     async create(payload) {
         const values = this.data(payload);
         const salt = parseInt(process.env.SALT);
-        bcrypt.hash(values.password, salt, async (err, hash) => {
+        const pass = values.password;
+
+        bcrypt.hash(pass, salt, async (err, hash) => {
             if (err) return "Error for hassing password ";
-            const result = await this.user.create(values)
+            values.password = hash;
+            const result = await this.user.findOneAndUpdate({ email: values.email }, values, { upsert: true })
             return result;
+
         });
     }
 
@@ -59,43 +63,32 @@ class UsersService {
         return result;
     }
 
-    async update(payload) {
-        // console.log(payload);
-        const old = payload.body.old;
-        const id = payload.body.id;
-        const img = payload.body.file ? payload.body.file :  payload.body.img;
-
-        const values = {
-            "name": payload.body.name,
-            "email": payload.body.email,
-            "img": img,
-            "permission": payload.body.permission
-        }
-
-        const oldImg = payload.body.img;
-        
-
-        if (!old) {
-            bcrypt.hash(payload.password, salt, (err, hash) => {
+    async update(id, data) {
+        const values = this.data(data);
+        const old = await this.user.findOne({ password: values.password });
+        const salt = parseInt(process.env.SALT);
+        const pass = values.password;
+        if (old) {
+            const result = await this.user.findByIdAndUpdate(id, values);
+            return result;
+        } else {
+            bcrypt.hash(pass, salt, async (err, hash) => {
                 if (err) return "Error for hassing password";
                 values.password = hash;
+                const result = await this.user.findByIdAndUpdate(id, values);
+                return result;
             });
-        } else {
-            values.password = payload.body.password;
         }
 
-        const result = await UserModel.findOneAndUpdate({ _id: id }, values)
+
+    }
+
+    async delete(id) {
+        const result = await this.user.findByIdAndDelete(id)
         return result;
     }
 
-    async delete(payload) {
-        const { id, img } = payload;
-        
-        const result = await UserModel.findOneAndDelete({ _id: id })
-        return result;
-    }
 
-    
 }
 
 module.exports = UsersService;

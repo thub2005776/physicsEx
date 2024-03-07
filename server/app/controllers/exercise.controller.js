@@ -17,7 +17,7 @@ exports.findAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     try {
         const exercisesService = new ExercisesService();
-        const document = await exercisesService.create(req);
+        const document = await exercisesService.create(req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -29,7 +29,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const exercisesService = new ExercisesService();
-        const document = await exercisesService.update(req);
+        const document = await exercisesService.update(req.params.id, req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -41,7 +41,7 @@ exports.update = async (req, res, next) => {
 exports.updateLike = async (req, res, next) => {
     try {
         const exercisesService = new ExercisesService();
-        const document = await exercisesService.updateLike(req.body);
+        const document = await exercisesService.updateLike(req.params.id, req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -53,7 +53,7 @@ exports.updateLike = async (req, res, next) => {
 exports.updateMany = async (req, res, next) => {
     try {
         const exercisesService = new ExercisesService();
-        const document = await exercisesService.updateMany(req.body);
+        const document = await exercisesService.updateMany(req.params.themid, req.body);
         return res.json(document);
     } catch (err) {
         return next(
@@ -65,7 +65,7 @@ exports.updateMany = async (req, res, next) => {
 exports.deleteOne = async (req, res, next) => {
     try {
         const exercisesService = new ExercisesService();
-        const document = await exercisesService.deleteOne(req);
+        const document = await exercisesService.deleteOne(req.params.id);
         return res.json(document);
     } catch (err) {
         return next(

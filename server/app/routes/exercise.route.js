@@ -9,13 +9,13 @@ router.route('/')
     .delete(exercise.delete)
 
 router.route('/:id')
-    .patch(exercise.update)
+    .post(exercise.update)
     .delete(exercise.deleteOne)
 
 router.route('/update/like')
     .patch(exercise.updateLike)
 
-router.route('/update/many')
-    .patch(exercise.updateMany)
+router.route('/update/many/:themid')
+    .post(exercise.updateMany)
 
 module.exports = router;

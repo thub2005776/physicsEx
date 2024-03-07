@@ -1,102 +1,122 @@
 
 import { AiFillDelete, AiOutlineEdit, AiOutlinePlusCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import Delete from './delete';
 
-const ListItem = ({ item1, item2, item3, item4, user }) => {
+const ListItem = ({ name, data }) => {
     const [del, setDel] = useState(false);
-    const [img, setImg] = useState(item1);
-    const [exercises, setExercises] = useState([]);
 
-    useEffect(() => {
-        //get exercises
-      axios.get(process.env.REACT_APP_SERVER_URL + "exercises")
-      .then(exercises => setExercises(exercises.data))
-      .catch(err => console.log(err))
-    }, [])
-    
     const handleDelete = (e) => {
-        if(e) {
-            if(user) {
-                const id = user._id;
-                axios.delete(process.env.REACT_APP_SERVER_URL + "users/" + id, { id, img })
-                .then(res => {
-                    alert("Đã xóa!");
-                    window.location.reload(true);
-                })
-                .catch(err => console.log(err))
-        } else if(item1) {
-            const code = item2;
-            const ex = exercises && exercises.filter(f => f.subThematic === code)
-            axios.delete(process.env.REACT_APP_SERVER_URL + "exercises", { code, ex })
-                .then()
-                .catch(err => console.log(err))
+        setDel(!e);
+        if (e) {
+            if (name === 'users') {
+                const id = data._id;
+                axios.delete(process.env.REACT_APP_SERVER_URL + `users/${id}`)
+                    .then(res => {
+                        alert("Đã xóa!");
+                        window.location.reload();
+                    })
+                    .catch(err => console.log(err))
+                axios.delete(process.env.REACT_APP_SERVER_URL + `comments/${id}`)
+                    .then(res => console.log(res.data))
+                    .catch(err => console.log(err))
 
-            axios.delete(process.env.REACT_APP_SERVER_URL + "thematics", { code, img })
-                .then(res => {
-                    alert("Đã xóa!");
-                    window.location.reload(true);
-                })
-                .catch(err => console.log(err))
-            
-        } else {
-            const name = item3;
-            axios.delete(process.env.REACT_APP_SERVER_URL + "docs", { name })
-                .then(res => {
-                    alert("Đã xóa!");
-                    window.location.reload(true);
-                })
-                .catch(err => console.log(err))
+            } else if (name === 'them') {
+                axios.delete(process.env.REACT_APP_SERVER_URL + `exercises/${data._id}`)
+                    .then(res => {
+                        if (res.status === 200) {
+                            console.log('deleted');
+                        }
+                    })
+                    .catch(err => console.log(err))
+
+                axios.delete(process.env.REACT_APP_SERVER_URL + `thematics/${data._id}`)
+                    .then(res => {
+                        if (res.status === 200) {
+                            alert("Đã xóa!");
+                            window.location.reload();
+                        }
+                    })
+                    .catch(err => console.log(err))
+
+            } else {
+                axios.delete(process.env.REACT_APP_SERVER_URL + `docs/${data._id}`)
+                    .then(res => {
+                        if (res.status === 200) {
+                            alert("Đã xóa!");
+                            window.location.reload();
+                        }
+
+                    })
+                    .catch(err => console.log(err))
+            }
         }
-        }
-        
+
+    }
+
+    const handleExit = (e) => {
+        setDel(!e);
     }
 
     return (
+        data &&
         <div className={`relative flex justify-between border-b-0 my-2 rounded-md hover:bg-slate-500 sm:text-base text-sx`}>
-            <Link to={user? `/profile/${user.uid}`: item1? `them/${item2}`:`edit/${item2}/${item3}`}
+            <Link to={`view/${data._id}`}
                 className="flex-1 grid grid-cols-4 gap-5">
-            {item1 ? 
-            (<><img className='w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] rounded-full mx-5'
-                        src={process.env.REACT_APP_SERVER_URL + item1}
-                        alt={item3} />
-                <div className="">{item2}</div>
-                <div className="truncate">{item3}</div>
-                {user ? <div className="">{item4}</div> : null}
-            </>
-            ) : <>
-                <div className="ml-5">{item2}</div>
-                <div className=" truncate">{item3}</div>
-            </>}
-            </Link> 
+                {name === 'them' ?
+                    (<>
+                        <img className='w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] rounded-full mx-5'
+                            src={process.env.REACT_APP_SERVER_URL + data.img}
+                            alt={data.code} />
+                        <div className="">{data.code}</div>
+                        <div className="truncate">{data.thematic}</div>
+                    </>
+                    ) : name === 'users' ?
+                        (<>
+                            <img className='w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] rounded-full mx-5'
+                                src={process.env.REACT_APP_SERVER_URL + data.img}
+                                alt={data.name} />
+                            <div className="">{data.name}</div>
+
+                            <div className="truncate">{data.email}</div>
+                            <div className="">{data.permission}</div>
+                        </>
+                        )
+                        : <>
+                            <div className="ml-5">{data.grade}</div>
+                            <div className=" truncate">{data.name}</div>
+                        </>}
+            </Link>
 
             <div className='flex justify-end mr-5'>
-                {user? 
-                null:
-                <Link to={`add/${item2}/${item3}`}
-                    className='p-2 hover:bg-slate-600 rounded-lg '>
-                    <AiOutlinePlusCircle />
-                </Link >}
-                
-                <Link to={user? `/profile/${user.uid}`: `edit/${item2}/${item3}`}
-                    className='p-2 hover:bg-slate-600 rounded-lg'>
-                    <AiOutlineEdit />
-                </Link>
+                {name === 'them' &&
+                    <>
+                        <Link to={data._id}
+                            className='p-2 hover:bg-slate-600 rounded-lg '>
+                            <AiOutlinePlusCircle />
+                        </Link >
+                        <Link to={`edit/${data._id}`}
+                            className='p-2 hover:bg-slate-600 rounded-lg'>
+                            <AiOutlineEdit />
+                        </Link>
+                    </>
+                }
+
+
                 <div className=' p-2 hover:bg-slate-600 rounded-lg'
-                     onClick={() => setDel(!del)}>
-                    <AiFillDelete/>
-                   
+                    onClick={() => setDel(!del)}>
+                    <AiFillDelete />
                 </div>
-                
+
             </div>
-            {del && 
-            <div className="absolute top-0 right-80 z-[100]">
-                <Delete sendDelete={handleDelete}/>
-            </div>}
+            {del &&
+                <div className="absolute -top-32 right-44 z-[100]">
+                    <Delete sendDelete={handleDelete} Exit={handleExit} />
+                </div>}
         </div>
-       
+
     )
 
 }

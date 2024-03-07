@@ -3,50 +3,68 @@ import { useState } from "react";
 import { useLocation } from 'react-router';
 import { useNavigate } from "react-router-dom";
 
-const ExAdd = ({ auth }) => {
+const ExAdd = ({ auth, thematics }) => {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const path = location.pathname.split('/')[4]
+    const themid = location.pathname.split('/')[3];
+    const them = thematics && thematics.find(f => f._id === themid);
 
     const [file, setFile] = useState(null);
-    const [question, setQuestion] = useState();
+    const [question, setQuestion] = useState(null);
     const [answer, setAnswer] = useState()
     const [content, setcontent] = useState()
+    const [uploaded, setUploaded] = useState(null);
+
+    const HandleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        const f = e.target.files[0]
+        setUploaded(URL.createObjectURL(f));
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const subThematic = path;
-        const no = path + '_' + Date.now();
+        
         const data = new  FormData();
-        if(file === null) {
-            alert("Bạn chưa tải ảnh lên!");
-        } else {
+        
             data.append('file', file);
-            data.append('subThematic', subThematic);
-            data.append('no',no);
-            data.append('question', question);
-            data.append('answer', answer);
-            data.append('content', content);
 
-            axios.post(process.env.REACT_APP_SERVER_URL + "exercises", data)
+            const values = {
+                "themid": themid,
+                "subThematic": them && them.code,
+                "no": Date.now(),
+                "img": file && file.name,
+                "question": question,
+                "answer": answer,
+                "content": content,
+                "like": 0,
+                "dislike": 0
+            }
+
+            axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
+            .then(res => {
+                if(res.status === 200) {console.log(res.data)}
+            })
+            .catch(err => console.log(err))
+
+            axios.post(process.env.REACT_APP_SERVER_URL + "exercises", values)
             .then(res => {
                 alert("Thêm thành công!");
-                navigate(`/admin/2/them/${path}`);
+                navigate(`/admin/2/view/${themid}`);
                 window.location.reload();
             })
             .catch(err => console.log(err))
-        }
+        
     }
 
     return (
-        auth && auth.permission === "admin" && (
-            <div className="lg:mx-72 mx-5 pt-5">
+        auth && auth.permission === "admin" && them && 
+        (<div className="lg:mx-72 mx-5 pt-5 text-base">
                 <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                     Thông tin bài tập mới
                 </div>
-                <form className="bg-gray-800 " onSubmit={handleSubmit}>
+                <form className="bg-gray-800 p-4 rounded-md border border-gray-600 " onSubmit={handleSubmit}>
                     <div className="sm:flex">
                         <div className="sm:flex-none w-2/3 sm:mr-5 sm:w-fit">
                             <div className="mb-6">
@@ -56,9 +74,10 @@ const ExAdd = ({ auth }) => {
                                 <div id="thematic"
                                     className="bg-slate-700  
                                         text-slate-400 text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 ">
-                                    {path}
+                                    {them.code}
                                 </div>
                             </div>
+                            
                             <div className="mb-6 text-teal-400">
                                 Quy ước ký hiệu vật lý
                                 <a href="https://www.cmor-faculty.rice.edu/~heinken/latex/symbols.pdf"
@@ -67,12 +86,14 @@ const ExAdd = ({ auth }) => {
                                     Xem
                                 </a>
                             </div>
+                            {uploaded && <img className="mx-[28%] md:w-32 md:h-32 w-20 h-20 rounded-full border border-gray-400 p-1" src={uploaded} alt={file.name} />}
                         </div>
                         <div className="sm:flex-2 sm:w-full">
                         <div className="mb-6">
                                 <span className="text-slate-400">Tải hình ảnh lên </span>
                                 <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
-                                    onChange={(e) => setFile(e.target.files[0])} />
+                                required
+                                    onChange={HandleFileChange} />
                             </div>
                             <div className="mb-6">
                                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-slate-400 ">

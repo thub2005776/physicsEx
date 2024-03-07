@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ExSchema = new mongoose.Schema({
+    themid: String,
     subThematic: String,
     question: String,
     answer: String,

@@ -6,49 +6,37 @@ class ThematicsService {
         this.thematic = ThematicsModel;
     }
 
+    data(payload) {
+        const values = {
+            "code": payload.code,
+            "thematic": payload.thematic,
+            "img": payload.img 
+        }
+        Object.keys(values).forEach(
+            (key) => values[key] === undefined && delete values[key]
+        );
+        return values;
+    }
+
     async findAll() {
-        const result = await ThematicsModel.find({})
+        const result = await this.thematic.find({})
         return result;
     }
 
     async create(payload) {
-        if (payload.file) {
-            const fileService = new FileService(payload.file);
-            fileService.upload.single('file');
-        }
-        const values = {
-            "code": payload.body.code,
-            "thematic": payload.body.thematic,
-            "img": payload.file.filename ? payload.file.filename : '',
-        }
-        const result = await ThematicsModel.create(values)
+        const values = this.data(payload);
+        const result = await this.thematic.create(values)
         return result;
     }
 
-    async update(payload) {
-        const oldImg = payload.body.img;
-        const code = payload.body.id;
-        const values = {
-            "code": payload.body.code,
-            "thematic": payload.body.thematic,
-            "img": payload.file ? payload.file.filename : payload.body.img
-        }
-
-        if (payload.file) {
-            const fileService = new FileService(payload.file);
-            fileService.removeFile(oldImg);
-        }
-
-        const result = await ThematicsModel.findOneAndUpdate({ code: code }, values)
+    async update(id, payload) {
+        const values = this.data(payload);
+        const result = await this.thematic.findByIdAndUpdate(id, values);
         return result;
     }
 
-    async delete(payload) {
-        const { code, img } = payload.body;
-        const fileService = new FileService();
-        fileService.removeFile(img);
-
-        const result = await ThematicsModel.findOneAndDelete({ code: code })
+    async delete(id) {
+        const result = await this.thematic.findByIdAndDelete(id);
         return result;
     }
 

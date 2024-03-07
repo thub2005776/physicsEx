@@ -95,15 +95,15 @@ function App() {
               courses={courses}
               tests={tests}
             />} />
-          <Route path="/profile/:id" element={<Profile auth={info} />} />
+          <Route path="/admin/1/view/:id" element={<Profile auth={info} users={profile} />} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
-          <Route path="/admin/2/themAdd" element={<ThematicAdd auth={info} thematics={thematics} />} />
-          <Route path="/admin/2/edit/:id/:id" element={<ThemEdit auth={info} thematics={thematics} />} />
-          <Route path="/admin/2/them/:id" element={<ExView auth={info} exercises={exercises} />} />
-          <Route path="/admin/2/add/:id/:id" element={<ExAdd auth={info} />} />
-          <Route path="/admin/2/edit/:id" element={<ExEdit auth={info} exercises={exercises} />} />
-          <Route path="/admin/3/add/:id/:id" element={<FileAdd auth={info} />} />
-          <Route path="/admin/3/edit/:id/:id" element={<FileEdit auth={info} docs={files} />} />
+          <Route path="/admin/2/add" element={<ThematicAdd auth={info} thematics={thematics} />} />
+          <Route path="/admin/2/edit/:id" element={<ThemEdit auth={info} thematics={thematics} />} />
+          <Route path="/admin/2/view/:id" element={<ExView auth={info} exercises={exercises} />} />
+          <Route path="/admin/2/:id" element={<ExAdd auth={info} thematics={thematics} />} />
+          <Route path="/admin/2/ex/:id" element={<ExEdit auth={info} exercises={exercises} />} />
+          <Route path="/admin/3/add" element={<FileAdd auth={info} />} />
+          <Route path="/admin/3/view/:id" element={<FileEdit auth={info} docs={files} />} />
           <Route path="/admin/4/add" element={<CourseAdd auth={info} />} />
           <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} />} />
           <Route path="/admin/5/add" element={<TestAdd auth={info} />} />

@@ -17,7 +17,7 @@ exports.findAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     try {
         const thematicService = new ThematicsService();
-        const document = await thematicService.create(req);
+        const document = await thematicService.create(req.body);
         return res.json(document)
     } catch (err) {
         return next(
@@ -29,7 +29,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const thematicService = new ThematicsService();
-        const document = await thematicService.update(req);
+        const document = await thematicService.update(req.params.id, req.body);
         return res.json(document)
     } catch (err) {
         return next(
@@ -41,7 +41,7 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     try {
         const thematicService = new ThematicsService();
-        const document = await thematicService.delete(req);
+        const document = await thematicService.delete(req.params.id);
         return res.json(document)
     } catch (err) {
         return next(

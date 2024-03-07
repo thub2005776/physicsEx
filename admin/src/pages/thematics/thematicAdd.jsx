@@ -7,8 +7,14 @@ const ThematicAdd = ({ auth, thematics }) => {
     const [code, setCode] = useState(null);
     const [them, setThem] = useState(null);
     const navigate = useNavigate();
+    const [uploaded, setUploaded] = useState(null);
 
-    const thematic = thematics ? thematics.find((f) => f.code === code) : null;
+    const HandleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        const f = e.target.files[0]
+        setUploaded(URL.createObjectURL(f));
+    }
+    const thematic = thematics && thematics.find((f) => f.code === code);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,15 +26,25 @@ const ThematicAdd = ({ auth, thematics }) => {
         } else {
             const data = new FormData();
             data.append("file", file);
-            data.append("code", code);
-            data.append("thematic", them);
 
+            const values = {
+                "code": code,
+                "thematic": them,
+                "img": file && file.name
+            }
 
-            axios.post(process.env.REACT_APP_SERVER_URL + "thematics", data)
+            axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                }
+            })
+            .catch(err => console.log(err))
+
+            axios.post(process.env.REACT_APP_SERVER_URL + "thematics", values)
                 .then(res => {
                     alert("Thêm thành công!");
-                    navigate('/admin/2');
-                    window.location.reload();
+                    navigate(`/admin/2/ex/${res.data._id}`);
                 })
                 .catch(err => console.log(err))
         }
@@ -36,17 +52,19 @@ const ThematicAdd = ({ auth, thematics }) => {
     }
 
     return (
-        auth && auth.permission === "admin" ?
-            (<div className="lg:mx-80 mx-24">
+        auth && auth.permission === "admin" && 
+            (<div className="lg:mx-80 mx-24 pt-2 ">
                 <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                     Thông tin chuyên đề mới
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-6">
+                <form onSubmit={handleSubmit} className="p-4 bg-gray-800 border border-gray-600 rounded-md">
+                    <div className="mb-6 text-base">
                         <span className="text-slate-400">Tải hình ảnh lên </span>
                         <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
-                            onChange={(e) => setFile(e.target.files[0])} />
+                            required
+                            onChange={HandleFileChange} />
                     </div>
+                    {uploaded && <img className="mx-[38%] md:w-32 md:h-32 w-20 h-20 rounded-full border border-gray-400 p-1" src={uploaded} alt={file.name} />}
                     <div className="mb-6">
                         <label
                             htmlFor="code"
@@ -83,12 +101,7 @@ const ThematicAdd = ({ auth, thematics }) => {
                     </button>
                 </form>
 
-            </div>
-            ) : (
-                <div className='text-orange-700 text-lg  sm:text-xl text-center'>
-                    Bạn không thể truy cập vào trang web này!
-                </div>
-            )
+            </div>)
     )
 }
 

@@ -9,8 +9,8 @@ router.route('/')
     
 router.route('/:id')
     .get(users.findOne)
-    .post(users.createComm)
-    .put(users.update)
+    // .post(users.createComm)
+    .post(users.update)
     .delete(users.delete)
 
 router.route('/edit')

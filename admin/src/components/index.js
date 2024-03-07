@@ -6,7 +6,7 @@ export {default as UserList} from './userList';
 export {default as ThemList} from './themList';
 export {default as Files} from './files';
 export {default as Delete} from './delete';
-export {default as ExList} from './exList';
+export {default as ExList} from './ex/exList';
 export {default as Exercise} from './ex/exercise';
 export {default as likeStatus} from './ex/likeStatus';
 export {default as profileCard} from './profileCard';

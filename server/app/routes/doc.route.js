@@ -6,9 +6,9 @@ const router = express.Router();
 router.route('/')
     .get(doc.findAll)
     .post(doc.create)
-    .delete(doc.deleteOne)
 
-router.route('/update')
-    .put(doc.update)
+router.route('/:id')
+    .post(doc.update)
+    .delete(doc.deleteOne)
 
 module.exports = router;

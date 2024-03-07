@@ -10,8 +10,9 @@ const ExEdit = ({ auth, exercises }) => {
     const location = useLocation();
     const path = location.pathname.split('/')[4];
 
-    const exercise = exercises ? exercises.find((f) => f.no === path) : null;
-    const [id, setId] = useState(exercise && exercise._id);
+    const exercise = exercises && exercises.find((f) => f._id === path);
+
+    const id = exercise && exercise._id;
     const [no, setNo] = useState(exercise && exercise.no);
     const [subThematic, setSubThematic] = useState(exercise && exercise.subThematic);
     const [question, setQuestion] = useState(exercise && exercise.question);
@@ -19,25 +20,46 @@ const ExEdit = ({ auth, exercises }) => {
     const [content, setContent] = useState(exercise && exercise.content);
     const [img, setImg] = useState(exercise && exercise.img);
     const [file, setFile] = useState(null);
+    const [uploaded, setUploaded] = useState(null);
+
+    const HandleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        setImg(e.target.files[0].name);
+        const f = e.target.files[0]
+        setUploaded(URL.createObjectURL(f));
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const data = new FormData();
-        data.append('id', id);
         data.append('file', file);
-        data.append('subThematic', subThematic);
-        data.append('no', no);
-        data.append('question', question);
-        data.append('answer', answer);
-        data.append('content', content);
-        data.append('img', img);
 
-        axios.patch(process.env.REACT_APP_SERVER_URL + "exercises/update", data)
+        const values = {
+            'subThematic': subThematic,
+            'no': no,
+            'question': question,
+            'answer': answer,
+            'content': content,
+            'img': img
+        }
+
+        axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
             .then(res => {
-                alert("Cập nhật thành công!");
-                navigate('/admin/2/them/' + exercise.subThematic);
+                if (res.status === 200) {
+                    console.log(res.data);
+                }
+            })
+            .catch(err => console.log(err))
+
+        axios.post(process.env.REACT_APP_SERVER_URL + `exercises/${id}`, values)
+            .then(res => {
+                if(res.status === 200) {
+                    alert("Cập nhật thành công!");
+                navigate(-1);
                 window.location.reload();
+                }
+                
             })
             .catch(err => console.log(err))
 
@@ -48,7 +70,7 @@ const ExEdit = ({ auth, exercises }) => {
             <div className="sm:text-2xl text-lg text-teal-400 sm:font-bold font-semibold mb-6 text-center">
                 Thông tin bài tập
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='p-4 bg-gray-800 border border-gray-600 rounded-md'>
                 <div className='flex justify-between gap-5'>
                     <div className="mb-6 w-full">
                         <label htmlFor='subThematic'
@@ -57,11 +79,11 @@ const ExEdit = ({ auth, exercises }) => {
                         </label>
                         <input
                             id='subThematic'
-                            className="bg-slate-700 border  text-gray-900 
+                            className="bg-slate-700 border  
                                 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             type="text"
                             name="subThematic"
-                            placeholder={exercise.subThematic}
+                            defaultValue={exercise.subThematic}
                             onChange={(e) => setSubThematic(e.target.value)} />
                     </div>
                     <div className="mb-6 w-full">
@@ -71,17 +93,22 @@ const ExEdit = ({ auth, exercises }) => {
                             Mã chủ đề
                         </label>
                         <input type="text" id="no"
-                            className="bg-slate-700 border  text-gray-900 
+                            className="bg-slate-700 border  
                                 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder={exercise.no}
+                            defaultValue={exercise.no}
                             onChange={(e) => setNo(e.target.value)} />
                     </div>
                 </div>
-                <div className="mb-6">
-                    <span className="text-slate-400">Tải hình ảnh lên </span>
+                <div className="flex justify-around gap-4 mb-6 text-base">
+                    <div className=''>
+                        <div className="text-slate-400 text-center mb-2">Tải hình ảnh lên </div>
                     <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
-                        onChange={(e) => setFile(e.target.files[0])} />
+                        onChange={HandleFileChange} />
+                    </div>
+                    
+                     {uploaded && <img className=" w-20 h-20 rounded-full border border-gray-400 p-1" src={uploaded} alt={file.name} />}
                 </div>
+               
                 <div className="mb-6">
                     <label htmlFor="message" className="block mb-2 text-sm font-medium text-slate-400 ">
                         Đề bài
@@ -89,9 +116,9 @@ const ExEdit = ({ auth, exercises }) => {
                     <textarea
                         id="message"
                         rows="4"
-                        className="block p-2.5 w-full text-sm text-slate-400 bg-slate-700 rounded-lg focus:ring-blue-500 "
+                        className="block p-2.5 w-full text-sm bg-slate-700 rounded-lg focus:ring-blue-500 "
                         onChange={(e) => setQuestion(e.target.value)}
-                        placeholder={exercise.question}>
+                        defaultValue={exercise.question}>
 
                     </textarea>
                 </div>
@@ -102,8 +129,9 @@ const ExEdit = ({ auth, exercises }) => {
                     <textarea
                         id="message"
                         rows="3"
-                        className="block p-2.5 w-full text-sm text-slate-400 bg-slate-700 rounded-lg focus:ring-blue-500 "
-                        onChange={(e) => setAnswer(e.target.value)} placeholder={exercise.answer}></textarea>
+                        className="block p-2.5 w-full text-sm bg-slate-700 rounded-lg focus:ring-blue-500 "
+                        onChange={(e) => setAnswer(e.target.value)} 
+                        defaultValue={exercise.answer}></textarea>
                 </div>
                 <div className="mb-6">
                     <label htmlFor="message" className="block mb-2 text-sm font-medium text-slate-400 ">
@@ -112,8 +140,9 @@ const ExEdit = ({ auth, exercises }) => {
                     <textarea
                         id="message"
                         rows="4"
-                        className="block p-2.5 w-full text-sm text-slate-400 bg-slate-700 rounded-lg focus:ring-blue-500 "
-                        onChange={(e) => setContent(e.target.value)} placeholder={exercise.content}></textarea>
+                        className="block p-2.5 w-full text-sm  bg-slate-700 rounded-lg focus:ring-blue-500 "
+                        onChange={(e) => setContent(e.target.value)} 
+                        defaultValue={exercise.content}></textarea>
                 </div>
                 <button type="submit" className="text-white bg-green-400 hover:bg-green-600 
                         focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 

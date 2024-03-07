@@ -32,7 +32,7 @@ exports.findOne = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     try {
         const userService = new UsersService();
-        const document = await userService.create(req);
+        const document = await userService.create(req.body);
         return res.json(document);
     } catch (err) {
         return next(new ApiError(500, err));
@@ -51,10 +51,9 @@ exports.createComm = async (req, res, next) => {
 }
 
 exports.update = async (req, res, next) => {
-    console.log(req.body);
     try {
         const userService = new UsersService();
-        const document = await userService.update(req);
+        const document = await userService.update(req.params.id, req.body);
         return res.json(document);
     } catch (err) {
         return next(new ApiError(500, err));
@@ -64,7 +63,7 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     try {
         const userService = new UsersService();
-        const document = await userService.delete(req.body);
+        const document = await userService.delete(req.params.id);
         return res.json(document);
     } catch (err) {
         return next(new ApiError(500, err));

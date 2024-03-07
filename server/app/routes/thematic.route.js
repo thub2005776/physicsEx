@@ -6,10 +6,10 @@ const router = express.Router();
 router.route('/')
     .get(thematics.findAll)
     .post(thematics.create)
+    
+router.route('/:id')
+    .post(thematics.update)
     .delete(thematics.delete)
-
-router.route('/update')
-    .put(thematics.update)
 
 
 module.exports = router;

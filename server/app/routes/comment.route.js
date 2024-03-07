@@ -12,9 +12,9 @@ router.route('/update')
     .patch(comment.update)
 
 router.route('/updateImg')
-    .patch(comment.updateImg)
+    .post(comment.updateImg)
 
-router.route('/:id')
-    .delete(comment.deleteOne)
+router.route('/:uid')
+    .delete(comment.deleteMany)
 
 module.exports = router;

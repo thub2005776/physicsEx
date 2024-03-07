@@ -42,9 +42,9 @@ const CourseEdit = ({ auth, courses }) => {
                 .then(res => { console.log(res.data) })
                 .catch(err => console.log(err))
 
-            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${course.img}`)
-                .then(res => { console.log(res.data) })
-                .catch(err => console.log(err))
+            // axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${course.img}`)
+            //     .then(res => { console.log(res.data) })
+            //     .catch(err => console.log(err))
         }
 
         axios.put(process.env.REACT_APP_SERVER_URL + `courses/${id}`, values)

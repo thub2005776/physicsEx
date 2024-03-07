@@ -1,6 +1,6 @@
 
 import { useLocation } from "react-router";
-import { Exercise } from "../components";
+import { Exercise } from "../../components";
 
 const ExOfThem = ({thematics, exercises}) => {
     const location = useLocation();

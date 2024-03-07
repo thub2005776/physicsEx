@@ -6,7 +6,7 @@ class LoginService {
     }
 
     async login(email) {
-        const result = await UserModel.findOne({ email: email })
+        const result = await this.user.findOne({ email: email })
         return result;
     }
 

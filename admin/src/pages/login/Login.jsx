@@ -27,7 +27,7 @@ const Login = ({ handleLoginSuccess }) => {
 
   return (
     <div className='login section__padding pt-8 '>
-      <div className="login-container border border-gray-500 bg-slate-600">
+      <div className="login-container border border-gray-500 bg-gray-800">
       <div className='md:text-xl text-base font-bold text-center'>Đăng nhập</div>
         {/* Kiểm tra đăng nhập */}
         <form onSubmit={handleSubmit} className='login-writeForm text-base' >

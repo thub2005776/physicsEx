@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const CourseAdd = ({ auth }) => {
     const [file, setFile] = useState(null);
@@ -8,7 +9,14 @@ const CourseAdd = ({ auth }) => {
     const [link, setLink] = useState(null);
     const [content, setContent] = useState(null)
     const [level, setLevel] = useState(null);
-    const [uploaded, setUploaded] = useState(0);
+    const [uploaded, setUploaded] = useState(null);
+    const navigate = useNavigate();
+
+    const HandleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        const f = e.target.files[0]
+        setUploaded(URL.createObjectURL(f));
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,17 +35,15 @@ const CourseAdd = ({ auth }) => {
 
         axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
             .then(res => {
-                if(res.status === 200) {
-                    setUploaded(200)
-                }
+                if(res.status === 200) {console.log(res.data)}
             })
             .catch(err => console.log(err))
 
         axios.post(process.env.REACT_APP_SERVER_URL + "courses", values)
             .then(res => {
-                if(res.status === 200 && uploaded > 0) {
+                if(res.status === 200) {
                     alert("Thêm thành công!");
-                    window.location.reload();
+                    navigate(0, {replace: true})
                 }
             })
             .catch(err => console.log(err))
@@ -54,8 +60,9 @@ const CourseAdd = ({ auth }) => {
                 <div className="mb-6 text-base">
                     <span className="text-slate-400">Tải hình ảnh lên </span>
                     <input required className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
-                        onChange={(e) => setFile(e.target.files[0])} />
+                        onChange={HandleFileChange} />
                 </div>
+                {uploaded && <img className="mx-[38%] md:w-32 md:h-32 w-20 h-20 rounded-full border border-gray-400 p-1" src={uploaded} alt={file.name} />}
                 <div className="mb-6">
                     <label
                         htmlFor="name"

@@ -48,9 +48,9 @@ const TestEdit = ({ auth, tests, questions }) => {
             .then(res => { console.log(res.data)})
             .catch(err => console.log(err))
 
-        axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${test.img}`)
-            .then(res => { console.log(res.data) })
-            .catch(err => console.log(err))
+        // axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${test.img}`)
+        //     .then(res => { console.log(res.data) })
+        //     .catch(err => console.log(err))
         }
 
         axios.put(process.env.REACT_APP_SERVER_URL + `tests/${test._id}`, values)
