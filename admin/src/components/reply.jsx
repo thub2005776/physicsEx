@@ -21,7 +21,8 @@ const Reply = ({ auth, comm, closed }) => {
             let eid = comm.eid;
             let com = content;
             let rep = true;
-            axios.post(process.env.REACT_APP_SERVER_URL + 'comments', { id, eid, uid, uimg, com, rep })
+
+            axios.post(process.env.REACT_APP_SERVER_URL + `comments/${comm._id}`, { id, eid, uid, uimg, com, rep })
                 .then(() => {
                     alert('Đã trả lời bình luận!');
                     setClose(true);
@@ -43,7 +44,7 @@ const Reply = ({ auth, comm, closed }) => {
 
     return (
         !close &&
-        <div id="crud-modal" tabIndex="-1" aria-hidden="true" className="absolute top-0 left-40  z-[500] justify-center items-center w-full  h-[calc(100%-1rem)] max-h-full">
+        <div id="crud-modal" tabIndex="-1" aria-hidden="true" className="justify-center items-center w-full  h-[calc(100%-1rem)] max-h-full">
             <div className="relative p-4 w-full max-w-md max-h-full">
                 <div className="relative  rounded-lg shadow bg-gray-700">
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">

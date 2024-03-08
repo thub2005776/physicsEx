@@ -10,6 +10,7 @@ class QuestionsService {
             "tid": payload.tid,
             "question": payload.question,
             "selections": payload.selections,
+            "img": payload.img,
             "trueAns": payload.trueAns,
             "explain": payload.explain,
         }

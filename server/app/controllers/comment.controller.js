@@ -25,7 +25,7 @@ exports.create = async (req, res, next) => {
     }
 }
 
-exports.update = async (req, res, next) => {
+exports.reply = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
         const document = await commentService.update(req.params.id);
@@ -52,7 +52,7 @@ exports.updateImg = async (req, res, next) => {
 exports.deleteOne = async (req, res, next) => {
     try {
         const commentService = new CommentsService();
-        const document = await commentService.deleteOne(req.body);
+        const document = await commentService.deleteOne(req.params.id, req.body);
         return res.json(document);
     } catch (err) {
         return next(

@@ -4,9 +4,10 @@ import { Chart } from "react-google-charts";
 const ChartItem = ({exercises}) => {
     var like = 0;
     var dislike = 0;
-    exercises.forEach(e => {
-        like += e.like;
-        dislike += e.dislike;
+
+    exercises && exercises.forEach(e => {
+        like += parseInt(e.like);
+        dislike += parseInt(e.dislike);
     })
 
     const w = useRef(window.innerWidth);
@@ -28,6 +29,7 @@ const ChartItem = ({exercises}) => {
                     width={"100%"}
                     height={"300px"}
                 />
+                {console.log(like)}
         </div>
 
     )

@@ -4,6 +4,7 @@ const LessonSchema = new mongoose.Schema({
     tid: String,
     question: String,
     selections: Array,
+    img: String,
     trueAns: String,
     explain: String,
 });

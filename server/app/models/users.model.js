@@ -6,7 +6,6 @@ const UserSchema = new mongoose.Schema({
     password: String,
     permission: String,
     img: String,
-    comments: Array,
     courses: Array,
     tests: Array
 });

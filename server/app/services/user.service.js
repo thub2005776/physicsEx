@@ -13,7 +13,6 @@ class UsersService {
             "name": payload.name,
             "password": payload.password,
             "img": payload.img,
-            "comments": payload.comments,
             "courses": payload.courses,
             "tests": payload.tests,
             "permission": payload.permission
@@ -48,20 +47,20 @@ class UsersService {
         });
     }
 
-    async createComm(payload) {
-        const uid = payload.uid;
-        const values = {
-            "id": Date().substring(),
-            "eid": payload.eid,
-            "uid": payload.uid,
-            "content": payload.com,
-            "time": Date(),
-            "state": payload.rep ? true : false,
-        }
+    // async createComm(payload) {
+    //     const uid = payload.uid;
+    //     const values = {
+    //         "id": Date().substring(),
+    //         "eid": payload.eid,
+    //         "uid": payload.uid,
+    //         "content": payload.com,
+    //         "time": Date(),
+    //         "state": payload.rep ? true : false,
+    //     }
 
-        const result = await UserModel.findOneAndUpdate({ uid: uid }, { $push: { comments: values } })
-        return result;
-    }
+    //     const result = await UserModel.findOneAndUpdate({ uid: uid }, { $push: { comments: values } })
+    //     return result;
+    // }
 
     async update(id, data) {
         const values = this.data(data);

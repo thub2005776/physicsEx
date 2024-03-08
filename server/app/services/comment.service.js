@@ -5,61 +5,51 @@ class CommentsService {
         this.comment = CommentsModel;
     }
 
+    data(payload){
+        const values = {
+            "uid": payload.uid,
+            "eid": payload.eid,
+            "content": payload.content,
+            "time": payload.time,
+            "state": payload.state,
+            "reply": payload.reply
+        }
+        Object.keys(values).forEach(
+            (key) => values[key] === undefined && delete values[key]
+        );
+        return values;
+    }
+
     async findAll() {
-        const result = await CommentsModel.find({}).sort({time: -1})
+        const result = await this.comment.find({}).sort({time: -1})
         return result;
     }
 
     async create(payload) {
-        const id = payload.id;
-        const result = '';
-        const values = {
-            "id": payload.id,
-            "uid": payload.uid,
-            "uimg": payload.uimg,
-            "eid": payload.eid,
-            "content": payload.com,
-            "time": Date(),
-            "state": false,
-            "reply": []
-        }
-
-        if (!payload.rep) {
-            result = await CommentsModel.create(values)
-
-        } else {
-
-            result = await CommentsModel.updateOne(
-                { _id: id },
-                { $push: { reply: values } }
-            )
-
-        }
+        const values = this.data(payload);
+        const result = await this.comment.create(values);
         return result;
     }
 
-    async update(id) {
-        const result = await CommentsModel.findByIdAndUpdate(id, { state: true })
+    async update(id, data) {
+        const values = this.data(data);
+        const result = await this.comment.findByIdAndUpdate(id, values);
         return result;
     }
 
-    async updateImg(payload) {
-        const { uid, img } = payload;
-        const result = await CommentsModel.updateMany({ uid: uid }, { uimg: img })
-        return result;
-    }
+    // async updateImg(payload) {
+    //     const { uid, img } = payload;
+    //     const result = await CommentsModel.updateMany({ uid: uid }, { uimg: img })
+    //     return result;
+    // }
 
-    async deleteOne(payload) {
-        const time = payload.time;
-        const uid = payload.uid;
-        const id = payload.id;
-
-        const result = await CommentsModel.findByIdAndDelete(id)
+    async deleteOne(id) {
+        const result = await this.comment.findByIdAndDelete(id)
         return result;
     }
 
     async deleteMany(uid) {
-        const result = await CommentsModel.deleteMany({ uid: uid })
+        const result = await this.comment.deleteMany({ uid: uid })
         return result;
     }
 }
