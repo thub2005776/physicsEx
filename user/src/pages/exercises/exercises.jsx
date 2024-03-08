@@ -8,7 +8,6 @@ function Exercises({exercises}) {
     const ex11 = exercises && exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('110'));
     const ex10 = exercises && exercises.filter(f => f.subThematic !== undefined && f.subThematic.includes('100'));
 
-console.log(ex12);
     return (
         exercises && ex12 && ex11 && ex10 &&
             <div className='sm:mx-20 mx-4 mt-24 border rounded-xl shadow  bg-gray-800 border-gray-700'>

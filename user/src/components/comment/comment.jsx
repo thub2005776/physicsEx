@@ -1,33 +1,33 @@
 import axios from "axios";
 import { useState } from "react";
 
-const Comment = ({ id, eid, user, sended, reply }) => {
-    const [com, setCom] = useState();
-    const [rep, setRep] = useState(reply);
-    const HandleChange = (e) => {
-        if (!user) {
-            alert('Bạn chưa đăng nhập!');
-        }
-        setCom(e.target.value);
-    }
+const Comment = ({ auth, eid, sended, reply }) => {
+    const [content, setContent] = useState(null);
 
     const HandleSubmit = (e) => {
         e.preventDefault();
-        if (reply === null) {
-            setRep(false);
+        if (!auth) {
+            alert('Bạn chưa đăng nhập!');
+        } else {
+
+        const values = {
+            'uid': auth._id,
+            'eid': eid && eid,
+            'content': content,
+            "time": Date(),
+            "state": false,
+            "reply": reply? reply: null
         }
-        
-        const uid = user.uid;
-        const uimg = user.img;
-        axios.post(process.env.REACT_APP_SERVER_URL + 'add/comm', { id, eid, uid, uimg, com, rep })
-            .then(() => {
+
+        axios.post(process.env.REACT_APP_SERVER_URL + 'comments', values)
+        .then(res => {
+            if(res.status === 200) {
                 sended(true);
-            })
-            .catch(err => console.log(err))
-        
-        axios.post(process.env.REACT_APP_SERVER_URL + 'add/userComm', { uid, eid, com, rep})
-            .then(res => {console.log('');})
-            .catch(err => console.log(err));
+            }
+        })
+        .catch(err => console.log(err))
+
+        }
     }
     return (
         <div className="mx-10">
@@ -37,11 +37,11 @@ const Comment = ({ id, eid, user, sended, reply }) => {
             <form onSubmit={HandleSubmit}>
                 <label htmlFor="chat" className="sr-only">Your message</label>
                 <div className="flex items-center px-3 py-2 rounded-lg  bg-gray-700">
-                    {user && <img src={process.env.REACT_APP_SERVER_URL + user.img} alt={user.name} className="w-8 h-8 rounded-full" />}
+                    {auth && <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt={auth.name} className="w-8 h-8 rounded-full" />}
                     <textarea id="chat" rows="1"
                         className="block mx-4 p-2.5 w-full text-sm rounded-lg border bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Viết bình luận tại đây..."
-                        onChange={HandleChange}>
+                        onChange={(e) => setContent(e.target.value)}>
                     </textarea>
                     <button type="submit"
                         className="inline-flex justify-center p-2 rounded-full cursor-pointer  text-blue-500 hover:bg-gray-600">

@@ -30,7 +30,8 @@ const CourseAdd = ({ auth }) => {
             "content": content,
             "img": file.name,
             "link": link,
-            "level": level
+            "level": level,
+            "enroll": 0
         }
 
         axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)

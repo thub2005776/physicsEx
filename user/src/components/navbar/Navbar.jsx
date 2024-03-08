@@ -11,7 +11,8 @@ const Menu = () => (
   <>
     <Link to="/docs" className='menu'><p>Tài liệu</p> </Link>
     <Link to="/exercises" className='menu'><p>Bài tập</p></Link>
-
+    <Link to="/courses" className='menu'><p>Khóa học</p></Link>
+    <Link to="/tests" className='menu'><p>Kiểm tra</p></Link>
   </>
 )
 

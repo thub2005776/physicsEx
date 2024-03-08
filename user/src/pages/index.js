@@ -8,3 +8,5 @@ export {default as ExOfThem} from './thematics/exofThem';
 export {default as Exercises} from './exercises/exercises';
 export {default as Docs} from './docs/docs';
 export {default as Detail} from './detail/detail';
+export {default as Courses} from './courses/courses';
+export {default as Tests} from './tests/tests';

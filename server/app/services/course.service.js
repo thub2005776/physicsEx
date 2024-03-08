@@ -13,6 +13,7 @@ class CoursesService {
             "img": payload.img,
             "link": payload.link,
             "level": payload.level,
+            "enroll": payload.enroll
         }
         Object.keys(values).forEach(
             (key) => values[key] === undefined && delete values[key]
@@ -21,7 +22,7 @@ class CoursesService {
     }
 
     async findAll() {
-        const result = await this.course.find({});
+        const result = await this.course.find({}).sort({grade : -1});
         return result;
     }
 

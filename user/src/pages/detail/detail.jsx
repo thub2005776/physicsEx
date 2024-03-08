@@ -1,35 +1,25 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from 'react-router';
-import axios from "axios";
 import Latex from 'react-latex';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AiOutlineCopy } from "react-icons/ai";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
-import { LikeStatus, Comment, Comments } from '../../components'
+import { LikeStatus,CommentDisplay } from '../../components'
 import { useNavigate } from 'react-router-dom';
 
-function Detail({ user, exercises, com }) {
+function Detail({ auth, user, exercises, com }) {
     const [answerState, setAnswerState] = useState(false);
     const [contentState, setContentState] = useState(false);
 
     const location = useLocation();
-    const path = location.pathname.split('/')[2]
-    const exercise = exercises.find((p) => p.no === path);
+    const id = location.pathname.split('/')[2]
+    const exercise = exercises.find((p) => p._id === id);
     const navigate = useNavigate();
 
-
-    const comm = exercise && com && com.length > 0 && com.filter(f => f.eid === exercise.no);
-
-    const sended = (e) => {
-        if (e) {
-            document.location.reload();
-        }
-    }
-
     return (
-        exercise ? (
-            <div className=' text-white m-5 mt-20'>
+        exercise && 
+        (<div className=' text-white m-5 mt-20'>
                 <div className='flex justify-evenly'>
                     <div className=' text-green-600 float-left hover:text-green-400'
                         onClick={() => navigate(-1)}>
@@ -95,27 +85,10 @@ function Detail({ user, exercises, com }) {
                             </CopyToClipboard>
                         </div>
                     </div>
-                    <div className="lg:mt-14 mt-5 rounded-lg border bg-gray-800 border-gray-600 relative">
-                        <h3 className="m-5 font-semibold">Bình luận </h3>
-                        <Comment eid={exercise.no} user={user} sended={sended} />
-                        {comm && comm.length > 0?
-                            <>
-                                <label htmlFor="message" className="block m-5 ml-10 text-sm font-medium text-white">
-                                    Tất cả bình luận
-                                </label>
-                                {Array.isArray(comm) ?
-                                    comm.map((c, i) => (
-                                        <Comments key={i} auth={user} com={c} sended={sended} />
-                                    )) : <Comments auth={user} com={comm} sended={sended}/>}
-                            </> :
-                            <p className="block m-5 ml-10 text-sm font-medium  text-white">
-                                Chưa có bình luận nào
-                            </p>
-                        }
-                    </div>
+                    <CommentDisplay auth={auth} comm={com} user={user} id={id} />
                 </div>
             </div>
-        ) : <p className='text-white'>Loading...</p>
+        )
     )
 }
 

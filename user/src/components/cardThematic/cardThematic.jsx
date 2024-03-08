@@ -12,7 +12,7 @@ function CardThematic ({thematic, like}) {
 
   // console.log(count);
     return ( 
-    <Link to={`/thematics/${thematic.code}` }>
+    <Link to={`/thematics/${thematic._id}` }>
       <div className="w-fit  md:h-full h-56 my-2 rounded-2xl border border-gray-400 text-white font-semibold" >
           <div className="bg-[#2A2D3A] p-3 rounded-2xl h-full">
             <div className="">
