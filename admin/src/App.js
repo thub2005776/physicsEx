@@ -12,6 +12,7 @@ import {
   FileEdit, Profile, ExView, Login, CourseAdd, 
   CourseEdit, TestAdd, QuestionsList, TestEdit
 } from './pages'
+import LessionAdd from './pages/courses/lessionAdd';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,6 +24,7 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [lessions, setLessions] = useState([]);
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -61,6 +63,10 @@ function App() {
 
     axios.get(process.env.REACT_APP_SERVER_URL + "courses")
       .then(res => setCourses(res.data))
+      .catch(err => console.log(err))
+
+      axios.get(process.env.REACT_APP_SERVER_URL + "lessions")
+      .then(res => setLessions(res.data))
       .catch(err => console.log(err))
 
     axios.get(process.env.REACT_APP_SERVER_URL + "tests")
@@ -105,7 +111,8 @@ function App() {
           <Route path="/admin/3/add" element={<FileAdd auth={info} />} />
           <Route path="/admin/3/view/:id" element={<FileEdit auth={info} docs={files} />} />
           <Route path="/admin/4/add" element={<CourseAdd auth={info} />} />
-          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} />} />
+          <Route path="/admin/4/add/:id" element={<LessionAdd auth={info} />} />
+          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} lessions={lessions}/>} />
           <Route path="/admin/5/add" element={<TestAdd auth={info} />} />
           <Route path="/admin/5/add/:id" element={<QuestionsList auth={info} />} />
           <Route path="/admin/5/:id" element={<TestEdit auth={info} tests={tests} questions={questions}/>} />

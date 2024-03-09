@@ -40,10 +40,10 @@ exports.create = async (req, res, next) => {
 
 }
 
-exports.createComm = async (req, res, next) => {
-    try {
+exports.addCourse = async (req, res, next) => {
+    try{
         const userService = new UsersService();
-        const document = await userService.createComm(req.body);
+        const document = await userService.addCourse(req.params.id, req.body);
         return res.json(document);
     } catch (err) {
         return next(new ApiError(500, err));

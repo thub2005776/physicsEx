@@ -47,20 +47,21 @@ class UsersService {
         });
     }
 
-    // async createComm(payload) {
-    //     const uid = payload.uid;
-    //     const values = {
-    //         "id": Date().substring(),
-    //         "eid": payload.eid,
-    //         "uid": payload.uid,
-    //         "content": payload.com,
-    //         "time": Date(),
-    //         "state": payload.rep ? true : false,
-    //     }
-
-    //     const result = await UserModel.findOneAndUpdate({ uid: uid }, { $push: { comments: values } })
-    //     return result;
-    // }
+    course(payload) {
+        const values = {
+            "cid": payload.cid,
+            "time": payload.time,
+        }
+        Object.keys(values).forEach(
+            (key) => values[key] === undefined && delete values[key]
+        );
+        return values;
+    }
+    async addCourse(id, payload) {
+        const values = this.course(payload);
+        const result = await this.user.findByIdAndUpdate(id, { $push: { courses: values } });
+        return result;
+    }
 
     async update(id, data) {
         const values = this.data(data);

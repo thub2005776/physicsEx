@@ -7,6 +7,7 @@ const CourseModel = require('./courses.model');
 const LessonModel = require('./lessons.model');
 const TestModel = require('./tests.model');
 const QuestionModel = require('./questions.model');
+const LessionModel = require('./lessons.model');
 
 module.exports = { 
     UserModel, 
@@ -17,5 +18,6 @@ module.exports = {
     CourseModel, 
     LessonModel, 
     TestModel,
-    QuestionModel
+    QuestionModel,
+    LessionModel
 };

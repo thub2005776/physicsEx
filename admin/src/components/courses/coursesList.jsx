@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Search from './search';
-import CardItem from './cardItem';
+import Search from '../search';
+import CardItem from '../cardItem';
 import { Link } from 'react-router-dom';
 
 const CoursesList = ({ courses }) => {

@@ -1,18 +1,17 @@
-const { CourseModel } = require('../models');
+const { LessionModel } = require('../models');
 
-class CoursesService {
+class LessionService {
     constructor() {
-        this.course = CourseModel;
+        this.lession = LessionModel;
     }
 
     data(payload) {
         const values = {
+            "cid": payload.cid,
             "name": payload.name,
-            "grade": payload.grade,
-            "content": payload.content,
-            "img": payload.img,
-            "level": payload.level,
-            "enroll": payload.enroll
+            "link": payload.link,
+            "duration": payload.duration,
+            "view": payload.view
         }
         Object.keys(values).forEach(
             (key) => values[key] === undefined && delete values[key]
@@ -21,29 +20,29 @@ class CoursesService {
     }
 
     async findAll() {
-        const result = await this.course.find({}).sort({grade : -1});
+        const result = await this.lession.find({}).sort({grade : -1});
         return result;
     }
 
     async findById(id) {
-        const result = await this.course.findById(id)
+        const result = await this.lession.findById(id)
         return result;
     }
 
     async create(payload) {
         const values = this.data(payload);
-        const result = await this.course.create(values);
+        const result = await this.lession.create(values);
         return result;
     }
 
     async updateOne(id, payload) {
         const values = this.data(payload)
-        const result = await this.course.findByIdAndUpdate(id, values);
+        const result = await this.lession.findByIdAndUpdate(id, values);
         return result;
     }
 
     async deleteOne(id) {
-        const result = await this.course.findByIdAndDelete(id)
+        const result = await this.lession.findByIdAndDelete(id)
         return result;
     }
 
@@ -52,9 +51,9 @@ class CoursesService {
             "grade": grade,
             "level": level,
         }
-        const result = await this.course.deleteMany(filter, values)
+        const result = await this.lession.deleteMany(filter, values)
     }
 
 }
 
-module.exports = CoursesService;
+module.exports = LessionService;

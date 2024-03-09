@@ -6,7 +6,6 @@ const CourseAdd = ({ auth }) => {
     const [file, setFile] = useState(null);
     const [name, setName] = useState(null);
     const [grade, setGrade] = useState(null);
-    const [link, setLink] = useState(null);
     const [content, setContent] = useState(null)
     const [level, setLevel] = useState(null);
     const [uploaded, setUploaded] = useState(null);
@@ -29,7 +28,6 @@ const CourseAdd = ({ auth }) => {
             "grade": grade,
             "content": content,
             "img": file.name,
-            "link": link,
             "level": level,
             "enroll": 0
         }
@@ -44,7 +42,7 @@ const CourseAdd = ({ auth }) => {
             .then(res => {
                 if(res.status === 200) {
                     alert("Thêm thành công!");
-                    navigate(0, {replace: true})
+                    navigate(`${res.data._id}`, {replace: true})
                 }
             })
             .catch(err => console.log(err))
@@ -91,20 +89,6 @@ const CourseAdd = ({ auth }) => {
                         required
                         placeholder="12..."
                         onChange={(e) => setGrade(e.target.value)} />
-                </div>
-                <div className="mb-6">
-                    <label
-                        htmlFor="link"
-                        className="block mb-2 text-sm font-medium text-slate-400 ">
-                        Đường dẫn
-                    </label>
-                    <input
-                        type="text"
-                        id="link"
-                        className="bg-slate-700 border  text-white text-sm rounded-lg
-                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        required
-                        onChange={(e) => setLink(e.target.value)} />
                 </div>
 
                 <div className="mb-6">

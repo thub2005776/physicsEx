@@ -208,12 +208,8 @@ const TestEdit = ({ auth, tests, questions }) => {
                             <QuestionEdit key={i} quest={q} />
                         ))}
                     </div>
-
-
                 </div>
-
             </div>
-
         </div>)
     )
 }

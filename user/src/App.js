@@ -4,7 +4,7 @@ import './App.css';
 import { Navbar, Footer } from './components'
 import {
   Home, SearchBar, Login, Register, Thematics,
-  Exercises, Docs, Detail, Profile, ExOfThem, Courses, Tests
+  Exercises, Docs, Detail, Profile, ExOfThem, Courses, Tests, CourseDetail
 } from './pages'
 import { Routes, Route } from "react-router-dom";
 import axios from 'axios';
@@ -19,6 +19,7 @@ function App() {
   const [com, setCom] = useState([]);
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
+  const [lessions, setLessions] = useState([]);
 
 
   axios.defaults.withCredentials = true;
@@ -61,6 +62,10 @@ function App() {
       .then(res => setCourses(res.data))
       .catch(err => console.log(err))
 
+      axios.get(process.env.REACT_APP_SERVER_URL + "lessions")
+      .then(res => setLessions(res.data))
+      .catch(err => console.log(err))
+
     axios.get(process.env.REACT_APP_SERVER_URL + "tests")
       .then(res => setTests(res.data))
       .catch(err => console.log(err))
@@ -89,6 +94,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail auth={info} user={profile} exercises={exercises} com={com} />} />
         <Route path="/docs" element={<Docs files={files} user={info} com={com} />} />
         <Route path="/courses" element={<Courses auth={info} courses={courses}/>} />
+        <Route path="/courses/:id" element={<CourseDetail auth={info} courses={courses} lessions={lessions}/>} />
         <Route path="/tests" element={<Tests auth={info} tests={tests}/>} />
       </Routes>
       <Footer />

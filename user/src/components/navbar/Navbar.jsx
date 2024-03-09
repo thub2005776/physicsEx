@@ -17,15 +17,15 @@ const Menu = () => (
 )
 
 
-const Navbar = ({auth}) => {
+const Navbar = ({ auth }) => {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [profile, setProfile] = useState(false);
   const handleLogout = () => {
-      axios.get(process.env.REACT_APP_SERVER_URL + "log/u/logout")
-        .then(res => {
-          window.location.reload(true);
-        }).catch(err => console.log(err));
-    
+    axios.get(process.env.REACT_APP_SERVER_URL + "log/u/logout")
+      .then(res => {
+        window.location.reload();
+      }).catch(err => console.log(err));
+
   }
 
   const state = (s) => {
@@ -36,65 +36,63 @@ const Navbar = ({auth}) => {
   return (
     <div className='relative mb-10'>
       <div className='fixed z-[100]  top-0 bg-[#24252d] w-full'>
-      <div className='navbar py-2 px-10'>
-        <div className="navbar-links">
-          <Link to="/">
-            <img src={logo} alt="logo" className='sm:w-52 w-36' />
-          </Link>
-
-        </div>
-        <Link to="/searchbar">
-          <BsSearch color='white' size='20' />
-        </Link>
-        <div className="navbar-sign">
-
-          <div className="menu_div">
-            <Menu />
-          </div>
-          {auth ? (
-            <>
+        <div className='navbar py-2 px-10'>
+          <div className="navbar-links">
             <Link to="/">
-                <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
-              </Link>
-              {auth? (
-                <>
-                <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile" 
-                className='w-8 h-7 rounded-full cursor-pointer' 
-                onClick={() => setProfile(!profile)}/>
-                </>
-                
-              ) : (<img src={auth.picture} alt="profile" className='avartar' />)}
-            
-            </>
-          ) : (
-            <Link to="/login">
-              <button type='button' className='primary-btn'>Đăng nhập</button>
+              <img src={logo} alt="logo" className='sm:w-52 w-36' />
             </Link>
 
-          )}
-        </div>
+          </div>
+          <Link to="/searchbar">
+            <BsSearch color='white' size='20' />
+          </Link>
+          <div className="navbar-sign">
 
-        
-        <div className="navbar-menu">
-          {toggleMenu ?
-            <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
-            : <RiMenu3Line color="#fff" size={27} onClick={() => setToggleMenu(true)} />}
-          {toggleMenu && (
-            <div className="navbar-menu_container scale-up-center" >
-              <div className="navbar-menu_container-links">
-                <Menu />
-                <Link to={`/profile/1`} >
-                  <div className='text-white text-xl'>Tài khoản</div>
-                </Link>
-              </div>
+            <div className="menu_div">
+              <Menu />
             </div>
-          )}
+            {auth ? (
+              <>
+                <button type='button' className='secondary-btn' onClick={handleLogout}>Đăng xuất</button>
+                {auth ? (
+                  <>
+                    <img src={process.env.REACT_APP_SERVER_URL + auth.img} alt="profile"
+                      className='w-8 h-7 rounded-full cursor-pointer'
+                      onClick={() => setProfile(!profile)} />
+                  </>
+
+                ) : (<img src={auth.picture} alt="profile" className='avartar' />)}
+
+              </>
+            ) : (
+              <Link to="/login">
+                <button type='button' className='primary-btn'>Đăng nhập</button>
+              </Link>
+
+            )}
+          </div>
+
+
+          <div className="navbar-menu">
+            {toggleMenu ?
+              <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
+              : <RiMenu3Line color="#fff" size={27} onClick={() => setToggleMenu(true)} />}
+            {toggleMenu && (
+              <div className="navbar-menu_container scale-up-center" >
+                <div className="navbar-menu_container-links">
+                  <Menu />
+                  <Link to={`/profile/1`} >
+                    <div className='text-white text-xl'>Tài khoản</div>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      {profile ? <ProfileCard handlelogout={handleLogout} auth={auth} state={state} /> : null}
     </div>
-      {profile? <ProfileCard handlelogout={handleLogout} auth={auth} state={state}/> : null}
-    </div>
-    
+
   )
 }
 

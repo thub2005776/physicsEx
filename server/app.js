@@ -14,7 +14,8 @@ const { userRouter,
     CourseRouter, 
     FileRouter, 
     TestRouter,
-    QuestionRouter
+    QuestionRouter,
+    LessionRouter
 }   = require('./app/routes');
 
 const app = express();
@@ -41,6 +42,8 @@ app.use('/docs', docRouter);
 app.use('/comments', commRouter);
 
 app.use('/courses', CourseRouter);
+
+app.use('/lessions', LessionRouter);
 
 app.use('/tests', TestRouter);
 

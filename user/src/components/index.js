@@ -14,3 +14,5 @@ export {default as CommentDisplay} from './comment/commentDisplay';
 export {default as Delete} from './admin/delete';
 export {default as CourseList} from './course/courseList';
 export {default as CourseItem} from './course/courseItem';
+export {default as YoutubePlayer} from './course/youtubePlayer';
+export {default as LessionItem} from './course/lessionItem';

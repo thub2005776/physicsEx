@@ -5,7 +5,6 @@ const CourseSchema = new mongoose.Schema({
     grade: String,
     content: String,
     img: String,
-    link: String,
     level: String,
     enroll: Number
 });

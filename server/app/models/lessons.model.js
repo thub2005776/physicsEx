@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const LessonSchema = new mongoose.Schema({
     cid: String,
-    content: String,
+    name: String,
     duration:Number,
-    videoURL:String,
+    link:String,
     view: Number,
 });
 
