@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useLocation } from 'react-router';
 import { QuestionEdit } from "../../components";
 
@@ -43,14 +43,14 @@ const TestEdit = ({ auth, tests, questions }) => {
             "duration": duration
         }
 
-        if(file) {
+        if (file) {
             axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
-            .then(res => { console.log(res.data)})
-            .catch(err => console.log(err))
+                .then(res => { console.log(res.data) })
+                .catch(err => console.log(err))
 
-        // axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${test.img}`)
-        //     .then(res => { console.log(res.data) })
-        //     .catch(err => console.log(err))
+            // axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${test.img}`)
+            //     .then(res => { console.log(res.data) })
+            //     .catch(err => console.log(err))
         }
 
         axios.put(process.env.REACT_APP_SERVER_URL + `tests/${test._id}`, values)
@@ -200,11 +200,14 @@ const TestEdit = ({ auth, tests, questions }) => {
 
                 {/* Question editon part */}
                 <div className="lg:w-1/3">
+                    <div className="p-2 bg-gray-800 border border-gray-600 rounded-md">
+                    <Link to={`/admin/5/add/${id}`}>
+                        <button className="p-2.5 bg-green-500 hover:bg-green-400 rounded-lg text-base float-right">Thêm bài học</button>
+                    </Link>
                     <div className="sm:text-lg text-base text-gray-400 sm:font-bold font-semibold mb-6 text-center">
                         Cập nhật câu hỏi
                     </div>
-                    <div className="p-2 bg-gray-800 border border-gray-600 rounded-md">
-                        {questionList && questionList.map((q, i) => (
+                        {questionList && questionList.length > 0 && questionList.map((q, i) => (
                             <QuestionEdit key={i} quest={q} />
                         ))}
                     </div>

@@ -56,12 +56,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/api/",
-  "description": "``` bash\r # clone project\r $ git clone https://github.com/thub2005776/physicsEx.git",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  
   "devDependencies": {
     "tailwindcss": "^3.3.3"
   }

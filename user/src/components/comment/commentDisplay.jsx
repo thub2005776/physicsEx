@@ -10,7 +10,7 @@ const CommentDisplay = ({ auth, comm, user, id }) => {
     return (
         comm && user &&
         <div>
-            <div className="lg:mt-14 mt-5 rounded-lg border bg-gray-800 border-gray-600 relative">
+            <div className="mt-3 rounded-lg border bg-gray-800 border-gray-600 relative text-white">
                 <h3 className="m-5 font-semibold">Bình luận </h3>
                 {/* add comment  */}
                 <Comment eid={id} auth={auth} sended={sended}/>

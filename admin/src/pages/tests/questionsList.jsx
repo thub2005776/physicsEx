@@ -111,7 +111,7 @@ const QuestionsList = ({ auth }) => {
                         <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
                             {codeString}
                         </SyntaxHighlighter>
-                        <input required className=" rounded-lg bg-emerald-400 text-sm" type="file" name="file"
+                        <input required className=" rounded-lg bg-emerald-400 text-sm" type="file" name="file" accept="application/json"
                             onChange={(e) => setFile(e.target.files[0])} />
                     </div>}
                 {active === 'manual' &&

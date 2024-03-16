@@ -35,6 +35,11 @@ class LessionService {
         return result;
     }
 
+    async addView(id, view) {
+        const result = await this.lession.findByIdAndUpdate(id, view);
+        return result;
+    }
+
     async updateOne(id, payload) {
         const values = this.data(payload)
         const result = await this.lession.findByIdAndUpdate(id, values);

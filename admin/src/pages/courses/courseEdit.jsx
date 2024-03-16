@@ -47,7 +47,8 @@ const CourseEdit = ({ auth, courses, lessions }) => {
             .then(res => {
                 if (res.status === 200) {
                     alert("Cập nhật thành công!");
-                    navigate('/admin/4', { replace: true });
+                    navigate('/admin/4');
+                    document.location.reload();
                 }
             })
             .catch(err => console.log(err))

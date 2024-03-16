@@ -36,6 +36,11 @@ class CoursesService {
         return result;
     }
 
+    async addEnroll(id, enroll) {
+        const result = await this.course.findByIdAndUpdate(id, enroll);
+        return result;
+    }
+    
     async updateOne(id, payload) {
         const values = this.data(payload)
         const result = await this.course.findByIdAndUpdate(id, values);

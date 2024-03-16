@@ -16,7 +16,7 @@ const Login = ({ handleLoginSuccess }) => {
     axios.post(process.env.REACT_APP_SERVER_URL + 'log/u/login', { email, password, permission })
       .then(res => {
         if (res.data.permission === "user") {
-          navigate(-1);
+          navigate('/');
           window.location.reload();
         } else { alert(res.data); }
       })

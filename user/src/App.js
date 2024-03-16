@@ -94,7 +94,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail auth={info} user={profile} exercises={exercises} com={com} />} />
         <Route path="/docs" element={<Docs files={files} user={info} com={com} />} />
         <Route path="/courses" element={<Courses auth={info} courses={courses}/>} />
-        <Route path="/courses/:id" element={<CourseDetail auth={info} courses={courses} lessions={lessions}/>} />
+        <Route path="/courses/:id" element={<CourseDetail auth={info} user={profile} com={com} courses={courses} lessions={lessions} />} />
         <Route path="/tests" element={<Tests auth={info} tests={tests}/>} />
       </Routes>
       <Footer />

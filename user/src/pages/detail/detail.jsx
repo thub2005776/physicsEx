@@ -5,7 +5,7 @@ import Latex from 'react-latex';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { AiOutlineCopy } from "react-icons/ai";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
-import { LikeStatus,CommentDisplay } from '../../components'
+import { LikeStatus, CommentDisplay } from '../../components'
 import { useNavigate } from 'react-router-dom';
 
 function Detail({ auth, user, exercises, com }) {

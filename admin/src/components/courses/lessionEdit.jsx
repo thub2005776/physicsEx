@@ -55,7 +55,7 @@ const LessionEdit = ({ auth, lession }) => {
                 <button
                     type="button"
                     id="link"
-                    className="flex-grow bg-slate-700 mb-1 text-white text-sm rounded-lg h-10
+                    className="flex-grow bg-slate-700 mb-1 text-left text-white text-sm rounded-lg h-10
                      focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5 truncate"
                     onClick={() => setStatus(!status)}>
                     {lession.name}

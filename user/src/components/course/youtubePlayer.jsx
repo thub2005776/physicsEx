@@ -7,7 +7,8 @@ const YoutubePlayer = ({ videoId }) => {
     width={480}
     height={300}
     src={`https://www.youtube.com/embed/${videoId}`}
-    allowFullScreen="allowfullscreen" >
+    allowFullScreen="allowfullscreen" 
+    >
     </iframe>
   );
 };

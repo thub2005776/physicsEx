@@ -12,4 +12,7 @@ router.route('/:id')
     .put(course.updateOne)
     .delete(course.deleteOne)
 
+router.route('/enroll/:id')
+    .post(course.addEnroll)
+
 module.exports = router;

@@ -12,4 +12,7 @@ router.route('/:id')
     .post(lession.updateOne)
     .delete(lession.deleteOne)
 
+router.route('/view/:id')
+    .post(lession.addView)
+
 module.exports = router;

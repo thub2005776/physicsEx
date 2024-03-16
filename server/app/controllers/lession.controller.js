@@ -31,6 +31,16 @@ exports.create = async (req, res, next) => {
     }
 }
 
+exports.addView = async (req, res, next) => {
+    try {
+        const lessionService = new LessionService();
+        const document = await lessionService.addView(req.params.id, req.body);
+        return res.json(document);
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}
+
 exports.updateOne = async (req, res, next) => {
     try {
         const lessionService = new LessionService();
