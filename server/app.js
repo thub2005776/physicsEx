@@ -27,7 +27,7 @@ app.use(cors({
     optionsSuccessStatus: 200
   }));
 app.use(express.json());
-app.use(express.static("../user/src/assets"));
+app.use(express.static("./app/assets/"));
 
 app.use(cookieParser());
 

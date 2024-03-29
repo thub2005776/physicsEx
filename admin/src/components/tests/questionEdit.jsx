@@ -14,6 +14,8 @@ const QuestionEdit = ({ quest }) => {
     const [inputValue, setInputValue] = useState('');
     const [err, setErr] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
+    const [file, setFile] = useState(null);
+    const [uploaded, setUploaded] = useState(null);
 
     const handleChangeInput = (index, value) => {
 
@@ -23,6 +25,12 @@ const QuestionEdit = ({ quest }) => {
         updatedSelections[index] = temp;
         setSelections(updatedSelections);
     };
+
+    const HandleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        const f = e.target.files[0]
+        setUploaded(URL.createObjectURL(f));
+    }
 
     const HandleDeleteInput = (index) => {
         const updatedSelections = [...selections];
@@ -70,9 +78,19 @@ const QuestionEdit = ({ quest }) => {
             const values = {
                 "tid": quest && quest.tid,
                 "question": question,
+                "img": file && file.name,
                 "selections": temp,
                 "trueAns": trueAns,
                 "explain": explain
+            }
+
+            if (file) {
+                const data = new FormData();
+                data.append("file", file);
+
+                axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
+                    .then(res => { console.log(res.data) })
+                    .catch(err => console.log(err))
             }
 
             axios.put(process.env.REACT_APP_SERVER_URL + `questions/${quest._id}`, values)
@@ -89,6 +107,7 @@ const QuestionEdit = ({ quest }) => {
     }
 
     return (
+        quest &&
         <div>
             <div className="flex justify-center gap-4">
                 <button
@@ -124,6 +143,14 @@ const QuestionEdit = ({ quest }) => {
                             focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 
                             onChange={(e) => setQuestion(e.target.value)} />
+                    </div>
+                    {uploaded ? <img className="mx-auto md:w-32  mb-6 rounded-lg border border-gray-400 p-1" src={uploaded} alt={file.name} />
+                        : <img className="mx-auto md:w-32 mb-6 rounded-lg border border-gray-400 p-1" src={process.env.REACT_APP_SERVER_URL + quest.img} alt="Ảnh" />}
+                    <div className="mb-6 text-base">
+                        <span className="text-slate-400">Tải hình ảnh lên </span>
+                        <input className="ml-4 rounded-lg bg-emerald-400" type="file" name="file"
+                            onChange={HandleFileChange} />
+
                     </div>
                     <div className="mb-6">
                         <label

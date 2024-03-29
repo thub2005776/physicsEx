@@ -9,11 +9,11 @@ class TestService {
         const values = {
             "name": payload.name,
             "grade": payload.grade,
-            "tag": payload.tag,
             "content": payload.content,
             "img": payload.img,
             "level": payload.level,
             "duration": payload.duration,
+            "enroll": payload.enroll,
         }
         Object.keys(values).forEach(
             (key) => values[key] === undefined && delete values[key]
@@ -40,6 +40,11 @@ class TestService {
     async updateOne(id, payload) {
         const values = this.data(payload)
         const result = await this.test.findByIdAndUpdate(id, values);
+        return result;
+    }
+
+    async addEnroll(id, enroll) {
+        const result = await this.test.findByIdAndUpdate(id, enroll);
         return result;
     }
 

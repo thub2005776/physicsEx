@@ -6,7 +6,7 @@ const router = express.Router();
 router.route('/')
     .get(users.findAll)
     .post(users.create)
-    
+
 router.route('/:id')
     .get(users.findOne)
     .post(users.update)
@@ -14,6 +14,9 @@ router.route('/:id')
 
 router.route('/:id/course')
     .post(users.addCourse)
+
+router.route('/:id/test')
+    .post(users.addTest)
 
 router.route('/edit')
     .patch(users.update)

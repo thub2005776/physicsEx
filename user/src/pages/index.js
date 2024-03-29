@@ -11,3 +11,5 @@ export {default as Detail} from './detail/detail';
 export {default as Courses} from './courses/courses';
 export {default as Tests} from './tests/tests';
 export {default as CourseDetail} from './courses/courseDetail';
+export {default as TestDetail} from './tests/testDetail';
+export {default as Testing} from './tests/testing';

@@ -50,6 +50,16 @@ exports.addCourse = async (req, res, next) => {
     }
 }
 
+exports.addTest = async (req, res, next) => {
+    try{
+        const userService = new UsersService();
+        const document = await userService.addTest(req.params.id, req.body);
+        return res.json(document);
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}
+
 exports.update = async (req, res, next) => {
     try {
         const userService = new UsersService();

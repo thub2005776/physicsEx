@@ -50,6 +50,7 @@ class UsersService {
     course(payload) {
         const values = {
             "cid": payload.cid,
+            "name": payload.name,
             "time": payload.time,
         }
         Object.keys(values).forEach(
@@ -57,9 +58,29 @@ class UsersService {
         );
         return values;
     }
+
+    tests(payload) {
+        const values = {
+            "tid": payload.tid,
+            "nanme": payload.name,
+            "trueAns": payload.trueAns,
+            "time": payload.time,
+        }
+        Object.keys(values).forEach(
+            (key) => values[key] === undefined && delete values[key]
+        );
+        return values;
+    }
+
     async addCourse(id, payload) {
         const values = this.course(payload);
         const result = await this.user.findByIdAndUpdate(id, { $push: { courses: values } });
+        return result;
+    }
+
+    async addTest(id, payload) {
+        const values = this.tests(payload);
+        const result = await this.user.findByIdAndUpdate(id, { $push: { tests: values } });
         return result;
     }
 
@@ -73,7 +94,7 @@ class UsersService {
             return result;
         } else {
             bcrypt.hash(pass, salt, async (err, hash) => {
-                if (err) return "Error for hassing password";
+                if (err) return "Error for hashing password";
                 values.password = hash;
                 const result = await this.user.findByIdAndUpdate(id, values);
                 return result;

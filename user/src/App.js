@@ -4,7 +4,7 @@ import './App.css';
 import { Navbar, Footer } from './components'
 import {
   Home, SearchBar, Login, Register, Thematics,
-  Exercises, Docs, Detail, Profile, ExOfThem, Courses, Tests, CourseDetail
+  Exercises, Docs, Detail, Profile, ExOfThem, Courses, Tests, CourseDetail, TestDetail, Testing
 } from './pages'
 import { Routes, Route } from "react-router-dom";
 import axios from 'axios';
@@ -20,7 +20,7 @@ function App() {
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
   const [lessions, setLessions] = useState([]);
-
+  const [questions, setQuestions] = useState([]);
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -69,6 +69,10 @@ function App() {
     axios.get(process.env.REACT_APP_SERVER_URL + "tests")
       .then(res => setTests(res.data))
       .catch(err => console.log(err))
+
+      axios.get(process.env.REACT_APP_SERVER_URL + "questions")
+      .then(res => setQuestions(res.data))
+      .catch(err => console.log(err))
   }, []);
 
 
@@ -85,7 +89,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home thematics={thematics} exercises={exercises} />} />
         <Route path="/searchbar" element={<SearchBar thematic={thematics} exercise={exercises} />} />
-        <Route path="/profile/:id" element={<Profile auth={info} />} />
+        <Route path="/profile/:id" element={<Profile auth={info} com={com}/>} />
         <Route path="/login" element={<Login handleLoginSuccess={handleLoginSuccess} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/thematics" element={<Thematics thematics={thematics} exercises={exercises} />} />
@@ -93,9 +97,11 @@ function App() {
         <Route path="/exercises" element={<Exercises exercises={exercises} />} />
         <Route path="/detail/:id" element={<Detail auth={info} user={profile} exercises={exercises} com={com} />} />
         <Route path="/docs" element={<Docs files={files} user={info} com={com} />} />
-        <Route path="/courses" element={<Courses auth={info} courses={courses}/>} />
+        <Route path="/courses" element={<Courses courses={courses}/>} />
         <Route path="/courses/:id" element={<CourseDetail auth={info} user={profile} com={com} courses={courses} lessions={lessions} />} />
-        <Route path="/tests" element={<Tests auth={info} tests={tests}/>} />
+        <Route path="/tests" element={<Tests tests={tests}/>} />
+        <Route path="/tests/:id" element={<TestDetail auth={info} user={profile} com={com} tests={tests} questions={questions} />} />
+        <Route path="/tests/testing/:id" element={<Testing auth={info} tests={tests} questions={questions}/>} />
       </Routes>
       <Footer />
     </div>

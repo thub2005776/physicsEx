@@ -12,7 +12,14 @@ export {default as Comments} from './comment/comments';
 export {default as CommentItem} from './comment/commentItem'
 export {default as CommentDisplay} from './comment/commentDisplay';
 export {default as Delete} from './admin/delete';
-export {default as CourseList} from './course/courseList';
-export {default as CourseItem} from './course/courseItem';
 export {default as YoutubePlayer} from './course/youtubePlayer';
 export {default as LessionItem} from './course/lessionItem';
+export {default as CourseTestItem} from './ctItem';
+export {default as CourseTestList} from './ctList';
+export {default as QuestionItem} from './test/questionItem';
+export {default as QuestNum} from './test/questNum';
+export {default as Selection} from './test/selection';
+export {default as ResultModal} from './test/resultModal';
+export {default as CountdownTimer} from './test/countdownTimer';
+export {default as LeaveConfirmation} from './test/leaveConfirmation';
+export {default as EditProfile} from './profileCard/editProfile';

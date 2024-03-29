@@ -6,7 +6,6 @@ const TestAdd = ({ auth }) => {
     const [file, setFile] = useState(null);
     const [name, setName] = useState(null);
     const [grade, setGrade] = useState(null);
-    const [tag, setTag] = useState(null);
     const [content, setContent] = useState(null)
     const [level, setLevel] = useState(null);
     const [duration, setDuration] = useState(null);
@@ -30,9 +29,9 @@ const TestAdd = ({ auth }) => {
             "grade": grade,
             "content": content,
             "img": file.name,
-            "tag": tag,
             "level": level,
-            "duration": duration
+            "duration": duration,
+            "enroll": 0
         }
 
         axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
@@ -114,21 +113,6 @@ const TestAdd = ({ auth }) => {
                             focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                         required
                         onChange={(e) => setDuration(e.target.value)} />
-                </div>
-                <div className="mb-6">
-                    <label
-                        htmlFor="link"
-                        className="block mb-2 text-sm font-medium text-slate-400 ">
-                        Liên quan
-                    </label>
-                    <input
-                        type="text"
-                        id="link"
-                        className="bg-slate-700 border  text-white text-sm rounded-lg
-                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        required
-                        placeholder="daodongco..."
-                        onChange={(e) => setTag(e.target.value)} />
                 </div>
 
                 <div className="mb-6">

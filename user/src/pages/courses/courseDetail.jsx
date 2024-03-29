@@ -30,6 +30,7 @@ const CourseDetail = ({ auth, user, com, courses, lessions }) => {
         if (auth) {
             const values = {
                 "cid": course._id,
+                "name": course.name,
                 "time": Date()
             }
             axios.post(process.env.REACT_APP_SERVER_URL + `users/${auth._id}/course`, values)

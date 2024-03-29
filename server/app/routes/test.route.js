@@ -12,4 +12,7 @@ router.route('/:id')
     .put(test.updateOne)
     .delete(test.deleteOne)
 
+router.route('/enroll/:id')
+    .post(test.addEnroll)
+
 module.exports = router;

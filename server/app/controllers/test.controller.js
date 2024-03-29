@@ -31,6 +31,16 @@ exports.create = async (req, res, next) => {
     }
 }
 
+exports.addEnroll = async (req, res, next) => {
+    try {
+        const courseService = new TestService();
+        const document = await courseService.addEnroll(req.params.id, req.body);
+        return res.json(document);
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}
+
 exports.updateOne = async (req, res, next) => {
     try {
         const courseService = new TestService();

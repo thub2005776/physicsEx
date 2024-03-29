@@ -5,7 +5,7 @@ import { AiOutlineInfoCircle, AiOutlineLogout } from "react-icons/ai";
 const ProfileCard = ({auth, handlelogout, state}) => {
     const [profile, setProfile] = useState(true);
     return(
-        <div className="absolute right-5 top-8 z-[120] sm:w-52 w-32">
+        <div className="absolute right-5 top-9 z-[10] sm:w-52 w-32">
              <div className="w-full border rounded-lg shadow bg-gray-800 border-gray-500">
             {profile && 
             <button type="button" className="absolute text-gray-400 bg-transparent  rounded-lg text-sm right-0 mt-1 p-2  hover:bg-gray-600 hover:text-white" data-modal-hide="default-modal"

@@ -13,7 +13,6 @@ const TestEdit = ({ auth, tests, questions }) => {
     const [file, setFile] = useState(null);
     const [name, setName] = useState(test && test.name);
     const [grade, setGrade] = useState(test && test.grade);
-    const [tag, setTag] = useState(test && test.tag);
     const [content, setContent] = useState(test && test.content)
     const [level, setLevel] = useState(test && test.level);
     const [duration, setDuration] = useState(test && test.duration);
@@ -38,19 +37,14 @@ const TestEdit = ({ auth, tests, questions }) => {
             "grade": grade,
             "content": content,
             "img": file && file.name ? file.name : test.img,
-            "tag": tag,
             "level": level,
-            "duration": duration
+            "duration": duration,
         }
 
         if (file) {
             axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
                 .then(res => { console.log(res.data) })
                 .catch(err => console.log(err))
-
-            // axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${test.img}`)
-            //     .then(res => { console.log(res.data) })
-            //     .catch(err => console.log(err))
         }
 
         axios.put(process.env.REACT_APP_SERVER_URL + `tests/${test._id}`, values)
@@ -124,21 +118,7 @@ const TestEdit = ({ auth, tests, questions }) => {
                             defaultValue={test.duration}
                             onChange={(e) => setDuration(e.target.value)} />
                     </div>
-                    <div className="mb-6">
-                        <label
-                            htmlFor="link"
-                            className="block mb-2 text-sm font-medium text-slate-400 ">
-                            Liên quan
-                        </label>
-                        <input
-                            type="text"
-                            id="link"
-                            className="bg-slate-700 border  text-white text-sm rounded-lg
-                            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                            defaultValue={test.tag}
-                            onChange={(e) => setTag(e.target.value)} />
-                    </div>
-
+        
                     <div className="mb-6">
                         <label
                             htmlFor="content"
