@@ -23,3 +23,4 @@ export {default as ResultModal} from './test/resultModal';
 export {default as CountdownTimer} from './test/countdownTimer';
 export {default as LeaveConfirmation} from './test/leaveConfirmation';
 export {default as EditProfile} from './profileCard/editProfile';
+export {default as Chatbox} from './chatbox';

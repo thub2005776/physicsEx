@@ -12,14 +12,15 @@ const EditProfile = ({ auth }) => {
     const [email, setEmail] = useState(auth && auth.email);
     const [img, setImg] = useState(auth && auth.img);
     const [password, setPassword] = useState(auth && auth.password);
-    const [comfirm, setComfirm] = useState(auth && auth.password);
     const [uploaded, setUploaded] = useState(null);
+    const [upload, setUpload] = useState(0);
 
     const HandleFileChange = (e) => {
         setFile(e.target.files[0]);
         setLoaded(1);
         const f = e.target.files[0]
         setUploaded(URL.createObjectURL(f));
+        setImg(file.name);
     }
 
     const [formData, setFormData] = useState({
@@ -38,17 +39,13 @@ const EditProfile = ({ auth }) => {
 
         // Xác thực form 
 
-        if (!formData.email.trim()) {
-            validationErrors.email = "Bạn phải nhập email"
-        } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(formData.email)) {
-            validationErrors.email = "Email không hợp lệ"
-        }
+        // if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(formData.email)) {
+        //     validationErrors.email = "Email không hợp lệ"
+        // }
 
-        if (!formData.password.trim()) {
-            validationErrors.password = "Bạn phải nhập mật khẩu"
-        } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(formData.password)) {
-            validationErrors.password = "Mật khẩu phải có ít nhất 8 ký tự : HOA, thường và đặc biệt"
-        }
+        // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(formData.password)) {
+        //     validationErrors.password = "Mật khẩu phải có ít nhất 8 ký tự : HOA, thường và đặc biệt"
+        // }
 
         if (formData.password.substring(0, formData.password.length - 1).localeCompare(formData.comfirmPassword.trim()) !== 0) {
             validationErrors.comfirmPassword = "Mật khẩu không khớp"
@@ -63,21 +60,38 @@ const EditProfile = ({ auth }) => {
     const HandleDetele = (e) => {
         axios.delete(process.env.REACT_APP_SERVER_URL + `users/${auth._id}`)
             .then(res => {
-                alert("Đã xóa!");
+                if (res.status === 200) {
+                    alert("Đã xóa!");
                 navigate('/');
                 window.location.reload();
+                }
             })
             .catch(err => console.log(err))
 
-        axios.delete(process.env.REACT_APP_SERVER_URL + `/${auth._id}`)
-            .then()
+        axios.delete(process.env.REACT_APP_SERVER_URL + `comments/${auth._id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                }
+            })
             .catch(err => console.log(err))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData();
-        data.append("file", file);
+        if (file) {
+            const data = new FormData();
+            data.append("file", file);
+
+            axios.post(process.env.REACT_APP_SERVER_URL + "file/upload", data)
+            .then(res => {
+                if (res.status === 200) {
+                    setUpload(200);
+                }
+            })
+            .catch(err => console.log(err))
+        }
+
 
         const values = {
             'img': file ? file.name : img,
@@ -88,7 +102,7 @@ const EditProfile = ({ auth }) => {
 
         axios.post(process.env.REACT_APP_SERVER_URL + `users/${auth._id}`, values)
             .then(res => {
-                if (res.status === 200) {
+                if (res.status === 200 ) {
                     alert("Cập nhật thành công!");
                     window.location.reload(true);
                 }
@@ -139,7 +153,7 @@ const EditProfile = ({ auth }) => {
                                 className=" border border-gray-300 text-sm rounded-lg   
                                                 block w-full p-2.5 bg-gray-700  placeholder-gray-400 
                                                 text-white focus:ring-blue-500 focus:border-blue-500"
-                                placeholder={auth.name}
+                                defaultValue={auth.name}
                                 onChange={handleChange} />
                             {errors.name && <span className="text-xs text-red-600 font-thin">{errors.name}</span>}
                         </div>
@@ -153,7 +167,7 @@ const EditProfile = ({ auth }) => {
                                 className=" border border-gray-300 text-sm rounded-lg   
                                                 block w-full p-2.5 bg-gray-700  placeholder-gray-400 text-white 
                                                 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder={auth.email}
+                                defaultValue={auth.email}
                                 onChange={handleChange} />
                             {errors.email && <span className="text-xs text-red-600 font-thin">{errors.email}</span>}
                         </div>
@@ -187,16 +201,16 @@ const EditProfile = ({ auth }) => {
             </div>
             <div className="flex justify-end gap-5">
                 <button type="submit"
-                className=" px-4 text-white  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
-                Cập nhật
-            </button>
-            <button
-                className="p-2 inline-flex items-center justify-center overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-pink-800"
-                onClick={() => setDel(true)}>
-                Xóa tài khoản
-            </button>
+                    className=" px-4 text-white  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm  text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
+                    Cập nhật
+                </button>
+                <button
+                    className="p-2 inline-flex items-center justify-center overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-pink-800"
+                    onClick={() => setDel(true)}>
+                    Xóa tài khoản
+                </button>
             </div>
-            
+
         </form>
     )
 }

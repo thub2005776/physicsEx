@@ -20,7 +20,7 @@ const QuestionItem = ({ quest, index, answered, show }) => {
         <div className="p-4 mb-6">
             <p className="text-white font-bold text-md">
                 {index}.
-                <span> <Latex >{quest.question}</Latex></span>
+                <span> <Latex>{quest.question}</Latex></span>
             </p>
             {quest.img && <img src={process.env.REACT_APP_SERVER_URL + quest.img} alt={quest.img}
                 className='mx-auto w-64 p-1 rounded-lg' />}

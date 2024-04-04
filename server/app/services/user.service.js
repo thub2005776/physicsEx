@@ -108,8 +108,6 @@ class UsersService {
         const result = await this.user.findByIdAndDelete(id)
         return result;
     }
-
-
 }
 
 module.exports = UsersService;

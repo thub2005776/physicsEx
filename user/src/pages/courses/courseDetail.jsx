@@ -65,6 +65,7 @@ const CourseDetail = ({ auth, user, com, courses, lessions }) => {
             <p className="text-center text-3xl font-bold text-green-500 mb-6">Thông tin chi tiết khóa học</p>
             <div className="flex justify-between text-white p-4 bg-gray-800 border border-gray-600 rounded-t-md">
                 {/* course info  */}
+                
                 <div className=''>
                     <p className='text-2xl font-bold mb-6'>{course.name}</p>
                     <p className='ms-3 text-gray-400'>{course.content}</p>

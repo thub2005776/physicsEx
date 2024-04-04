@@ -34,8 +34,10 @@ const Testing = ({ auth, tests, questions }) => {
     }
 
     const handleGoBack = (e) => {
-        if (!showResult && window.confirm("Bạn có chắc muốn rời khỏi trang này? Thay đổi của bạn có thể không được lưu.")) {
-            navigate(-1);
+        if (!showExplain ) {
+            if (window.confirm("Bạn có chắc muốn rời khỏi trang này? Thay đổi của bạn có thể không được lưu.")) {
+                 navigate(-1);
+            }
         } else {
              const values = {
                 "tid": test._id,

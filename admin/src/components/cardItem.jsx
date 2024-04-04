@@ -11,25 +11,35 @@ const CardItem = ({ data, name }) => {
         setDel(!e);
         if (e) {
             if(name === 'course') {
-                axios.delete(process.env.REACT_APP_SERVER_URL + `courses/${data && data._id}`)
+                axios.delete(process.env.REACT_APP_SERVER_URL + `courses/${data._id}`)
+                .then(res => {
+                    if (res.status === 200) {
+                        alert("Đã xóa!");
+                    navigate(0, { replace: true });
+                    }
+                })
+                .catch(err => console.log(err))
+
+                axios.delete(process.env.REACT_APP_SERVER_URL + `lessions/${data._id}`)
+                .then(res => {
+                   console.log(res.data);
+                })
+                .catch(err => console.log(err))
+
+            } else {
+                axios.delete(process.env.REACT_APP_SERVER_URL + `tests/${data._id}`)
                 .then(res => {
                     alert("Đã xóa!");
                     navigate(0, { replace: true });
                 })
                 .catch(err => console.log(err))
-            } else {
-                axios.delete(process.env.REACT_APP_SERVER_URL + `tests/${data && data._id}`)
+
+                axios.delete(process.env.REACT_APP_SERVER_URL + `questions/${data._id}`)
                 .then(res => {
-                    alert("Đã xóa!");
-                    navigate(0, { replace: true });
+                   console.log(res.data);
                 })
                 .catch(err => console.log(err))
             }
-            
-
-            axios.delete(process.env.REACT_APP_SERVER_URL + `file/remove/${data && data.img}`)
-                .then(res => { console.log(res.data) })
-                .catch(err => console.log(err))
         }
     }
 

@@ -81,7 +81,7 @@ const Profile = ({ auth, com }) => {
                                 Bình luận của bạn ({comments && comments.length > 0?  comments.length: '0'})
                             </p>
                             <div className='rounded-lg border bg-gray-700 border-gray-600'>
-                                {comments && comments.map((com, i) => (
+                                {comments && comments.slice(0,5).map((com, i) => (
                                     <Comment key={i} comment={com} />
                                 ))}
                             </div>
@@ -92,7 +92,7 @@ const Profile = ({ auth, com }) => {
                             <h1 className='text-gray-400 '>
                                 Các khóa học ({auth.courses ? auth.courses.length : '0'})
                             </h1>
-                            {auth.courses && auth.courses.map((c, i) => (
+                            {auth.courses && auth.courses.slice(0,3).map((c, i) => (
                                 <Item key={i} data={c} name={'courses'} />
                             ))}
                         </div>
@@ -102,7 +102,7 @@ const Profile = ({ auth, com }) => {
                             <h1 className='text-gray-400'>
                                 Các bài kiểm tra ({auth.tests ? auth.tests.length : '0'})
                             </h1>
-                            {auth.tests && auth.tests.map((t, i) => (
+                            {auth.tests && auth.tests.slice(0,3).map((t, i) => (
                                 <Item key={i} data={t} name={'tests'} />
                             ))}
                         </div>

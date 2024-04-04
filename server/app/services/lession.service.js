@@ -51,12 +51,8 @@ class LessionService {
         return result;
     }
 
-    async deleteMany(grade, level, values) {
-        const filter = {
-            "grade": grade,
-            "level": level,
-        }
-        const result = await this.lession.deleteMany(filter, values)
+    async deleteMany(cid) {
+        const result = await this.lession.deleteMany(cid)
     }
 
 }

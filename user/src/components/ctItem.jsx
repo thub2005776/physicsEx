@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-const  CourseTestItem = ({ data }) => {
+const  CourseTestItem = ({ data, name }) => {
     return(
         data &&
-        <Link to={`/tests/${data._id}`}>
+        <Link to={name === 'courses'? `/courses/${data._id}`: `/tests/${data._id}`}>
             <div className="w-[12rem] h-[15rem] mb-6 border rounded-lg shadow hover:cursor-pointer hover:-mt-2 hover:z-[100] bg-gray-800 border-gray-700">
                 <img className="rounded-t-lg w-[15rem] h-[10rem]" src={process.env.REACT_APP_SERVER_URL + data.img} alt={data.name} />
                 <div className="p-2">

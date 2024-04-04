@@ -15,4 +15,7 @@ router.route('/:id')
 router.route('/view/:id')
     .post(lession.addView)
 
+router.route('/:cid')
+    .delete(lession.deleteMany)
+
 module.exports = router;

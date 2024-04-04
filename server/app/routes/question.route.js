@@ -12,5 +12,7 @@ router.route('/:id')
     .put(question.updateOne)
     .delete(question.deleteOne)
 
-
+router.route('/:tid')
+    .delete(question.deleteMany)
+    
 module.exports = router;

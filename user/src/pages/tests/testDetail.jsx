@@ -26,18 +26,18 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
         }
     }
 
-    const TestItem = ({item, index}) => {
-        const trueA = parseInt(item.trueAns.slice(0,1));
-        
-        return(
+    const TestItem = ({ item, index }) => {
+        const trueA = parseInt(item.trueAns.slice(0, 1));
+
+        return (
             <div className='flex justify-between p-2 border border-gray-400 rounded-md mb-1 bg-gray-600'>
                 <div className='ms-3'>
-                   <p className='text-lg font-semibold'>Lần {index + 1}</p>
-                   <p className='text-gray-400'>{item.time}</p> 
+                    <p className='text-lg font-semibold'>Lần {index + 1}</p>
+                    <p className='text-gray-400'>{item.time}</p>
                 </div>
                 <div className='font-semibold me-3'>
-                   <p>Số câu đúng: <span className='text-green-400'>{item.trueAns}</span></p>
-                <p>Tổng điểm: <span className='text-blue-500'>{trueA * 10}</span></p> 
+                    <p>Số câu đúng: <span className='text-green-400'>{item.trueAns}</span></p>
+                    <p>Tổng điểm: <span className='text-blue-500'>{trueA * 10}</span></p>
                 </div>
             </div>
         )
@@ -45,7 +45,15 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
 
     return (
         test && question &&
-        <div className="pt-20 lg:mx-10 m-5">
+        <div className="pt-20 lg:mx-10 m-5" >
+            <div className='p-1 w-fit hover:cursor-pointer border border-gray-600 rounded-lg hover:bg-gray-700' 
+            onClick={() => navigate('/tests')}>
+              <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7" />
+            </svg>  
+            </div>
+            
+
             <p className="text-center text-3xl font-bold text-green-500 mb-6">Thông tin chi tiết khóa học</p>
             <div className="flex justify-between text-white p-4 bg-gray-800 border border-gray-600 rounded-t-md">
                 {/* test info  */}
@@ -85,15 +93,15 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
                         điểm</p>
                 </div>
                 {auth && tested && tested.length > 0 &&
-                <div>
-                <p className='text-xl font-semibold mb-3'>Lịch sử làm bài</p>
-                    {tested.length > 0 &&
-                        auth.tests.map((t, i) => (
-                            <TestItem key={i} 
-                                item={t} index={i} />
-                        ))
-                }
-                </div>}
+                    <div>
+                        <p className='text-xl font-semibold mb-3'>Lịch sử làm bài</p>
+                        {tested.length > 0 &&
+                            auth.tests.map((t, i) => (
+                                <TestItem key={i}
+                                    item={t} index={i} />
+                            ))
+                        }
+                    </div>}
             </div>
             <CommentDisplay auth={auth} user={user} comm={com} id={id} />
         </div>

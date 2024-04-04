@@ -7,8 +7,8 @@ const Courses = ({ courses }) => {
         courses && courseFree && courseAdvanced &&
         <div className="pt-10 ms-5">
             <div className="text-center text-3xl font-bold text-green-500">{courses.length} khóa học</div>
-            <CourseTestList data={courseFree} title={"Khóa học cơ bản"} />
-            <CourseTestList  data={courseAdvanced} title={"Khóa học nâng cao"} />
+            <CourseTestList data={courseFree} title={"Khóa học cơ bản"} name={'courses'} />
+            <CourseTestList  data={courseAdvanced} title={"Khóa học nâng cao"} name={'courses'} />
         </div>
     )
 }

@@ -70,16 +70,16 @@ const QuestionEdit = ({ quest }) => {
         e.preventDefault();
 
         if (selections.length > 1) {
-            const temp = selections.map((e, i) => {
-                const newObj = {};
-                newObj[i] = e;
-                return newObj;
-            })
+            // const temp = selections.map((e, i) => {
+            //     const newObj = {};
+            //     newObj[i] = e;
+            //     return newObj;
+            // })
             const values = {
                 "tid": quest && quest.tid,
                 "question": question,
                 "img": file && file.name,
-                "selections": temp,
+                "selections": selections,
                 "trueAns": trueAns,
                 "explain": explain
             }
@@ -97,6 +97,7 @@ const QuestionEdit = ({ quest }) => {
                 .then(res => {
                     if (res.status === 200) {
                         alert("Cập nhật thành công!");
+                        window.location.reload();
                     }
                 })
                 .catch(err => console.log(err))

@@ -50,3 +50,13 @@ exports.deleteOne = async (req, res, next) => {
         return next(new ApiError(500, err));
     }
 }
+
+exports.deleteMany = async (req, res, next) => {
+    try {
+        const courseService = new QuestionsService();
+        const document = await courseService.deleteMany(req.params.tid);
+        return res.json(document);
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}
