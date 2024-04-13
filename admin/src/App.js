@@ -9,7 +9,7 @@ import { Navbar } from './components';
 import {
   Admin, UserAdd,
   ThematicAdd, ThemEdit, ExAdd, ExEdit, FileAdd,
-  FileEdit, Profile, ExView, Login, CourseAdd, 
+  FileEdit, Profile, ExView, Login, CourseAdd,
   CourseEdit, TestAdd, QuestionsList, TestEdit
 } from './pages'
 import LessionAdd from './pages/courses/lessionAdd';
@@ -25,6 +25,8 @@ function App() {
   const [tests, setTests] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [lessions, setLessions] = useState([]);
+  const [enrollCourse, setEnrollCourse] = useState({});
+  const [enrollTest, setEnrollTest] = useState({});
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -65,7 +67,7 @@ function App() {
       .then(res => setCourses(res.data))
       .catch(err => console.log(err))
 
-      axios.get(process.env.REACT_APP_SERVER_URL + "lessions")
+    axios.get(process.env.REACT_APP_SERVER_URL + "lessions")
       .then(res => setLessions(res.data))
       .catch(err => console.log(err))
 
@@ -73,8 +75,17 @@ function App() {
       .then(res => setTests(res.data))
       .catch(err => console.log(err))
 
-      axios.get(process.env.REACT_APP_SERVER_URL + "questions")
+    axios.get(process.env.REACT_APP_SERVER_URL + "questions")
       .then(res => setQuestions(res.data))
+      .catch(err => console.log(err))
+
+
+    axios.get(process.env.REACT_APP_SERVER_URL + "courses/enrolls/top")
+      .then(res => setEnrollCourse(res.data))
+      .catch(err => console.log(err))
+
+    axios.get(process.env.REACT_APP_SERVER_URL + "tests/enrolls/top")
+      .then(res => setEnrollTest(res.data))
       .catch(err => console.log(err))
   }, []);
 
@@ -100,6 +111,8 @@ function App() {
               com={com}
               courses={courses}
               tests={tests}
+              enrollCourse={enrollCourse}
+              enrollTest={enrollTest}
             />} />
           <Route path="/admin/1/view/:id" element={<Profile auth={info} users={profile} />} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
@@ -112,10 +125,10 @@ function App() {
           <Route path="/admin/3/view/:id" element={<FileEdit auth={info} docs={files} />} />
           <Route path="/admin/4/add" element={<CourseAdd auth={info} />} />
           <Route path="/admin/4/add/:id" element={<LessionAdd auth={info} />} />
-          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} lessions={lessions}/>} />
+          <Route path="/admin/4/:id" element={<CourseEdit auth={info} courses={courses} lessions={lessions} />} />
           <Route path="/admin/5/add" element={<TestAdd auth={info} />} />
           <Route path="/admin/5/add/:id" element={<QuestionsList auth={info} />} />
-          <Route path="/admin/5/:id" element={<TestEdit auth={info} tests={tests} questions={questions}/>} />
+          <Route path="/admin/5/:id" element={<TestEdit auth={info} tests={tests} questions={questions} />} />
         </Routes>
       </div>
     </div>

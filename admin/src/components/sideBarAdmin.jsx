@@ -6,7 +6,8 @@ import {
     BsFillFileTextFill,
     BsBarChartLineFill,
     BsClipboardCheckFill,
-    BsBookmarksFill
+    BsBookmarksFill,
+    BsChatLeftDotsFill
 } from "react-icons/bs";
 
 const SideBarAdmin = ({ active }) => {
@@ -34,6 +35,10 @@ const SideBarAdmin = ({ active }) => {
         {
             "title": "Kiểm tra",
             "icon":<BsClipboardCheckFill />
+        },
+        {
+            "title": "Bình luận",
+            "icon":<BsChatLeftDotsFill />
         },
         {
             "title": "Thống kê",
