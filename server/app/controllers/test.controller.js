@@ -60,3 +60,13 @@ exports.deleteOne = async (req, res, next) => {
         return next(new ApiError(500, err));
     }
 }
+
+exports.enrollTop3 = async (req, res, next) => {
+    try {
+        const courseService = new TestService();
+        const document = await courseService.findTop();
+        return res.json(document.slice(0,3));
+    } catch (err) {
+        return next(new ApiError(500, err));
+    }
+}

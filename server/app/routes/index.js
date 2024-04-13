@@ -9,6 +9,7 @@ const FileRouter = require('./file.route')
 const TestRouter = require('./test.route');
 const QuestionRouter = require('./question.route');
 const LessionRouter = require('./lession.route');
+const TestingRouter = require('./testing.route');
 
 module.exports =  { 
     userRouter, 
@@ -21,5 +22,6 @@ module.exports =  {
     FileRouter,
     TestRouter,
     QuestionRouter,
-    LessionRouter
+    LessionRouter,
+    TestingRouter,
 };

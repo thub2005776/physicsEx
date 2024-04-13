@@ -12,6 +12,9 @@ router.route('/:id')
     .put(course.updateOne)
     .delete(course.deleteOne)
 
+router.route('/enrolls/top')
+    .get(course.enrollTop3)
+
 router.route('/enroll/:id')
     .post(course.addEnroll)
 

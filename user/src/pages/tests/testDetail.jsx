@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CommentDisplay } from '../../components';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const TestDetail = ({ auth, user, com, tests, questions }) => {
     const location = useLocation();
@@ -10,6 +11,19 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
     const question = questions && questions.filter(f => f.tid === id);
     const tested = auth && auth.tests && auth.tests.filter(f => f.tid === id);
     const navigate = useNavigate();
+
+    const [testing, setTesting] = useState();
+
+    axios.get(process.env.REACT_APP_SERVER_URL + `testing/${id}&${auth && auth._id}`)
+        .then(res => {
+            const data = res.data;
+            if (data) {
+                setTesting(data);
+            }
+
+        })
+        .catch(err => console.log(err))
+
 
     const handleEnroll = () => {
         if (auth) {
@@ -46,16 +60,16 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
     return (
         test && question &&
         <div className="pt-20 lg:mx-10 m-5" >
-            <div className='p-1 w-fit hover:cursor-pointer border border-gray-600 rounded-lg hover:bg-gray-700' 
-            onClick={() => navigate('/tests')}>
-              <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7" />
-            </svg>  
+            <div className='p-1 w-fit hover:cursor-pointer border border-gray-600 rounded-lg hover:bg-gray-700'
+                onClick={() => navigate('/tests')}>
+                <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m15 19-7-7 7-7" />
+                </svg>
             </div>
-            
+
 
             <p className="text-center text-3xl font-bold text-green-500 mb-6">Thông tin chi tiết khóa học</p>
-            <div className="flex justify-between text-white p-4 bg-gray-800 border border-gray-600 rounded-t-md">
+            <div className="flex justify-between gap-5 text-white p-4 bg-gray-800 border border-gray-600 rounded-t-md">
                 {/* test info  */}
                 <div className=''>
                     <p className='text-2xl font-bold mb-6'>{test.name}</p>
@@ -92,9 +106,18 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
                         <span className='text-blue-500 font-bold'> +10 </span>
                         điểm</p>
                 </div>
+                {testing &&
+                    <Link to={`/tests/testing/${id}`}>
+                        <div className='w-fit hover:cursor-pointer p-2  rounded-md mb-1 bg-blue-600'>
+                            <p className='text-lg font-semibold'>Tiếp tục làm</p>
+                        </div>
+                    </Link>
+
+                }
                 {auth && tested && tested.length > 0 &&
                     <div>
                         <p className='text-xl font-semibold mb-3'>Lịch sử làm bài</p>
+
                         {tested.length > 0 &&
                             auth.tests.map((t, i) => (
                                 <TestItem key={i}

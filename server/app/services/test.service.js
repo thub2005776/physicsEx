@@ -31,6 +31,11 @@ class TestService {
         return result;
     }
 
+    async findTop() {
+        const result = await this.test.find({}).sort({enroll: -1});
+        return result;
+    }
+
     async create(payload) {
         const values = this.data(payload);
         const result = await this.test.create(values);
