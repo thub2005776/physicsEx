@@ -26,7 +26,6 @@ const EnrollChart = ({ title, enroll }) => {
         <p className="text-base text-gray-600">{enroll[2].enroll}</p>
         <p className="mx-auto w-fit px-2 py-4 text-sm font-bold bg-amber-600 rounded-full">Top 3</p>
       </div>
-      
     </div>
     </div>
     

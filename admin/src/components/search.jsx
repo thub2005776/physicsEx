@@ -13,18 +13,16 @@ const Search = ({ data, name, closed }) => {
 
     const handleKeyUp = (e) => {
         e.preventDefault();
-        // var result = [];
-        if (name === 'courses' || name === 'tests') {
-            setResult(data && data.filter(f => f.name && f.name.toLowerCase().includes(input && input.toLowerCase())))
-
-
+        
+        setResult(data && data.filter(f => f.name && f.name.toLowerCase().includes(input && input.toLowerCase())))
+        
             if (result.length === 0) {
                 setResult(data.filter(f => f.grade && f.grade.toLowerCase().includes(input && input.toLowerCase())))
-            } else {
-                setResult(data.filter(f => f.level && f.level.toLowerCase().includes(input && input.toLowerCase())))
+                if (result.length === 0) {
+                    setResult(data.filter(f => f.level && f.level.toLowerCase().includes(input && input.toLowerCase())))
+                }
             }
 
-        } 
     }
 
     return (
@@ -57,7 +55,6 @@ const Search = ({ data, name, closed }) => {
                             <CardItem key={i} data={c} name={'courses'}/>
                         )): <p className='mt-2 text-white text-center text-base'>Không có khóa học nào</p>}
                     </div>
-{console.log(result)}
                 </div>
             </div>
         </div>

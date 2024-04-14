@@ -64,7 +64,7 @@ const CardItem = ({ data, name }) => {
                                 {data.name}
                             </p>
                             <p className="text-sm truncate text-gray-400">
-                                view
+                                {data.enroll} lượt
                             </p>
                         </div>
                         <div className="inline-flex items-center">
