@@ -19,7 +19,7 @@ const ThemList = ({thematics}) => {
         thematics ? (
             <div className="sm:mx-10">
                 <div className="mt-5 text-lg sm:text-2xl font-bold text-green-500 mb-5 text-center">Danh sách chuyên đề</div>
-                <div className='sticky top-[4.5rem] z-50 mx-5 mb-1 p-1 bg-teal-700 rounded-md w-full flex border border-gray-600'>
+                <div className='flex justify-around sticky top-[4.5rem] z-50 mx-5 mb-1 p-1 bg-teal-700 rounded-md w-full border border-gray-600'>
                     <Link to={`/admin/2/add`}>
                         <div className='flex m-2 hover:text-green-300 sm:text-base text-sm'>
                             <AiOutlinePlus size={30} />
@@ -27,8 +27,8 @@ const ThemList = ({thematics}) => {
                         </div>
                     </Link>
 
-                    <div className='flex sm:ml-40 sm:text-base text-sm'>
-                        <input className='rounded-lg text-white bg-gray-800 outline-none mt-1 h-10 px-3'
+                    <div className='flex w-1/2 sm:text-base text-sm'>
+                        <input className='w-full rounded-lg text-white bg-gray-800 outline-none mt-1 h-10 px-3'
                             type="text"
                             placeholder='  Mã, tên chuyên đề...'
                             onChange={(e) => setInput(e.target.value)}

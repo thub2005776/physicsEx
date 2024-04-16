@@ -114,7 +114,7 @@ function App() {
               enrollCourse={enrollCourse}
               enrollTest={enrollTest}
             />} />
-          <Route path="/admin/1/view/:id" element={<Profile auth={info} users={profile} />} />
+          <Route path="/admin/1/view/:id" element={<Profile auth={info} users={profile} com={com}/>} />
           <Route path="/admin/1/add" element={<UserAdd auth={info} />} />
           <Route path="/admin/2/add" element={<ThematicAdd auth={info} thematics={thematics} />} />
           <Route path="/admin/2/edit/:id" element={<ThemEdit auth={info} thematics={thematics} />} />

@@ -2,14 +2,14 @@ import { useLocation } from 'react-router';
 import { Link, useNavigate } from 'react-router-dom';
 import { CommentDisplay } from '../../components';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const TestDetail = ({ auth, user, com, tests, questions }) => {
     const location = useLocation();
     const id = location.pathname.split('/')[2]
     const test = tests.find((p) => p._id === id);
     const question = questions && questions.filter(f => f.tid === id);
-    const tested = auth && auth.tests && auth.tests.filter(f => f.tid === id);
+    const tested = auth?.tests?.filter(f => f.tid === id);
     const navigate = useNavigate();
 
     const [testing, setTesting] = useState();
@@ -117,13 +117,10 @@ const TestDetail = ({ auth, user, com, tests, questions }) => {
                 {auth && tested && tested.length > 0 &&
                     <div>
                         <p className='text-xl font-semibold mb-3'>Lịch sử làm bài</p>
-
-                        {tested.length > 0 &&
-                            auth.tests.map((t, i) => (
-                                <TestItem key={i}
-                                    item={t} index={i} />
-                            ))
-                        }
+                        {tested.map((t, i) => (
+                            <TestItem key={i}
+                                item={t} index={i} />
+                        ))}
                     </div>}
             </div>
             <CommentDisplay auth={auth} user={user} comm={com} id={id} />

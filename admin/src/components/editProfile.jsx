@@ -1,17 +1,17 @@
 import { useState } from "react"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Delete } from "..";
+import { Delete } from "../components";
 
 const EditProfile = ({ auth }) => {
     const navigate = useNavigate();
     const [del, setDel] = useState(false);
     const [loaded, setLoaded] = useState(-1);
     const [file, setFile] = useState(null);
-    const [name, setName] = useState(auth && auth.name);
-    const [email, setEmail] = useState(auth && auth.email);
-    const [img, setImg] = useState(auth && auth.img);
-    const [password, setPassword] = useState(auth && auth.password);
+    const [name, setName] = useState(auth?.name);
+    const [email, setEmail] = useState(auth?.email);
+    const [img, setImg] = useState(auth?.img);
+    const [password, setPassword] = useState(auth?.password);
     const [uploaded, setUploaded] = useState(null);
     const [upload, setUpload] = useState(0);
 
@@ -58,7 +58,7 @@ const EditProfile = ({ auth }) => {
             .then(res => {
                 if (res.status === 200) {
                     alert("Đã xóa!");
-                navigate('/');
+                navigate(-1);
                 window.location.reload();
                 }
             })
@@ -151,6 +151,7 @@ const EditProfile = ({ auth }) => {
                                                 text-white focus:ring-blue-500 focus:border-blue-500"
                                 defaultValue={auth.name}
                                 onChange={(e) => setName(e.target.value)} />
+                            {errors.name && <span className="text-xs text-red-600 font-thin">{errors.name}</span>}
                         </div>
 
                         <div className="mb-6">
@@ -164,6 +165,7 @@ const EditProfile = ({ auth }) => {
                                                 focus:ring-blue-500 focus:border-blue-500"
                                 defaultValue={auth.email}
                                 onChange={(e) => setEmail(e.target.value)} />
+                            {errors.email && <span className="text-xs text-red-600 font-thin">{errors.email}</span>}
                         </div>
                     </div>
 
