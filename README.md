@@ -4,7 +4,16 @@
 # clone project
 $ git clone https://github.com/thub2005776/physicsEx.git
 
-# install dependencies
+# install dependencies in server
+$ cd server
+$ npm install
+
+# install dependencies in user
+$ cd user
+$ npm install
+
+# install dependencies in admin
+$ cd admin
 $ npm install
 
 # download .env file (send email to me: thub2005776@student.ctu.edu.vn)
